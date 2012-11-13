@@ -10,6 +10,7 @@ import Salas.TipoSala;
 import Salas.sala3D;
 import Usuarios.Usuario;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 
 /*
  * To change this template, choose Tools | Templates
@@ -25,8 +26,7 @@ public class Menu {
     static ArrayList<Usuario> users =new ArrayList<>();;
     static ArrayList<Sala> salas=new ArrayList<>();
     static ArrayList<Pelicula> peliculas=new ArrayList<>();  
-   
-          
+    private static JLabel JLabel;
     
     public static void agregarUser(String nombre, String user, String pass){
         users.add( new Usuario(nombre, user, pass));
