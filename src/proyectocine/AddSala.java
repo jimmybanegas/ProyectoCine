@@ -1,6 +1,7 @@
 
 package proyectocine;
 
+import Formularios.Menu;
 import Paneles.AddSalaPanel;
 import Salas.TipoFormato;
 import Salas.TipoSala;
@@ -67,7 +68,18 @@ public class AddSala extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Tipo de 3D");
 
+        combo2D3D.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo2D3DActionPerformed(evt);
+            }
+        });
+
         btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +159,7 @@ public class AddSala extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -165,6 +177,32 @@ public class AddSala extends javax.swing.JFrame {
         String resul = "S"+contsala;
         lblCodSala.setText(resul);
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        // TODO add your handling code here:
+        int cod=Integer.parseInt(lblCodSala.getText());
+        TipoSala tipo=(TipoSala) combo2D3D.getSelectedItem();
+        int filas=Integer.parseInt(txtFilasSala.getText());
+        int asientos=Integer.parseInt(txtColumnasSala.getText());
+        TipoFormato format=(TipoFormato) comboTipo3D.getSelectedItem();
+    
+      if( comboTipo3D.isEnabled()==false){                
+        Menu.agregarSalaNormal(cod, tipo,filas, asientos);
+      }else if(comboTipo3D.isEnabled()) {
+        Menu.agregarSala3D(cod, tipo, format, filas, asientos);    
+      }  
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void combo2D3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo2D3DActionPerformed
+        // TODO add your handling code here:
+        
+        if(combo2D3D.getSelectedItem().equals(TipoSala.NORMAL)){
+            comboTipo3D.disable();
+        }
+        else if(combo2D3D.getSelectedItem().equals(TipoSala.SALA3D)){
+             comboTipo3D.enable();
+        }
+    }//GEN-LAST:event_combo2D3DActionPerformed
     /**
      * @param args the command line arguments
      */

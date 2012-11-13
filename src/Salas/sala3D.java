@@ -5,7 +5,7 @@ public class sala3D extends Sala{
     protected TipoFormato format;
        
     
-    public sala3D(int cod, TipoSala tipo, int filas, int asientos, TipoFormato format){
+    public sala3D(int cod, TipoSala tipo, TipoFormato format,int filas, int asientos ){
         super(cod,tipo,filas,asientos);
         this.format=format;
         

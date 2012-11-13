@@ -1,6 +1,8 @@
 
 package Usuarios;
 
+import Formularios.Menu;
+
 public class Usuario {
  
     protected String nombre;
@@ -12,7 +14,7 @@ public class Usuario {
         this.nombre=nombre;
         this.user=user;
         this.pass=pass;
-        credencial=true;
+        credencial=true;        
     }
 
     public boolean isCredencial() {

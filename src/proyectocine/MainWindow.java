@@ -1,6 +1,7 @@
 
 package proyectocine;
 
+import Formularios.Menu;
 import Paneles.BackPannel;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -9,6 +10,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     public MainWindow() {
         initComponents();
+        Menu.agregarUser("guest", "guest", "password");
         BackPannel back = new BackPannel();
         this.add(back,BorderLayout.CENTER);
         this.pack();

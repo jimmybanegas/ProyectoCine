@@ -1,6 +1,7 @@
 
 package proyectocine;
 
+import Formularios.Menu;
 import Paneles.AdministradorPanel;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -29,7 +30,6 @@ public class Administrador extends javax.swing.JFrame {
         btnListarUsuarios = new javax.swing.JToggleButton();
 
         setTitle("Menu de Administrador");
-        setResizable(false);
 
         btnAgregarUsuario.setText("AGREGAR USUARIOS");
         btnAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -160,6 +160,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void btnListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarUsuariosActionPerformed
         frame = new ListUsers();
+        Menu.listaUsers();
         frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnListarUsuariosActionPerformed

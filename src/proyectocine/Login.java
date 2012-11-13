@@ -4,7 +4,9 @@
  */
 package proyectocine;
 
+import Formularios.Menu;
 import Paneles.LoginPanel;
+import Usuarios.Usuario;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
@@ -106,17 +108,22 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String user, clave;
-        user = txtUsuario.getText();
-        clave = txtClave.getText();
-        if(user.equalsIgnoreCase("a") && clave.equalsIgnoreCase("a")){
+      
+        String user=txtUsuario.getText();
+        String clave=txtClave.getText();
+        
+        if(Menu.buscarUser(user, clave)){
             JFrame frame = new Administrador();
             frame.setVisible(true);
-            this.setVisible(false);
-        }else{
-            JFrame frame1 = new MalClave();
+            this.setVisible(false);            
+         }         
+         else{
+            JFrame frame1 = new MalClave();           
             frame1.setVisible(true);
-        }
+            txtUsuario.setText("");
+            txtClave.setText("");
+         }      
+              
     }//GEN-LAST:event_jButton1ActionPerformed
     
     /**
