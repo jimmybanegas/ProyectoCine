@@ -1,13 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Usuarios;
 
-/**
- *
- * @author Auditor3
- */
 public class Usuario {
  
     protected String nombre;

@@ -1,15 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Peliculas;
 
 import java.util.Date;
 
-/**
- *
- * @author Auditor3
- */
 public class Pelicula {
     protected int cod;
     protected String titulo;
@@ -17,9 +10,7 @@ public class Pelicula {
     protected TipoPelicula genero;
     protected TipoClasificacion clasi;
     protected Date fecha;
-    
-    //Esta pendiente lo de cargar la foto, cada pelicula debe llevar su foto.
-    
+
     public Pelicula(int cod, String titulo, double dura, TipoPelicula genero, TipoClasificacion clasi){
         this.cod=cod;
         this.titulo=titulo;

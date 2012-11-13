@@ -9,5 +9,5 @@ package Salas;
  * @author Auditor3
  */
 public enum TipoFormato {
-  DIGITAL, REAL , EXTREME   
+  DIGITAL,REAL,EXTREME   
 }

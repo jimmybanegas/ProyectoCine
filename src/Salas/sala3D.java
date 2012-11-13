@@ -1,13 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Salas;
 
-/**
- *
- * @author Auditor3
- */
 public class sala3D extends Sala{
     protected TipoFormato format;
        

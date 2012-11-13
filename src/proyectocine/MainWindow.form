@@ -32,13 +32,13 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton3" min="-2" pref="266" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="266" max="-2" attributes="0"/>
+                          <Component id="btnCompraBoleto" min="-2" pref="266" max="-2" attributes="0"/>
+                          <Component id="btnCerrar" min="-2" pref="266" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="266" max="-2" attributes="0"/>
+                      <Component id="btnAdmin" min="-2" pref="266" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="857" max="32767" attributes="0"/>
@@ -49,18 +49,18 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace pref="144" max="32767" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="57" max="-2" attributes="0"/>
+              <Component id="btnAdmin" min="-2" pref="57" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" pref="57" max="-2" attributes="0"/>
+              <Component id="btnCompraBoleto" min="-2" pref="57" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="57" max="-2" attributes="0"/>
+              <Component id="btnCerrar" min="-2" pref="57" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnCerrar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="18" style="1"/>
@@ -68,10 +68,10 @@
         <Property name="text" type="java.lang.String" value="CERRAR SISTEMA"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnAdmin">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="18" style="1"/>
@@ -79,10 +79,10 @@
         <Property name="text" type="java.lang.String" value="ADMINISTRADOR"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdminActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="btnCompraBoleto">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="18" style="1"/>
@@ -90,7 +90,7 @@
         <Property name="text" type="java.lang.String" value="COMPRAR BOLETO"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCompraBoletoActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

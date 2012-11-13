@@ -9,5 +9,5 @@ package Salas;
  * @author Auditor3
  */
 public enum TipoSala {
-    NORMAL,SALA3D
+    NORMAL,SALA3D,
 }

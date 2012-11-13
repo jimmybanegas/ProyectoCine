@@ -1,6 +1,5 @@
 package Formularios;
 
-
 import Peliculas.Pelicula;
 import Peliculas.TipoClasificacion;
 import Peliculas.TipoPelicula;
@@ -12,15 +11,6 @@ import Usuarios.Usuario;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Auditor3
- */
 public class Menu {
    
     static ArrayList<Usuario> users =new ArrayList<>();;

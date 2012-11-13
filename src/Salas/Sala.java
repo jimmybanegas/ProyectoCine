@@ -1,21 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Salas;
 
-/**
- *
- * @author Auditor3
- */
 public class Sala {
-   
+
     protected int cod;
     protected TipoSala tipo;
     protected int filas;
     protected int asientos;
     protected double precio;
-    
     
     public Sala(int cod,TipoSala tipo,int filas, int asientos){
         this.cod=cod;
@@ -29,7 +21,6 @@ public class Sala {
         this.precio = precio;
     }
 
-       
     public int getAsientos() {
         return asientos;
     }

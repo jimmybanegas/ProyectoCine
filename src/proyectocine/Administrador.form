@@ -31,17 +31,17 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jButton1" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Component id="jButton2" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Component id="jToggleButton1" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Component id="jButton3" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Component id="jButton4" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Component id="jButton5" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnAgregarUsuario" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnAgregarSala" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnListarUsuarios" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnAgregarPelicula" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnEditarHorario" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnEditarPerfil" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
-                      <Component id="jButton6" min="-2" pref="145" max="-2" attributes="0"/>
+                      <Component id="btnSalir" min="-2" pref="145" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="577" max="32767" attributes="0"/>
@@ -52,79 +52,79 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="43" max="-2" attributes="0"/>
+              <Component id="btnAgregarUsuario" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jToggleButton1" min="-2" pref="43" max="-2" attributes="0"/>
+              <Component id="btnListarUsuarios" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="43" max="-2" attributes="0"/>
+              <Component id="btnAgregarSala" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" pref="43" max="-2" attributes="0"/>
+              <Component id="btnAgregarPelicula" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton4" min="-2" pref="43" max="-2" attributes="0"/>
+              <Component id="btnEditarHorario" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Component id="jButton5" min="-2" pref="43" max="-2" attributes="0"/>
+              <Component id="btnEditarPerfil" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace pref="94" max="32767" attributes="0"/>
-              <Component id="jButton6" min="-2" pref="43" max="-2" attributes="0"/>
+              <Component id="btnSalir" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnAgregarUsuario">
       <Properties>
         <Property name="text" type="java.lang.String" value="AGREGAR USUARIOS"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarUsuarioActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnAgregarSala">
       <Properties>
         <Property name="text" type="java.lang.String" value="AGREGAR SALAS"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarSalaActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="btnAgregarPelicula">
       <Properties>
         <Property name="text" type="java.lang.String" value="AGREGAR PELICULAS"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarPeliculaActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="btnEditarHorario">
       <Properties>
         <Property name="text" type="java.lang.String" value="EDITAR HORARIOS"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarHorarioActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="btnEditarPerfil">
       <Properties>
         <Property name="text" type="java.lang.String" value="EDITAR PERFIL"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarPerfilActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
+    <Component class="javax.swing.JButton" name="btnSalir">
       <Properties>
         <Property name="text" type="java.lang.String" value="SALIR"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalirActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+    <Component class="javax.swing.JToggleButton" name="btnListarUsuarios">
       <Properties>
         <Property name="text" type="java.lang.String" value="LISTA DE USUARIOS"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListarUsuariosActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
