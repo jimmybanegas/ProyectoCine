@@ -1,7 +1,7 @@
 
 package Usuarios;
 
-import Formularios.Menu;
+import Menú.Menu;
 
 public class Usuario {
  

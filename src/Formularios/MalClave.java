@@ -1,4 +1,4 @@
-package proyectocine;
+package Formularios;
 
 import Paneles.MalClavePanel;
 import java.awt.BorderLayout;

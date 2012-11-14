@@ -1,7 +1,7 @@
 
-package proyectocine;
+package Formularios;
 
-import Formularios.Menu;
+import Menú.Menu;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;

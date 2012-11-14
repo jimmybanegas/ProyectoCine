@@ -2,10 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyectocine;
+package Formularios;
 
+import Menú.Menu;
+import Salas.sala3D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.JFrame;
 
 /**
  *
@@ -48,20 +51,35 @@ public class ListSalas extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Codigo", "TipoSala", "Tipo 3D", "Filas", "Columnas", "Precio"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Listar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Regresar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,6 +117,37 @@ public class ListSalas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        Object [][] data=new Object[Menu.salas.size()][6];
+    for(int x=0;x<Menu.salas.size();x++){    
+       data[x][0]=Menu.salas.get(x).getCod();
+       data[x][1]=Menu.salas.get(x).getTipo();
+      
+      if(Menu.salas.get(x) instanceof sala3D ){
+        data[x][2]=((sala3D)Menu.salas.get(x)).getFormat();
+      }
+      else{
+         data[x][2]="-------";
+      }
+    
+       data[x][3]=Menu.salas.get(x).getFilas();
+       data[x][4]=Menu.salas.get(x).getAsientos();
+       data[x][5]=Menu.salas.get(x).getPrecio();
+    }        
+  
+    String [] cadenas= {"Codigo", "TipoSala", "Tipo 3D", "Filas", "Columnas", "Precio"};       
+    jTable1.setModel(new javax.swing.table.DefaultTableModel( data  ,cadenas)) ; 
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        JFrame frame = new Administrador();
+         frame.setVisible(true);
+         this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

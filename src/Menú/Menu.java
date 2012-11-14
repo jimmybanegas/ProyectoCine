@@ -1,15 +1,15 @@
-package Formularios;
+package Menú;
 
 import Peliculas.Pelicula;
 import Peliculas.TipoClasificacion;
+import Peliculas.TipoFormatoPeli;
 import Peliculas.TipoPelicula;
 import Salas.Sala;
+import Salas.sala3D;
 import Salas.TipoFormato;
 import Salas.TipoSala;
-import Salas.sala3D;
 import Usuarios.Usuario;
 import java.util.ArrayList;
-import javax.swing.JLabel;
 
 public class Menu {
    
@@ -34,29 +34,18 @@ public class Menu {
          Menu.contsala+=1;
     }
     
-    public static void agregarPelicula(int cod, String tit, double dur, TipoPelicula gen, TipoClasificacion clasif){
-        peliculas.add( new Pelicula(cod,tit,dur,gen,clasif));
+    public static void agregarPelicula(int cod, String tit, double dur, TipoPelicula gen, TipoClasificacion clasif, TipoFormatoPeli formato){
+        peliculas.add( new Pelicula(cod,tit,dur,gen,clasif, formato));
         Menu.contpeli+= 1;
     }
     
-    public static void listaUsers(){
-        for(Usuario x:users){
-            System.out.println(x);
-        }
-    }           
- 
-    
+       
      public static void listaSalas(){
         for(Sala x:salas){
             System.out.println(x);
         }
     }
-     
-     public static void listaPeliculas(){
-        for(Pelicula x:peliculas){
-            System.out.println(x);
-        }
-    } 
+        
     
     public static boolean buscarUser(String user, String pass){
         for(Usuario x: users){

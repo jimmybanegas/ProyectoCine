@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyectocine;
+package Formularios;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -36,7 +36,6 @@ public class PrepareSala extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
-        setPreferredSize(new java.awt.Dimension(900, 600));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -1,7 +1,7 @@
 
-package proyectocine;
+package Formularios;
 
-import Formularios.Menu;
+import Menú.Menu;
 import Paneles.AddSalaPanel;
 import Salas.TipoFormato;
 import Salas.TipoSala;

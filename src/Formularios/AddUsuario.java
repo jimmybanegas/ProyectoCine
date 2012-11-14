@@ -1,7 +1,7 @@
 
-package proyectocine;
+package Formularios;
 
-import Formularios.Menu;
+import Menú.Menu;
 import Paneles.AddUsuarioPanel;
 import java.awt.BorderLayout;
 import java.awt.Image;

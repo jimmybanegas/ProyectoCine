@@ -1,7 +1,6 @@
 
-package proyectocine;
+package Formularios;
 
-import Formularios.Menu;
 import Paneles.AdministradorPanel;
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -35,6 +34,8 @@ public class Administrador extends javax.swing.JFrame {
         btnEditarPerfil = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnListarUsuarios = new javax.swing.JToggleButton();
+        btnListarPeliculas = new javax.swing.JButton();
+        btnListarSalas = new javax.swing.JButton();
 
         setTitle("Menu de Administrador");
         setIconImage(getIconImage());
@@ -88,6 +89,20 @@ public class Administrador extends javax.swing.JFrame {
             }
         });
 
+        btnListarPeliculas.setText("LISTA DE PELICULAS");
+        btnListarPeliculas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarPeliculasActionPerformed(evt);
+            }
+        });
+
+        btnListarSalas.setText("LISTA DE SALAS");
+        btnListarSalas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarSalasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,11 +117,15 @@ public class Administrador extends javax.swing.JFrame {
                             .addComponent(btnListarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAgregarPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEditarHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEditarPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnEditarPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnListarPeliculas, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                            .addComponent(btnListarSalas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(111, 111, 111)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(577, Short.MAX_VALUE))
+                .addContainerGap(423, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,9 +133,13 @@ public class Administrador extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(btnAgregarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnListarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnListarUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListarPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnAgregarSala, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAgregarSala, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(btnListarSalas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(btnAgregarPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -168,10 +191,23 @@ public class Administrador extends javax.swing.JFrame {
 
     private void btnListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarUsuariosActionPerformed
         frame = new ListUsers();
-        Menu.listaUsers();
         frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnListarUsuariosActionPerformed
+
+    private void btnListarPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPeliculasActionPerformed
+        // TODO add your handling code here:
+        frame = new ListPeliculas();       
+        frame.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnListarPeliculasActionPerformed
+
+    private void btnListarSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarSalasActionPerformed
+        // TODO add your handling code here:
+        frame = new ListSalas();       
+        frame.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnListarSalasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,6 +249,8 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarUsuario;
     private javax.swing.JButton btnEditarHorario;
     private javax.swing.JButton btnEditarPerfil;
+    private javax.swing.JButton btnListarPeliculas;
+    private javax.swing.JButton btnListarSalas;
     private javax.swing.JToggleButton btnListarUsuarios;
     private javax.swing.JButton btnSalir;
     // End of variables declaration//GEN-END:variables

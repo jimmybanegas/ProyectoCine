@@ -1,9 +1,9 @@
-package proyectocine;
+package Formularios;
 
-import Formularios.Menu;
+import Menú.Menu;
 import Paneles.AddPeliculaPanel;
 import Peliculas.TipoClasificacion;
-import Peliculas.TipoFormatoPelicula;
+import Peliculas.TipoFormatoPeli;
 import Peliculas.TipoPelicula;
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -31,8 +31,8 @@ public class AddPelicula extends javax.swing.JFrame {
         comboClasificacion.addItem(TipoClasificacion.MAYORES_15);
         comboClasificacion.addItem(TipoClasificacion.MAYORES_18);
         comboClasificacion.addItem(TipoClasificacion.ADULTOS);
-        comboFormato.addItem(TipoFormatoPelicula.PELICULA_2D);
-        comboFormato.addItem(TipoFormatoPelicula.PELICULA_3D);
+        comboFormato.addItem(TipoFormatoPeli.PELICULA_2D);
+        comboFormato.addItem(TipoFormatoPeli.PELICULA_3D);
     }
 
      @Override
@@ -242,8 +242,9 @@ public class AddPelicula extends javax.swing.JFrame {
       double dur=Double.parseDouble(txtDuracion.getText());
       TipoPelicula gen=(TipoPelicula) comboGenero.getSelectedItem();
       TipoClasificacion clasif= (TipoClasificacion) comboClasificacion.getSelectedItem();
-        
-      Menu.agregarPelicula(cod,tit, dur, gen, clasif);  
+      TipoFormatoPeli formato=(TipoFormatoPeli) comboFormato.getSelectedItem();
+      
+      Menu.agregarPelicula(cod,tit, dur, gen, clasif,formato);  
       
       JFrame frame = new OperacionOk();
       frame.setVisible(true);

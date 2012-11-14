@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyectocine;
+package Formularios;
 
 import Paneles.TotalCompraPanel;
 import java.awt.BorderLayout;

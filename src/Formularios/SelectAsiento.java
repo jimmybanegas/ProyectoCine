@@ -1,4 +1,4 @@
-package proyectocine;
+package Formularios;
 
 import Paneles.SelectAsientoPanel;
 import java.awt.BorderLayout;

@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyectocine;
+package Formularios;
 
-import Formularios.Menu;
+import Menú.Menu;
 import Paneles.LoginPanel;
 import Usuarios.Usuario;
 import java.awt.BorderLayout;

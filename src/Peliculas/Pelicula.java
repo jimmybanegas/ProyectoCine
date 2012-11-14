@@ -9,14 +9,16 @@ public class Pelicula {
     protected double dura;
     protected TipoPelicula genero;
     protected TipoClasificacion clasi;
+    protected TipoFormatoPeli formato;
     protected Date fecha;
 
-    public Pelicula(int cod, String titulo, double dura, TipoPelicula genero, TipoClasificacion clasi){
+    public Pelicula(int cod, String titulo, double dura, TipoPelicula genero, TipoClasificacion clasi,TipoFormatoPeli formato){
         this.cod=cod;
         this.titulo=titulo;
         this.dura=dura;
         this.genero=genero;
         this.clasi=clasi;
+        this.formato=formato;
         fecha=new Date();
     }
 
@@ -43,6 +45,11 @@ public class Pelicula {
     public String getTitulo() {
         return titulo;
     }
+
+    public TipoFormatoPeli getFormato() {
+        return formato;
+    }
+    
     
     @Override
     public String toString(){

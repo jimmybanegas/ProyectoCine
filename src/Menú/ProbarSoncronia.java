@@ -1,5 +1,5 @@
 
-package Formularios;
+package Menú;
 
 public class ProbarSoncronia {
 
