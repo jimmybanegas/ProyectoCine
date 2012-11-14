@@ -130,7 +130,7 @@ public class ListSalas extends javax.swing.JFrame {
         data[x][2]=((sala3D)Menu.salas.get(x)).getFormat();
       }
       else{
-         data[x][2]="-------";
+         data[x][2]="  -------";
       }
     
        data[x][3]=Menu.salas.get(x).getFilas();
