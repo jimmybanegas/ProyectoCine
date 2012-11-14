@@ -4,6 +4,8 @@ package proyectocine;
 import Formularios.Menu;
 import Paneles.AddUsuarioPanel;
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class AddUsuario extends javax.swing.JFrame {
@@ -15,6 +17,12 @@ public class AddUsuario extends javax.swing.JFrame {
         this.pack();
     }
 
+     @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -30,6 +38,7 @@ public class AddUsuario extends javax.swing.JFrame {
         txtClave = new javax.swing.JPasswordField();
 
         setTitle("Registro de Usuario");
+        setIconImage(getIconImage());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));

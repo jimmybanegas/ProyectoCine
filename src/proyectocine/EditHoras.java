@@ -6,6 +6,8 @@ package proyectocine;
 
 import Paneles.EditHorasPanel;
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -23,7 +25,12 @@ public class EditHoras extends javax.swing.JFrame {
         this.add(back,BorderLayout.CENTER);
         this.pack();
     }
-
+ @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,6 +54,7 @@ public class EditHoras extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
+        setIconImage(getIconImage());
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -115,12 +123,11 @@ public class EditHoras extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(btnAceptar)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtHoraFin))
+                                .addComponent(txtHoraFin)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(0, 0, Short.MAX_VALUE)
                                     .addComponent(btnCancelar)
                                     .addGap(43, 43, 43))))))
                 .addContainerGap(152, Short.MAX_VALUE))

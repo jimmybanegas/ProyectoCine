@@ -2,6 +2,8 @@ package proyectocine;
 
 import Paneles.MalClavePanel;
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 public class MalClave extends javax.swing.JFrame {
 
@@ -11,7 +13,12 @@ public class MalClave extends javax.swing.JFrame {
         this.add(back,BorderLayout.CENTER);
         this.pack();
     }
-
+   @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -19,6 +26,7 @@ public class MalClave extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JButton();
 
+        setIconImage(getIconImage());
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N

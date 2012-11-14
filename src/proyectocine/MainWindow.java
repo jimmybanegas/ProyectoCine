@@ -4,6 +4,8 @@ package proyectocine;
 import Formularios.Menu;
 import Paneles.BackPannel;
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class MainWindow extends javax.swing.JFrame {
@@ -16,6 +18,12 @@ public class MainWindow extends javax.swing.JFrame {
         this.pack();
     }
     
+    @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -26,6 +34,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ssitema de Cines UNITEC");
+        setIconImage(getIconImage());
         setResizable(false);
 
         btnCerrar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N

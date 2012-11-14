@@ -4,6 +4,9 @@
  */
 package proyectocine;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Alexander
@@ -16,7 +19,12 @@ public class PrepareSala extends javax.swing.JFrame {
     public PrepareSala() {
         initComponents();
     }
-
+ @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,6 +35,7 @@ public class PrepareSala extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         setPreferredSize(new java.awt.Dimension(900, 600));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -2,6 +2,8 @@
 package proyectocine;
 
 import Formularios.Menu;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -10,7 +12,12 @@ public class ListUsers extends javax.swing.JFrame {
     public ListUsers() {
         initComponents();      
     }
-    
+     @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -20,6 +27,8 @@ public class ListUsers extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+
+        setIconImage(getIconImage());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("                           LISTA DE USUARIOS");

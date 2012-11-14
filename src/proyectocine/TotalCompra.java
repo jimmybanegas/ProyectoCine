@@ -6,6 +6,8 @@ package proyectocine;
 
 import Paneles.TotalCompraPanel;
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class TotalCompra extends javax.swing.JFrame {
@@ -16,7 +18,12 @@ public class TotalCompra extends javax.swing.JFrame {
         this.add(back,BorderLayout.CENTER);
         this.pack();
     }
-
+   @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -52,6 +59,7 @@ public class TotalCompra extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
 
         setTitle("Paso 2");
+        setIconImage(getIconImage());
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N

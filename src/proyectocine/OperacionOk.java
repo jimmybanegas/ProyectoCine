@@ -6,6 +6,8 @@ package proyectocine;
 
 import Paneles.MalClavePanel;
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -23,7 +25,12 @@ public class OperacionOk extends javax.swing.JFrame {
         this.add(back,BorderLayout.CENTER);
         this.pack();
     }
-
+ @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,6 +45,8 @@ public class OperacionOk extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
+
+        setIconImage(getIconImage());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));

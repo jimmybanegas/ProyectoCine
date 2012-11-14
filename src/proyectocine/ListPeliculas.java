@@ -4,6 +4,9 @@
  */
 package proyectocine;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 /**
  *
  * @author Affisa-Jimmy
@@ -16,7 +19,12 @@ public class ListPeliculas extends javax.swing.JFrame {
     public ListPeliculas() {
         initComponents();
     }
-
+   @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,6 +41,7 @@ public class ListPeliculas extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Listado de Peliculas");

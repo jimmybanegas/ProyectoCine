@@ -6,20 +6,21 @@ import Peliculas.TipoClasificacion;
 import Peliculas.TipoFormatoPelicula;
 import Peliculas.TipoPelicula;
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
 
-public class AddPelicula extends javax.swing.JFrame {
-        
-    int contpelicula;
+public class AddPelicula extends javax.swing.JFrame {   
         
     public AddPelicula() {
         initComponents();
         AddPeliculaPanel back = new AddPeliculaPanel();
         this.add(back,BorderLayout.CENTER);
-        this.pack();        
+        this.pack(); 
+        lblCodPelicula.setText(String.valueOf(Menu.contpeli));
         comboGenero.addItem(TipoPelicula.ACCION);
         comboGenero.addItem(TipoPelicula.ANIMADA);
         comboGenero.addItem(TipoPelicula.COMEDIA);
@@ -34,6 +35,12 @@ public class AddPelicula extends javax.swing.JFrame {
         comboFormato.addItem(TipoFormatoPelicula.PELICULA_3D);
     }
 
+     @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -60,6 +67,7 @@ public class AddPelicula extends javax.swing.JFrame {
 
         lblCodigoSala.setForeground(new java.awt.Color(255, 255, 255));
 
+        setIconImage(getIconImage());
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -174,7 +182,7 @@ public class AddPelicula extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +227,7 @@ public class AddPelicula extends javax.swing.JFrame {
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-812)/2, (screenSize.height-485)/2, 812, 485);
+        setBounds((screenSize.width-629)/2, (screenSize.height-485)/2, 629, 485);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -235,8 +243,7 @@ public class AddPelicula extends javax.swing.JFrame {
       TipoPelicula gen=(TipoPelicula) comboGenero.getSelectedItem();
       TipoClasificacion clasif= (TipoClasificacion) comboClasificacion.getSelectedItem();
         
-      Menu.agregarPelicula(cod,tit, dur, gen, clasif);
-      contpelicula += 1;
+      Menu.agregarPelicula(cod,tit, dur, gen, clasif);  
       
       JFrame frame = new OperacionOk();
       frame.setVisible(true);

@@ -6,6 +6,8 @@ package proyectocine;
 
 import Paneles.DisplayMoviesPanel;
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -23,7 +25,12 @@ public class DisplayMovies extends javax.swing.JFrame {
         this.add(back,BorderLayout.CENTER);
         this.pack();
     }
-
+     @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +56,7 @@ public class DisplayMovies extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
 
         setTitle("Listado de Pelicilas");
+        setIconImage(getIconImage());
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N

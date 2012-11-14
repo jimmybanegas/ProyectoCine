@@ -4,6 +4,8 @@ package proyectocine;
 import Formularios.Menu;
 import Paneles.AdministradorPanel;
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class Administrador extends javax.swing.JFrame {
@@ -16,7 +18,12 @@ public class Administrador extends javax.swing.JFrame {
         this.add(back,BorderLayout.CENTER);
         this.pack();
     }
-
+     @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -30,6 +37,7 @@ public class Administrador extends javax.swing.JFrame {
         btnListarUsuarios = new javax.swing.JToggleButton();
 
         setTitle("Menu de Administrador");
+        setIconImage(getIconImage());
 
         btnAgregarUsuario.setText("AGREGAR USUARIOS");
         btnAgregarUsuario.addActionListener(new java.awt.event.ActionListener() {

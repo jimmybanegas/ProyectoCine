@@ -6,17 +6,18 @@ import Paneles.AddSalaPanel;
 import Salas.TipoFormato;
 import Salas.TipoSala;
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class AddSala extends javax.swing.JFrame {
-    
-    int contsala = 0;
     
     public AddSala() {
         initComponents();
         AddSalaPanel back = new AddSalaPanel();
         this.add(back,BorderLayout.CENTER);
         this.pack();
+        lblCodSala.setText(String.valueOf(Menu.contsala));
         combo2D3D.addItem(TipoSala.NORMAL);
         combo2D3D.addItem(TipoSala.SALA3D);
         comboTipo3D.addItem(TipoFormato.DIGITAL);
@@ -24,6 +25,12 @@ public class AddSala extends javax.swing.JFrame {
         comboTipo3D.addItem(TipoFormato.EXTREME);
     }
 
+     @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -42,6 +49,7 @@ public class AddSala extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         lblCodSala = new javax.swing.JLabel();
 
+        setIconImage(getIconImage());
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -173,9 +181,7 @@ public class AddSala extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        contsala += 1;
-        String resul = "S"+contsala;
-        lblCodSala.setText(resul);
+       
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
@@ -190,7 +196,11 @@ public class AddSala extends javax.swing.JFrame {
         Menu.agregarSalaNormal(cod, tipo,filas, asientos);
       }else if(comboTipo3D.isEnabled()) {
         Menu.agregarSala3D(cod, tipo, format, filas, asientos);    
-      }  
+      }
+      
+      JFrame frame = new OperacionOk();
+      frame.setVisible(true);
+      this.setVisible(false);
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void combo2D3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo2D3DActionPerformed
