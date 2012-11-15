@@ -1,19 +1,24 @@
 
 package Salas;
 
+import javax.swing.JButton;
+
 public class Sala {
 
     protected int cod;
     protected TipoSala tipo;
     protected int filas;
-    protected int asientos;
+    protected int columnas;
     protected double precio;
+    protected JButton[][] sillas;
     
-    public Sala(int cod,TipoSala tipo,int filas, int asientos){
+    
+    public Sala(int cod,TipoSala tipo,int filas, int asientos, JButton sillas[][]){
         this.cod=cod;
         this.tipo=tipo;
         this.filas=filas;
-        this.asientos=asientos;
+        this.columnas=asientos;
+        this.sillas=sillas;
         this.precio=70;
     }
 
@@ -22,7 +27,7 @@ public class Sala {
     }
 
     public int getAsientos() {
-        return asientos;
+        return columnas;
     }
 
     public int getCod() {
@@ -40,10 +45,15 @@ public class Sala {
     public TipoSala getTipo() {
         return tipo;
     }
+
+    public JButton[][] getSillas() {
+        return sillas;
+    }    
+    
     
     @Override
      public String toString(){
-        return "Codigo: "+cod+" Tipo: "+tipo+" Precio: "+precio;
+        return "Codigo: "+cod+" Tipo: "+tipo+" Precio: "+precio+sillas;
     }
     
 }

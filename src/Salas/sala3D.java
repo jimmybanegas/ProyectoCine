@@ -1,11 +1,13 @@
 
 package Salas;
 
+import javax.swing.JButton;
+
 public class sala3D extends Sala{
     protected TipoFormato format;       
     
-    public sala3D(int cod, TipoSala tipo, TipoFormato format,int filas, int asientos ){
-        super(cod,tipo,filas,asientos);
+    public sala3D(int cod, TipoSala tipo, TipoFormato format,int filas, int asientos, JButton sillas[][] ){
+        super(cod,tipo,filas,asientos,sillas);
         this.format=format;
         
         if(format==TipoFormato.DIGITAL){
@@ -18,9 +20,7 @@ public class sala3D extends Sala{
 
     public TipoFormato getFormat() {
         return format;
-    }
-    
-    
+    }        
     
     
 }

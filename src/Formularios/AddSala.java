@@ -9,18 +9,21 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-public class AddSala extends javax.swing.JFrame { 
+public class AddSala extends javax.swing.JFrame {
+    private JButton[][] buttons;
     
     public AddSala() {
         initComponents();
         AddSalaPanel back = new AddSalaPanel();
         this.add(back,BorderLayout.CENTER);
-        this.pack();       
+        this.pack();
         lblCodSala.setText(String.valueOf(Menu.contsala));
         combo2D3D.addItem(TipoSala.NORMAL);
         combo2D3D.addItem(TipoSala.SALA3D);
@@ -54,7 +57,7 @@ public class AddSala extends javax.swing.JFrame {
         lblCodSala = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
 
         setIconImage(getIconImage());
         setResizable(false);
@@ -106,7 +109,13 @@ public class AddSala extends javax.swing.JFrame {
         lblCodSala.setForeground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setForeground(new java.awt.Color(153, 153, 153));
+        jPanel1.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                jPanel1ComponentAdded(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,10 +135,10 @@ public class AddSala extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Editar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -138,48 +147,47 @@ public class AddSala extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtColumnasSala, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtFilasSala)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtColumnasSala, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtFilasSala)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboTipo3D, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(combo2D3D, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblCodSala, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(61, 61, 61)
-                                        .addComponent(jButton1)
-                                        .addGap(34, 34, 34)
-                                        .addComponent(btnAceptar)
-                                        .addGap(35, 35, 35)
-                                        .addComponent(btnCancelar)
-                                        .addGap(26, 26, 26)
-                                        .addComponent(jButton2)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboTipo3D, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCodSala, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addComponent(jButton1)
+                                .addGap(34, 34, 34)
+                                .addComponent(btnAceptar)
+                                .addGap(35, 35, 35)
+                                .addComponent(btnCancelar)
+                                .addGap(26, 26, 26)
+                                .addComponent(btnEditar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(combo2D3D, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(222, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,39 +220,70 @@ public class AddSala extends javax.swing.JFrame {
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                    .addComponent(btnEditar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addGap(23, 23, 23))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-510)/2, (screenSize.height-688)/2, 510, 688);
+        setBounds((screenSize.width-722)/2, (screenSize.height-688)/2, 722, 688);
     }// </editor-fold>//GEN-END:initComponents
 
-     public  void initUI(int sillas) {        
- 
-        jPanel1.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        jPanel1.setLayout(new GridLayout(5, 5, 5, 5));             
+     public  void initUI(int fil, int col) {     
+        
+      jPanel1.setBorder(BorderFactory.createEmptyBorder(fil, col, fil, col));
+      jPanel1.setLayout(new GridLayout(fil, col, fil, col));             
        
-        String buttons = null;       
-        for (int i = 0; i < sillas; i++) {          
-            buttons=String.valueOf(i);    
-            jPanel1.add(new JButton(buttons));
-        }
- 
-        add(jPanel1);        
-      
-       // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      //  setLocationRelativeTo(null);
+       buttons = new JButton [fil][col];       
+       jPanel1.removeAll();
+       
+       for(int x=0;x<fil;x++){
+          for(int y=0;y<col;y++){                  
+              
+              buttons[x][y]=(new JButton());
+              
+               buttons[x][y].addMouseListener(new java.awt.event.MouseAdapter() {                    
+                @Override
+                public void mouseEntered(java.awt.event.MouseEvent evt) {                        
+                    MouseEntered(evt);                    
+                }
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    MouseExited(evt);                   
+                }                
+            });
+            buttons[x][y].addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    clicEvent(evt);
+                }
+            });  
+              
+              jPanel1.add(buttons[x][y]);       
+          }
+       }
+    }  
+    public void clicEvent(ActionEvent e) {
+     //   this.txtPantalla.setText("");
+        JButton evento = (JButton)e.getSource();
+        evento.setEnabled(false);
+     //   this.txtPantalla.setText("Soy el boton Nro : " + e.getActionCommand());
     }
     
-    public void editar(){
-       for(int x=0; x<20;x++){           
-               jPanel1.getComponent(x).enable(false);           
-       }
-    } 
-     
+    public void MouseEntered(MouseEvent evt)    {
+        JButton evento = (JButton)evt.getSource();
+   //     this.txtPantalla.setText("");
+      //  this.txtPantalla.setText("Estas encima del boton Nro : " + evento.getText());
+    }
+    
+    public void MouseExited(MouseEvent evt) {
+     JButton evento = (JButton)evt.getSource();
+     //   this.txtPantalla.setText("");
+        
+      //  this.txtPantalla.setText("Haz pasado sobre el boton Nro : " + evento.getText());
+    }
+       
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.setVisible(false);
         JFrame frame = new Administrador();
@@ -260,14 +299,17 @@ public class AddSala extends javax.swing.JFrame {
         int cod=Integer.parseInt(lblCodSala.getText());
         TipoSala tipo=(TipoSala) combo2D3D.getSelectedItem();
         int filas=Integer.parseInt(txtFilasSala.getText());
-        int asientos=Integer.parseInt(txtColumnasSala.getText());
+        int columnas=Integer.parseInt(txtColumnasSala.getText());
         TipoFormato format=(TipoFormato) comboTipo3D.getSelectedItem();
+        JButton sillas[][]=buttons;
     
       if( comboTipo3D.isEnabled()==false){                
-        Menu.agregarSalaNormal(cod, tipo,filas, asientos);
+        Menu.agregarSalaNormal(cod, tipo,filas, columnas,sillas);
       }else if(comboTipo3D.isEnabled()) {
-        Menu.agregarSala3D(cod, tipo, format, filas, asientos);    
+        Menu.agregarSala3D(cod, tipo, format, filas, columnas,sillas);    
       }
+      
+      
       
       JFrame frame = new OperacionOk();
       frame.setVisible(true);
@@ -287,13 +329,31 @@ public class AddSala extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         initUI((Integer.parseInt(txtFilasSala.getText())*Integer.parseInt(txtColumnasSala.getText())));
+         initUI(Integer.parseInt(txtFilasSala.getText()),Integer.parseInt(txtColumnasSala.getText()));
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void editar(){
+      /* for(int x=0;x<5;x++){
+          for(int y=0;y<10;y++){             
+            buttons[x][y].addActionListener(new ActionListener()); 
+           
+            public void ActionPerformed(ActionEvent e) {                                            
+                   
+            }
+            } 
+          }  */
+    }
+    
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:        
+      editar();
+                       
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void jPanel1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jPanel1ComponentAdded
         // TODO add your handling code here:
-        editar();
-    }//GEN-LAST:event_jButton2ActionPerformed
+      //  jPanel1.getComponent(WIDTH)
+    }//GEN-LAST:event_jPanel1ComponentAdded
     /**
      * @param args the command line arguments
      */
@@ -332,10 +392,10 @@ public class AddSala extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JComboBox combo2D3D;
     private javax.swing.JComboBox comboTipo3D;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -347,4 +407,9 @@ public class AddSala extends javax.swing.JFrame {
     private javax.swing.JTextField txtColumnasSala;
     private javax.swing.JTextField txtFilasSala;
     // End of variables declaration//GEN-END:variables
+
+  /*  @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }*/
 }

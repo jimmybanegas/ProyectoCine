@@ -6,17 +6,19 @@ package Formularios;
 
 import Menú.Menu;
 import Paneles.LoginPanel;
-import Usuarios.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Alexander
  */
-public class Login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame implements KeyListener{
     /**
      * Creates new form Login
      */
@@ -24,7 +26,8 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         LoginPanel back = new LoginPanel();
         this.add(back,BorderLayout.CENTER);
-        this.pack();
+        this.pack();      
+               
     }
  @Override
     public Image getIconImage(){
@@ -47,6 +50,11 @@ public class Login extends javax.swing.JFrame {
         setBackground(new java.awt.Color(0, 0, 0));
         setIconImage(getIconImage());
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -55,6 +63,12 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText(" Contraseña");
+
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyPressed(evt);
+            }
+        });
 
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -126,13 +140,31 @@ public class Login extends javax.swing.JFrame {
             this.setVisible(false);            
          }         
          else{
-            JFrame frame1 = new MalClave();           
-            frame1.setVisible(true);
+           /* JFrame frame1 = new MalClave();           
+            frame1.setVisible(true);*/
+       // int ax = JOptionPane.showConfirmDialog(null, "Estas en java?");
+         
+        int a = JOptionPane.ERROR_MESSAGE;
+            System.out.println(a);
+    /*    if(ax == JOptionPane.YES_OPTION)
+            JOptionPane.showMessageDialog(null, "Has seleccionado SI.");
+        else if(ax == JOptionPane.NO_OPTION)
+            JOptionPane.showMessageDialog(null, "Has seleccionado NO.");
+          */
             txtUsuario.setText("");
             txtClave.setText("");
          }      
               
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioKeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_formKeyPressed
     
     /**
      * @param args the command line arguments
@@ -177,4 +209,19 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtClave;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

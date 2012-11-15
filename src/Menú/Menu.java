@@ -10,6 +10,7 @@ import Salas.TipoFormato;
 import Salas.TipoSala;
 import Usuarios.Usuario;
 import java.util.ArrayList;
+import javax.swing.JButton;
 
 public class Menu {
    
@@ -24,13 +25,13 @@ public class Menu {
         users.add( new Usuario(nombre, user, pass));
     }
     
-    public static void agregarSalaNormal(int cod, TipoSala tipo,int filas, int asientos){      
-         salas.add(new Sala(cod,tipo,filas,asientos));
+    public static void agregarSalaNormal(int cod, TipoSala tipo,int filas, int asientos, JButton sillas[][]){      
+         salas.add(new Sala(cod,tipo,filas,asientos,sillas));
          Menu.contsala+=1;
     }
     
-    public static void agregarSala3D(int cod, TipoSala tipo,TipoFormato format, int filas, int asientos){
-         salas.add( new sala3D(cod,tipo,format, filas,asientos));
+    public static void agregarSala3D(int cod, TipoSala tipo,TipoFormato format, int filas, int asientos, JButton sillas[][]){
+         salas.add( new sala3D(cod,tipo,format, filas,asientos,sillas));
          Menu.contsala+=1;
     }
     
