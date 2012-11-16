@@ -4,6 +4,10 @@
  */
 package Paneles;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Alexander
@@ -15,8 +19,18 @@ public class PrepareSalaPanel extends javax.swing.JPanel {
      */
     public PrepareSalaPanel() {
         initComponents();
+        this.setSize(808, 655);
     }
-
+    
+    @Override
+    public void paintComponent(Graphics g){
+        Dimension dim = getSize();
+        ImageIcon ImagenFondo = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SalaBack.jpg")).getImage());
+        g.drawImage(ImagenFondo.getImage(),0,0,dim.width,dim.height,null);
+        setOpaque(false);
+        super.paintComponent(g);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

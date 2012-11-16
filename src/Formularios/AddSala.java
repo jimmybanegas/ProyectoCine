@@ -58,6 +58,7 @@ public class AddSala extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setIconImage(getIconImage());
         setResizable(false);
@@ -142,6 +143,13 @@ public class AddSala extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,9 +193,14 @@ public class AddSala extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(222, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(214, 214, 214)
+                        .addComponent(jButton2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +234,9 @@ public class AddSala extends javax.swing.JFrame {
                     .addComponent(btnCancelar)
                     .addComponent(jButton1)
                     .addComponent(btnEditar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -301,16 +316,14 @@ public class AddSala extends javax.swing.JFrame {
         int filas=Integer.parseInt(txtFilasSala.getText());
         int columnas=Integer.parseInt(txtColumnasSala.getText());
         TipoFormato format=(TipoFormato) comboTipo3D.getSelectedItem();
-        JButton sillas[][]=buttons;
+        JButton sillas[][]= buttons;
     
       if( comboTipo3D.isEnabled()==false){                
         Menu.agregarSalaNormal(cod, tipo,filas, columnas,sillas);
       }else if(comboTipo3D.isEnabled()) {
         Menu.agregarSala3D(cod, tipo, format, filas, columnas,sillas);    
       }
-      
-      
-      
+
       JFrame frame = new OperacionOk();
       frame.setVisible(true);
       this.setVisible(false);
@@ -354,6 +367,12 @@ public class AddSala extends javax.swing.JFrame {
         // TODO add your handling code here:
       //  jPanel1.getComponent(WIDTH)
     }//GEN-LAST:event_jPanel1ComponentAdded
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JFrame frame = new PrepareSala();
+        frame.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -396,6 +415,7 @@ public class AddSala extends javax.swing.JFrame {
     private javax.swing.JComboBox combo2D3D;
     private javax.swing.JComboBox comboTipo3D;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

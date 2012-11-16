@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Formularios;
 
 import Paneles.EditPerfilPanel;
@@ -10,15 +7,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
-/**
- *
- * @author Alexander
- */
 public class EditPerfil extends javax.swing.JFrame {
 
-    /**
-     * Creates new form EditPerfil
-     */
     public EditPerfil() {
         initComponents();
         EditPerfilPanel back = new EditPerfilPanel();

@@ -1,8 +1,6 @@
 
 package Usuarios;
 
-import Menú.Menu;
-
 public class Usuario {
  
     protected String nombre;
