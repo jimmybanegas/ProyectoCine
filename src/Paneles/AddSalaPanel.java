@@ -9,7 +9,7 @@ public class AddSalaPanel extends javax.swing.JPanel {
 
     public AddSalaPanel() {
         initComponents();
-        this.setSize(551,350);
+        this.setSize(702,350);
     }
 
     @Override

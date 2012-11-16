@@ -188,11 +188,11 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarHorarioActionPerformed
 
     private void btnEditarPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPerfilActionPerformed
-        frame = new EditPerfil();
+        frame = new ListUsersEdit();
         frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnEditarPerfilActionPerformed
-
+    
     private void btnListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarUsuariosActionPerformed
         frame = new ListUsers();
         frame.setVisible(true);

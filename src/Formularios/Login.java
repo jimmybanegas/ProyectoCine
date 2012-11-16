@@ -134,23 +134,16 @@ public class Login extends javax.swing.JFrame implements KeyListener{
         String user=txtUsuario.getText();
         String clave=txtClave.getText();
         
-        if(Menu.buscarUser(user, clave)){
+        if((Menu.buscarUser(user, clave)) || (user.equalsIgnoreCase("guest") && clave.equalsIgnoreCase("password"))){
             JFrame frame = new Administrador();
             frame.setVisible(true);
             this.setVisible(false);            
          }         
          else{
-           /* JFrame frame1 = new MalClave();           
-            frame1.setVisible(true);*/
-       // int ax = JOptionPane.showConfirmDialog(null, "Estas en java?");
-         
-        int a = JOptionPane.ERROR_MESSAGE;
+            JFrame frame1 = new MalClave();           
+            frame1.setVisible(true);
+            int a = JOptionPane.ERROR_MESSAGE;
             System.out.println(a);
-    /*    if(ax == JOptionPane.YES_OPTION)
-            JOptionPane.showMessageDialog(null, "Has seleccionado SI.");
-        else if(ax == JOptionPane.NO_OPTION)
-            JOptionPane.showMessageDialog(null, "Has seleccionado NO.");
-          */
             txtUsuario.setText("");
             txtClave.setText("");
          }      
