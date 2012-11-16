@@ -56,11 +56,11 @@ public class ListPeliculas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Titulo", "Duracion", "Genero", "Clasificación", "Formato"
+                "Codigo", "Titulo", "Duracion", "Genero", "Clasificación", "Formato", "Imagen"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -83,15 +83,15 @@ public class ListPeliculas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(156, 156, 156)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(209, 209, 209)
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(294, 294, 294)
                         .addComponent(jButton2)))
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,7 +118,7 @@ public class ListPeliculas extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-    Object [][] data=new Object[Menu.peliculas.size()][6];
+    Object [][] data=new Object[Menu.peliculas.size()][7];
     for(int x=0;x<Menu.peliculas.size();x++){    
        data[x][0]=Menu.peliculas.get(x).getCod();
        data[x][1]=Menu.peliculas.get(x).getTitulo();
@@ -126,9 +126,11 @@ public class ListPeliculas extends javax.swing.JFrame {
        data[x][3]=Menu.peliculas.get(x).getGenero();
        data[x][4]=Menu.peliculas.get(x).getClasi();
        data[x][5]=Menu.peliculas.get(x).getFormato();
+       data[x][6]=Menu.peliculas.get(x).getImagen();
+       
     }        
   
-    String [] cadenas={ "Código", "Título", "Duración","Género","Clasificación","Formato"};        
+    String [] cadenas={ "Código", "Título", "Duración","Género","Clasificación","Formato","Imagen"};        
     jTable1.setModel(new javax.swing.table.DefaultTableModel( data  ,cadenas)) ; 
     }//GEN-LAST:event_formWindowOpened
 

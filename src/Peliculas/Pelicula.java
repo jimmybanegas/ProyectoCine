@@ -11,14 +11,16 @@ public class Pelicula {
     protected TipoClasificacion clasi;
     protected TipoFormatoPeli formato;
     protected Date fecha;
-
-    public Pelicula(int cod, String titulo, double dura, TipoPelicula genero, TipoClasificacion clasi,TipoFormatoPeli formato){
+    protected String imagen;
+    
+    public Pelicula(int cod, String titulo, double dura, TipoPelicula genero, TipoClasificacion clasi,TipoFormatoPeli formato,String imagen){
         this.cod=cod;
         this.titulo=titulo;
         this.dura=dura;
         this.genero=genero;
         this.clasi=clasi;
         this.formato=formato;
+        this.imagen=imagen;
         fecha=new Date();
     }
 
@@ -48,6 +50,10 @@ public class Pelicula {
 
     public TipoFormatoPeli getFormato() {
         return formato;
+    }
+
+    public String getImagen() {
+        return imagen;
     }
     
     

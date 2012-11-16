@@ -1,20 +1,20 @@
 
 package Salas;
 
-import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class sala3D extends Sala{
     protected TipoFormato format;       
     
-    public sala3D(int cod, TipoSala tipo, TipoFormato format,int filas, int asientos, JButton sillas[][] ){
+    public sala3D(int cod, TipoSala tipo, TipoFormato format,int filas, int asientos, JPanel sillas ){
         super(cod,tipo,filas,asientos,sillas);
         this.format=format;
         
         if(format==TipoFormato.DIGITAL){
-            this.precio=90;
+            this.setPrecio(90);
         }
-        else if((format==TipoFormato.REAL)&&(format==TipoFormato.EXTREME)){
-            this.precio=110;
+        if((format==TipoFormato.REAL)||(format==TipoFormato.EXTREME)){
+               this.setPrecio(110);
         }
     }
 

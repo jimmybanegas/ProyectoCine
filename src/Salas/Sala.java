@@ -1,7 +1,7 @@
 
 package Salas;
 
-import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class Sala {
 
@@ -10,16 +10,17 @@ public class Sala {
     protected int filas;
     protected int columnas;
     protected double precio;
-    protected JButton[][] sillas;
+    protected JPanel sillas;
     
     
-    public Sala(int cod,TipoSala tipo,int filas, int asientos, JButton sillas[][]){
+    public Sala(int cod,TipoSala tipo,int filas, int asientos, JPanel sillas){
         this.cod=cod;
         this.tipo=tipo;
         this.filas=filas;
         this.columnas=asientos;
-        this.sillas=sillas;
+        this.sillas=sillas;      
         this.precio=70;
+       
     }
 
     public void setPrecio(double precio) {
@@ -46,14 +47,15 @@ public class Sala {
         return tipo;
     }
 
-    public JButton[][] getSillas() {
+    public JPanel getSillas() {
         return sillas;
     }    
     
     
     @Override
      public String toString(){
-        return "Codigo: "+cod+" Tipo: "+tipo+" Precio: "+precio+sillas;
+        sillas.setVisible(true);
+        return "Codigo: "+cod+" Tipo: "+tipo+" Precio: "+precio;
     }
     
 }

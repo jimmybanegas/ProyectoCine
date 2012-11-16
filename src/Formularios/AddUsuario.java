@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class AddUsuario extends javax.swing.JFrame {
 
@@ -143,10 +144,18 @@ public class AddUsuario extends javax.swing.JFrame {
         nombre = txtNombre.getText();
         user = txtUsuario.getText();
         clave = txtClave.getText();
-        
+       
+        if(Menu.buscarUser2(user)){           
+            JOptionPane.showMessageDialog(null, "Ya existe usuario");
+             txtNombre.setText("");
+             txtUsuario.setText("");
+             txtClave.setText("");
+            return;
+        }        
         Menu.agregarUser(nombre, user, clave);
-        JFrame frame = new OperacionOk();
-        frame.setVisible(true);
+        JOptionPane.showMessageDialog(null, "Operacion Exitosa");
+       // JFrame frame = new OperacionOk();
+        //frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAceptarActionPerformed
     

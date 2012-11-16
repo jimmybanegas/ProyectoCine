@@ -8,20 +8,23 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
-public class MainWindow extends javax.swing.JFrame {
+public final class MainWindow extends javax.swing.JFrame {
 
-    public MainWindow() {
-        initComponents();
+    //private final MainWindow contenedor = new MainWindow();
+ 
+    public MainWindow() {     
+        initComponents(); 
         Menu.agregarUser("guest", "guest", "password");
-        BackPannel back = new BackPannel();
+       BackPannel back = new BackPannel();
         this.add(back,BorderLayout.CENTER);
         this.pack();
     }
     
+   
+    
     @Override
     public Image getIconImage(){
         Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
-       
         return icono;
     }
     @SuppressWarnings("unchecked")
@@ -36,6 +39,14 @@ public class MainWindow extends javax.swing.JFrame {
         setTitle("Ssitema de Cines UNITEC");
         setIconImage(getIconImage());
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         btnCerrar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnCerrar.setText("CERRAR SISTEMA");
@@ -107,6 +118,15 @@ public class MainWindow extends javax.swing.JFrame {
         frame.setVisible(true);
     }//GEN-LAST:event_btnCompraBoletoActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_formWindowActivated
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -133,8 +153,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainWindow().setVisible(true);
+            @Override
+            public void run(){   
+                    new MainWindow().setVisible(true);            
             }
         });
     }
