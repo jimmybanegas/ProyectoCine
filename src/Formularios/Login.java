@@ -50,11 +50,6 @@ public class Login extends javax.swing.JFrame implements KeyListener{
         setBackground(new java.awt.Color(0, 0, 0));
         setIconImage(getIconImage());
         setResizable(false);
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -134,30 +129,28 @@ public class Login extends javax.swing.JFrame implements KeyListener{
         String user=txtUsuario.getText();
         String clave=txtClave.getText();
         
-        if((Menu.buscarUser(user, clave)) || (user.equalsIgnoreCase("guest") && clave.equalsIgnoreCase("password"))){
+        if((user.equalsIgnoreCase("guest") && clave.equalsIgnoreCase("password"))){
+            JFrame frame1 = new Guest();
+            frame1.setVisible(true);
+            this.setVisible(false);            
+         }
+        else if((Menu.buscarUser(user, clave)) || (user.equalsIgnoreCase("admin") && clave.equalsIgnoreCase("unitec"))){
             JFrame frame = new Administrador();
             frame.setVisible(true);
             this.setVisible(false);            
-         }         
+         }
          else{
-            JFrame frame1 = new MalClave();           
-            frame1.setVisible(true);
-            int a = JOptionPane.ERROR_MESSAGE;
-            System.out.println(a);
+            JFrame frame2 = new MalClave();           
+            frame2.setVisible(true);
             txtUsuario.setText("");
             txtClave.setText("");
-         }      
+         }
               
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioKeyPressed
-
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        // TODO add your handling code here:
-      
-    }//GEN-LAST:event_formKeyPressed
     
     /**
      * @param args the command line arguments

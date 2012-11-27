@@ -7,8 +7,6 @@ import Salas.sala3D;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class ListSalas extends javax.swing.JFrame {
 
@@ -110,9 +108,6 @@ public class ListSalas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        JFrame frame = new Administrador();
-         frame.setVisible(true);
          this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
