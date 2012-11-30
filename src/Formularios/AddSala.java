@@ -6,20 +6,22 @@ import Paneles.AddSalaPanel;
 import Salas.TipoFormato;
 import Salas.TipoSala;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class AddSala extends javax.swing.JFrame {
     private JButton[][] buttons;
-    
+    ImageIcon habilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaLibre.jpg")).getImage());
+    ImageIcon deshabilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaOcupada.jpg")).getImage());
     public AddSala() {
         initComponents();
         AddSalaPanel back = new AddSalaPanel();        
@@ -35,8 +37,7 @@ public class AddSala extends javax.swing.JFrame {
     
     @Override
     public Image getIconImage(){
-        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
-       
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));       
         return icono;
     }
     @SuppressWarnings("unchecked")
@@ -181,7 +182,7 @@ public class AddSala extends javax.swing.JFrame {
                                                 .addComponent(combo2D3D, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(txtFilasSala, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addComponent(btnAsientos)
@@ -191,7 +192,7 @@ public class AddSala extends javax.swing.JFrame {
                         .addComponent(btnCancelar)
                         .addGap(18, 18, 18)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(288, Short.MAX_VALUE))
+                        .addContainerGap(281, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -230,18 +231,18 @@ public class AddSala extends javax.swing.JFrame {
                     .addComponent(btnAsientos)
                     .addComponent(btnEditar))
                 .addGap(83, 83, 83)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-723)/2, (screenSize.height-766)/2, 723, 766);
+        setBounds((screenSize.width-716)/2, (screenSize.height-738)/2, 716, 738);
     }// </editor-fold>//GEN-END:initComponents
 
      public  void initUI(int fil, int col) {    
       //jPanel1.setBorder(BorderFactory.createCompoundBorder()); 
       jPanel1.setBorder(BorderFactory.createEmptyBorder(fil, col, fil, col));
-      jPanel1.setLayout(new GridLayout(fil, col, fil, col));            
+      jPanel1.setLayout(new GridLayout(fil, col));            
        
        buttons = new JButton [fil][col];
        jPanel1.removeAll();
@@ -249,16 +250,14 @@ public class AddSala extends javax.swing.JFrame {
        for(int x=0;x<fil;x++){
           for(int y=0;y<col;y++){                  
               
-              buttons[x][y]=(new JButton());
-              
+               buttons[x][y]=(new JButton(habilitada));             
+             
                buttons[x][y].addMouseListener(new java.awt.event.MouseAdapter() {                    
                 @Override
-                public void mouseEntered(java.awt.event.MouseEvent evt) {                        
-                    MouseEntered(evt);                    
+                public void mouseEntered(java.awt.event.MouseEvent evt) {                                          
                 }
                 @Override
-                public void mouseExited(java.awt.event.MouseEvent evt) {
-                    MouseExited(evt);                   
+                public void mouseExited(java.awt.event.MouseEvent evt) {                  
                 }                
             });
             buttons[x][y].addActionListener(new ActionListener(){
@@ -272,31 +271,18 @@ public class AddSala extends javax.swing.JFrame {
           }
        }
     }  
-    public void clicEvent(ActionEvent e) {
-     //   this.txtPantalla.setText("");
-       
+    public void clicEvent(ActionEvent e) {   
       JButton evento = (JButton)e.getSource();
-      if(!evento.isEnabled()){  
-        evento.setEnabled(false);
-      }
-      else if (evento.isEnabled()){
-           evento.setEnabled(false);
-      }
-     //   this.txtPantalla.setText("Soy el boton Nro : " + e.getActionCommand());
+      if(evento.getIcon()==habilitada){
+                        evento.setIcon(deshabilitada);
+                    }
+                    else if(evento.getIcon()==deshabilitada){
+                        evento.setIcon(habilitada);
+       }          
+    
     }
     
-    public void MouseEntered(MouseEvent evt)    {
-        JButton evento = (JButton)evt.getSource();
-   //     this.txtPantalla.setText("");
-      //  this.txtPantalla.setText("Estas encima del boton Nro : " + evento.getText());
-    }
     
-    public void MouseExited(MouseEvent evt) {
-     JButton evento = (JButton)evt.getSource();
-     //   this.txtPantalla.setText("");
-        
-      //  this.txtPantalla.setText("Haz pasado sobre el boton Nro : " + evento.getText());
-    }
        
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.setVisible(false);
