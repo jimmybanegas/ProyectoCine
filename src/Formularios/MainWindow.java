@@ -6,6 +6,10 @@ import Paneles.BackPannel;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 public final class MainWindow extends javax.swing.JFrame {
@@ -13,12 +17,18 @@ public final class MainWindow extends javax.swing.JFrame {
     //private final MainWindow contenedor = new MainWindow();
  
     public MainWindow() {     
-        initComponents(); 
-        Menu.agregarUser("guest", "guest", "password");
-        Menu.agregarUser("admin", "admin", "unitec");
-        BackPannel back = new BackPannel();
-        this.add(back,BorderLayout.CENTER);
-        this.pack();
+        try {
+            initComponents(); 
+            Menu.agregarUser("guest", "guest", "password");
+            Menu.agregarUser("admin", "admin", "unitec");
+            BackPannel back = new BackPannel();
+            this.add(back,BorderLayout.CENTER);
+            this.pack();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override

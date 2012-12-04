@@ -1,7 +1,6 @@
 
 package Formularios;
 
-import Menú.Menu;
 import Paneles.AdministradorPanel;
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -208,7 +207,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void btnListarSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarSalasActionPerformed
         // TODO add your handling code here:
-        Menu.listaSalas();
+     //   Menu.listaSalas();
         frame = new ListSalas();       
         frame.setVisible(true);
         this.setVisible(false);
@@ -243,6 +242,7 @@ public class Administrador extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Administrador().setVisible(true);
             }

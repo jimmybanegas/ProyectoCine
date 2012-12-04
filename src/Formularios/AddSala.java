@@ -6,28 +6,33 @@ import Paneles.AddSalaPanel;
 import Salas.TipoFormato;
 import Salas.TipoSala;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class AddSala extends javax.swing.JFrame {
-    private JButton[][] buttons;
-    ImageIcon habilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaLibre.jpg")).getImage());
-    ImageIcon deshabilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaOcupada.jpg")).getImage());
+    public JButton[][] buttons;
+    ImageIcon habilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaOcupada.jpg")).getImage());
+    ImageIcon deshabilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaLibre.jpg")).getImage());
+    static RandomAccessFile rCod;
     public AddSala() {
         initComponents();
         AddSalaPanel back = new AddSalaPanel();        
         this.add(back,BorderLayout.CENTER);     
         //this.pack();
-        lblCodSala.setText(String.valueOf(Menu.contsala));
+        lblCodSala.setText(String.valueOf(AddSala.codSala()));
         combo2D3D.addItem(TipoSala.NORMAL);
         combo2D3D.addItem(TipoSala.SALA3D);
         comboTipo3D.addItem(TipoFormato.DIGITAL);
@@ -58,7 +63,6 @@ public class AddSala extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         lblCodSala = new javax.swing.JLabel();
         btnAsientos = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
 
@@ -94,7 +98,7 @@ public class AddSala extends javax.swing.JFrame {
             }
         });
 
-        btnAceptar.setText("Aceptar");
+        btnAceptar.setText("Guardar y Terminar Edicion");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAceptarActionPerformed(evt);
@@ -110,17 +114,10 @@ public class AddSala extends javax.swing.JFrame {
 
         lblCodSala.setForeground(new java.awt.Color(255, 255, 255));
 
-        btnAsientos.setText("Asientos");
+        btnAsientos.setText("Generar Asientos");
         btnAsientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAsientosActionPerformed(evt);
-            }
-        });
-
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
             }
         });
 
@@ -153,10 +150,21 @@ public class AddSala extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(30, 30, 30))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addComponent(btnAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                                .addComponent(btnCancelar)
+                                .addGap(101, 101, 101)
+                                .addComponent(btnAceptar))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,21 +190,7 @@ public class AddSala extends javax.swing.JFrame {
                                                 .addComponent(combo2D3D, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(txtFilasSala, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(btnAsientos)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAceptar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(281, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(30, 30, 30))))
+                        .addContainerGap(48, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,8 +222,7 @@ public class AddSala extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar)
-                    .addComponent(btnAsientos)
-                    .addComponent(btnEditar))
+                    .addComponent(btnAsientos))
                 .addGap(83, 83, 83)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
@@ -286,6 +279,7 @@ public class AddSala extends javax.swing.JFrame {
        
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.setVisible(false);
+        restar();
         JFrame frame = new Administrador();
         frame.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -301,12 +295,24 @@ public class AddSala extends javax.swing.JFrame {
         int filas=Integer.parseInt(txtFilasSala.getText());
         int columnas=Integer.parseInt(txtColumnasSala.getText());
         TipoFormato format=(TipoFormato) comboTipo3D.getSelectedItem();
-        JPanel sillas= jPanel1;
-    
+        boolean[][] sillas=  arregloAsiento(filas,columnas);
+        
       if( comboTipo3D.isEnabled()==false){                
-        Menu.agregarSalaNormal(cod, tipo,filas, columnas,sillas);
+            try {
+                Menu.agregarSalaNormal(cod, tipo,filas, columnas,sillas);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(AddSala.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(AddSala.class.getName()).log(Level.SEVERE, null, ex);
+            }
       }else if(comboTipo3D.isEnabled()) {
-        Menu.agregarSala3D(cod, tipo, format, filas, columnas,sillas);    
+            try {    
+                Menu.agregarSala3D(cod, tipo, format, filas, columnas,sillas);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(AddSala.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(AddSala.class.getName()).log(Level.SEVERE, null, ex);
+            }
       }
 
       JFrame frame = new OperacionOk();
@@ -328,14 +334,58 @@ public class AddSala extends javax.swing.JFrame {
     private void btnAsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsientosActionPerformed
         // TODO add your handling code here:
          initUI(Integer.parseInt(txtFilasSala.getText()),Integer.parseInt(txtColumnasSala.getText()));
+        
     }//GEN-LAST:event_btnAsientosActionPerformed
 
        
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-  
-                       
-    }//GEN-LAST:event_btnEditarActionPerformed
-
+    public boolean[][] arregloAsiento(int fil, int col){
+      boolean asientos[][]=new boolean[fil][col] ;
+      
+        for(int x=0;x<fil;x++){
+             for(int y=0;y<col;y++){    
+               if(buttons[x][y].getSelectedIcon()==habilitada){
+                   asientos[x][y]=true;
+               }
+               else if(buttons[x][y].getSelectedIcon()==deshabilitada){
+                   asientos[x][y]=false;
+               }
+             } 
+        }
+        return asientos; 
+    }
+    
+    
+     public static int codSala(){          
+        File u=new File("Salas");
+         u.mkdir(); 
+         try{
+            rCod = new RandomAccessFile( new File("Salas\\codigosala.movi"),"rw");
+            int codigo = 1;
+            
+            if( rCod.length() == 4){
+                codigo = rCod.readInt();
+                rCod.seek(0);
+            }
+            
+            rCod.writeInt(codigo + 1);
+            return codigo;
+        }
+        catch(IOException e){
+            System.out.println("ERROR");
+            return -1;
+        }
+    }
+    
+    public static void restar() {
+        try {
+            rCod.seek(0);
+            rCod.writeInt(codSala()-1);
+        } catch (IOException ex) {
+            Logger.getLogger(AddSala.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+     
     private void jPanel1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jPanel1ComponentAdded
         // TODO add your handling code here:
       //  jPanel1.getComponent(WIDTH)
@@ -380,7 +430,6 @@ public class AddSala extends javax.swing.JFrame {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnAsientos;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JComboBox combo2D3D;
     private javax.swing.JComboBox comboTipo3D;
     private javax.swing.JLabel jLabel1;

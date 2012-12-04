@@ -9,18 +9,24 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
 
 public class AddPelicula extends javax.swing.JFrame {   
-        
+   static  RandomAccessFile rCod ;
+    
     public AddPelicula() {
         initComponents();
         AddPeliculaPanel back = new AddPeliculaPanel();
         this.add(back,BorderLayout.CENTER);
         this.pack(); 
-        lblCodPelicula.setText(String.valueOf(Menu.contpeli));
+        lblCodPelicula.setText(String.valueOf(AddPelicula.codPeli()));
         comboGenero.addItem(TipoPelicula.ACCION);
         comboGenero.addItem(TipoPelicula.ANIMADA);
         comboGenero.addItem(TipoPelicula.COMEDIA);
@@ -227,24 +233,31 @@ public class AddPelicula extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false);
+        restar();
         JFrame frame = new Administrador();
         frame.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      int cod=Integer.parseInt(lblCodPelicula.getText());
-      String tit=txtTitulo.getText();
-      double dur=Double.parseDouble(txtDuracion.getText());
-      TipoPelicula gen=(TipoPelicula) comboGenero.getSelectedItem();
-      TipoClasificacion clasif= (TipoClasificacion) comboClasificacion.getSelectedItem();
-      TipoFormatoPeli formato=(TipoFormatoPeli) comboFormato.getSelectedItem();
-      String imagen=jpgMoviePic.getText();
-      
-      Menu.agregarPelicula(cod,tit, dur, gen, clasif,formato,imagen);  
-      
-      JFrame frame = new OperacionOk();
-      frame.setVisible(true);
-      this.setVisible(false);
+        try {
+            int cod=Integer.parseInt(lblCodPelicula.getText());
+            String tit=txtTitulo.getText();
+            double dur=Double.parseDouble(txtDuracion.getText());
+            TipoPelicula gen=(TipoPelicula) comboGenero.getSelectedItem();
+            TipoClasificacion clasif= (TipoClasificacion) comboClasificacion.getSelectedItem();
+            TipoFormatoPeli formato=(TipoFormatoPeli) comboFormato.getSelectedItem();
+            String imagen=jpgMoviePic.getText();
+            
+            Menu.agregarPelicula(cod,tit, dur, gen, clasif,formato,imagen);  
+            
+            JFrame frame = new OperacionOk();
+            frame.setVisible(true);
+            this.setVisible(false);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AddPelicula.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AddPelicula.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -272,6 +285,36 @@ public class AddPelicula extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboGeneroActionPerformed
 
+     public static int codPeli(){       
+         File u=new File("Peliculas");
+         u.mkdir(); 
+         try{
+            rCod = new RandomAccessFile( new File("Peliculas\\codigopeli.movi"),"rw");
+            int codigo = 1;
+            
+            if( rCod.length() == 4){
+                codigo = rCod.readInt();
+                rCod.seek(0);
+            }
+            
+            rCod.writeInt(codigo + 1);
+            return codigo;
+        }
+        catch(IOException e){
+          System.out.println("ERROR");
+          return -1;
+        }
+    } 
+    
+     public static void restar() {
+        try {       
+            rCod.seek(0);
+              rCod.writeInt(codPeli()-1);
+        } catch (IOException ex) {
+            Logger.getLogger(AddPelicula.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    } 
+     
     /**
      * @param args the command line arguments
      */

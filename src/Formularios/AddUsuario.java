@@ -6,6 +6,10 @@ import Paneles.AddUsuarioPanel;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -140,23 +144,29 @@ public class AddUsuario extends javax.swing.JFrame {
     
     @SuppressWarnings("empty-statement")
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        String nombre, user, clave;
-        nombre = txtNombre.getText();
-        user = txtUsuario.getText();
-        clave = txtClave.getText();
-       
-        if(Menu.buscarUser2(user)){           
-            JOptionPane.showMessageDialog(null, "Ya existe usuario");
-             txtNombre.setText("");
-             txtUsuario.setText("");
-             txtClave.setText("");
-            return;
-        }        
-        Menu.agregarUser(nombre, user, clave);
-        JOptionPane.showMessageDialog(null, "Operacion Exitosa");
-       // JFrame frame = new OperacionOk();
-        //frame.setVisible(true);
-        this.setVisible(false);
+        try {
+            String nombre, user, clave;
+            nombre = txtNombre.getText();
+            user = txtUsuario.getText();
+            clave = txtClave.getText();
+           
+            if(Menu.buscarUser2(user)){           
+                JOptionPane.showMessageDialog(null, "Ya existe usuario");
+                 txtNombre.setText("");
+                 txtUsuario.setText("");
+                 txtClave.setText("");
+                return;
+            }        
+            Menu.agregarUser(nombre, user, clave);
+            JOptionPane.showMessageDialog(null, "Operacion Exitosa");
+           // JFrame frame = new OperacionOk();
+            //frame.setVisible(true);
+            this.setVisible(false);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AddUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AddUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAceptarActionPerformed
     
     /**
