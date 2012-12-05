@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -212,7 +213,7 @@ public class Menu {
     }
     
      
-    public static void addPeliHorario(int codSala, int codPeli,Calendar in, Calendar fin) throws FileNotFoundException, IOException {
+    public static void addPeliHorario(int codSala, int codPeli,String tit,Date in, Date fin) throws FileNotFoundException, IOException {
         File u=new File("Horarios");
         u.mkdir();  
        
@@ -220,10 +221,11 @@ public class Menu {
         
         horarios.seek(horarios.length());
         
-        salas.writeInt(codSala);
-        salas.writeInt(codPeli);
-        salas.writeLong(in.getTimeInMillis());
-        salas.writeLong(fin.getTimeInMillis());        
+        horarios.writeInt(codSala);
+        horarios.writeInt(codPeli);
+        horarios.writeUTF(tit);
+        horarios.writeLong(in.getTime());
+        horarios.writeLong(fin.getTime());        
           
     }
     
@@ -257,23 +259,24 @@ public class Menu {
       return null;
     }
     
-   public static Horarios getHorario(int cod) throws FileNotFoundException{
+   public static ArrayList<Horarios> getHorario(int cod) throws FileNotFoundException{
         File u=new File("Horarios");
         u.mkdir();     
         Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+cod+".movi"), "rw");
+        ArrayList <Horarios> pelis=new ArrayList<>(); 
        try{
         horarios.seek(0);
-        while(horarios.getFilePointer() < horarios.length() ){
-      
-            int codSala=salas.readInt();
-            int codPeli=salas.readInt();
-            long ini = salas.readLong();
-            long fin=salas.readLong();  
-
-              if( cod == codSala ){           
-                  return new Horarios(codSala,codPeli,new Date(ini),new Date(fin))   ;
-              } 
-          }  
+        while(horarios.getFilePointer() < horarios.length() ){      
+            int codSala=horarios.readInt();
+            int codPeli=horarios.readInt();
+            String tit= horarios.readUTF();
+            long ini = horarios.readLong();
+            long fin=horarios.readLong();  
+              
+        
+            pelis.add( new Horarios(codSala, codPeli, tit, new Date(ini), new Date(fin)));
+          }
+         return pelis;
         }
         catch(IOException e){
             System.out.println("ERROR");

@@ -14,16 +14,22 @@ import java.util.Date;
 public class Horarios {
     protected int codSala;
     protected int codPel;
+    protected String tit;
     protected Date inicio;
     protected Date fina;
     
     
     
-    public Horarios(int codSala, int codPel, Date inicio, Date fina){
+    public Horarios(int codSala, int codPel, String tit,Date inicio, Date fina){
         this.codSala=codSala;
         this.codPel=codPel;
+        this.tit=tit;
         this.inicio=inicio;
         this.fina=fina;
+    }
+
+    public String getTit() {
+        return tit;
     }
 
     public int getCodSala() {
@@ -42,7 +48,10 @@ public class Horarios {
         return fina;
     }
     
-    
+    @Override
+    public String toString(){
+        return "Sala: "+codSala+" Pelicula: "+codPel+" Título: "+tit+" Inicio: "+inicio+ " Fin: "+fina;
+    } 
     
     
 }

@@ -6,12 +6,16 @@ package Formularios;
 
 import Menú.Menu;
 import Paneles.EditHorasPanel;
+import Peliculas.Horarios;
 import Peliculas.Pelicula;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -37,7 +41,7 @@ public class EditHoras extends javax.swing.JFrame {
         AddSala.restar();
         
         for(int s=1; s<codSalas; s++){
-            String a="Sala "+s;
+            String a= "Sala "+s;
             comboSala.addItem(a);
         }
         
@@ -47,7 +51,7 @@ public class EditHoras extends javax.swing.JFrame {
         for(int s=1; s<codPeli; s++){
             Pelicula peli=Menu.getPeli(s);
        
-            String a=peli.getCod()+" - "+peli.getTitulo();
+            String a=" - "+peli.getTitulo();
             comboPelicula.addItem(a);
         }
         
@@ -82,13 +86,20 @@ public class EditHoras extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
         txtHora = new javax.swing.JTextField();
         txtMinutos = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        txtMinFin = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setIconImage(getIconImage());
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -110,15 +121,30 @@ public class EditHoras extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText(" Hora Fin");
 
+        comboSala.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboSalaMouseClicked(evt);
+            }
+        });
         comboSala.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboSalaActionPerformed(evt);
+            }
+        });
+        comboSala.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                comboSalaFocusLost(evt);
             }
         });
 
         comboPelicula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboPeliculaActionPerformed(evt);
+            }
+        });
+        comboPelicula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                comboPeliculaFocusGained(evt);
             }
         });
 
@@ -159,7 +185,7 @@ public class EditHoras extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Sala", "Pelicula", "Titulo", "Duracion", "Inicio", "Fin"
+                "Sala", "Pelicula", "Titulo", "Inicio", "Fin"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -170,8 +196,6 @@ public class EditHoras extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("PELICULAS ASIGANDAS A  ESTA SALA");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AM", "PM" }));
-
         txtHora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtHoraActionPerformed(evt);
@@ -181,6 +205,16 @@ public class EditHoras extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText(":");
 
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText(":");
+
+        jButton1.setText("Refresh");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -188,13 +222,7 @@ public class EditHoras extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(btnAceptar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancelar)
-                        .addGap(47, 47, 47))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,19 +241,28 @@ public class EditHoras extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(34, 34, 34)
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtHoraFin)))
-                        .addGap(0, 10, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMinFin, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 10, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(btnAceptar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar)
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(54, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -261,18 +298,20 @@ public class EditHoras extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                             .addComponent(txtHora)
                             .addComponent(jLabel1)
                             .addComponent(txtMinutos))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMinFin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAceptar)
-                            .addComponent(btnCancelar)))
+                            .addComponent(btnCancelar)
+                            .addComponent(jButton1)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -336,7 +375,8 @@ public class EditHoras extends javax.swing.JFrame {
            int n2= b.getMinutes();
           
            //txtHoraFin.setText(String.valueOf(n1)+":"+String.valueOf(n2));
-            txtHoraFin.setText(String.valueOf(b));
+            txtHoraFin.setText(String.valueOf(n1));
+            txtMinFin.setText(String.valueOf(n2));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -351,19 +391,89 @@ public class EditHoras extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         try {
             // TODO add your handling code here:
+          Calendar ini=Calendar.getInstance();    
+          Calendar fi=Calendar.getInstance(); 
+          Date a=new Date(); 
+          Date b=new Date();
+            
           int codSala=comboSala.getSelectedIndex()+1;
           int codPeli=comboPelicula.getSelectedIndex()+1; 
+          ini.set(a.getYear(), a.getMonth(), a.getDay(),Integer.parseInt(txtHora.getText()),Integer.parseInt(txtMinutos.getText()) );
+          a=ini.getTime();
+          fi.set(b.getYear(), b.getMonth(), b.getDay(),Integer.parseInt(txtHoraFin.getText()),Integer.parseInt(txtMinFin.getText()) );
+          b=fi.getTime();
+          String tit=comboPelicula.getSelectedItem().toString();
           
-          
-          Menu.addPeliHorario(codSala,codPeli, null, null);
+          Menu.addPeliHorario(codSala,codPeli,tit,a,b);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
         }
        
-       
+      JFrame frame = new OperacionOk();
+      frame.setVisible(true);
+      this.setVisible(false);
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:        
+   
+             
+    }//GEN-LAST:event_formWindowOpened
+
+    private void comboSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboSalaMouseClicked
+       
+    }//GEN-LAST:event_comboSalaMouseClicked
+
+    private void comboPeliculaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboPeliculaFocusGained
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_comboPeliculaFocusGained
+
+    private void comboSalaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboSalaFocusLost
+        // TODO add your handling code here:
+        
+      
+    }//GEN-LAST:event_comboSalaFocusLost
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+       try {
+            // TODO add your handling code here:
+        File u=new File("Horarios");
+        u.mkdir();     
+        Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+(comboSala.getSelectedIndex()+1)+".movi"), "rw");    
+            
+      
+       ArrayList<Horarios> pelis;
+       pelis= Menu.getHorario(comboSala.getSelectedIndex()+1);
+       Object [][] data=null;
+       if(pelis!=null){
+         
+         data=new Object[pelis.size()][5];
+         for(int x=0;x<pelis.size();x++){    
+           data[x][0]=pelis.get(x).getCodSala();
+           data[x][1]=pelis.get(x).getCodPel();
+           data[x][2]=pelis.get(x).getTit();
+           int hrs=pelis.get(x).getInicio().getHours();
+           int mis=pelis.get(x).getInicio().getMinutes();
+           data[x][3]=(hrs+":"+mis);
+           hrs=pelis.get(x).getFina().getHours();
+           mis=pelis.get(x).getFina().getMinutes();
+           data[x][4]=(hrs+":"+mis);         
+        }    
+       }
+       
+         
+        String [] cadenas={ "Sala", "Pelicula", "Título","Inicio","Fin"}; 
+       jTable1.setModel(new javax.swing.table.DefaultTableModel( data  ,cadenas)) ;
+        } catch (IOException ex) {
+            Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -408,7 +518,7 @@ public class EditHoras extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox comboPelicula;
     private javax.swing.JComboBox comboSala;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -417,11 +527,13 @@ public class EditHoras extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtDuracion;
     private javax.swing.JTextField txtHora;
     private javax.swing.JTextField txtHoraFin;
+    private javax.swing.JTextField txtMinFin;
     private javax.swing.JTextField txtMinutos;
     // End of variables declaration//GEN-END:variables
 }
