@@ -5,6 +5,9 @@ import Paneles.AdministradorPanel;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 public class Administrador extends javax.swing.JFrame {
@@ -181,9 +184,13 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarPeliculaActionPerformed
 
     private void btnEditarHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarHorarioActionPerformed
-        frame = new EditHoras();
-        frame.setVisible(true);
-        this.setVisible(false);
+        try {
+            frame = new EditHoras();
+            frame.setVisible(true);
+            this.setVisible(false);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnEditarHorarioActionPerformed
 
     private void btnEditarPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPerfilActionPerformed

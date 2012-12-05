@@ -6,17 +6,19 @@ import java.util.Date;
 public class Pelicula {
     protected int cod;
     protected String titulo;
-    protected double dura;
+    protected int hrs;
+    protected int min;
     protected TipoPelicula genero;
     protected TipoClasificacion clasi;
     protected TipoFormatoPeli formato;
     protected Date fecha;
     protected String imagen;
     
-    public Pelicula(int cod, String titulo, double dura, TipoPelicula genero, TipoClasificacion clasi,Date fe,TipoFormatoPeli formato,String imagen){
+    public Pelicula(int cod, String titulo, int hrs,int min, TipoPelicula genero, TipoClasificacion clasi,Date fe,TipoFormatoPeli formato,String imagen){
         this.cod=cod;
         this.titulo=titulo;
-        this.dura=dura;
+        this.hrs=hrs;
+        this.min=min;
         this.genero=genero;
         this.clasi=clasi;
         this.formato=formato;
@@ -33,8 +35,12 @@ public class Pelicula {
         return cod;
     }
 
-    public double getDura() {
-        return dura;
+    public int getHoras() {
+        return hrs;
+    }
+    
+     public int getMinutos() {
+        return min;
     }
 
     public Date getFecha() {
@@ -60,7 +66,7 @@ public class Pelicula {
     
     @Override
     public String toString(){
-        return "Codigo: "+cod+" Titulo: "+titulo+" Duracion: "+dura;
+        return "Codigo: "+cod+" Titulo: "+titulo+" Duracion: "+hrs+":"+min;
     }
     
 }
