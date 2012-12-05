@@ -19,8 +19,12 @@ public final class MainWindow extends javax.swing.JFrame {
     public MainWindow() {     
         try {
             initComponents(); 
+          Menu m=new Menu();  
+            
+          if(Menu.users.length()==0){ 
             Menu.agregarUser("guest", "guest", "password");
             Menu.agregarUser("admin", "admin", "unitec");
+          }   
             BackPannel back = new BackPannel();
             this.add(back,BorderLayout.CENTER);
             this.pack();

@@ -26,7 +26,7 @@ public class AddSala extends javax.swing.JFrame {
     public JButton[][] buttons;
     ImageIcon habilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaOcupada.jpg")).getImage());
     ImageIcon deshabilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaLibre.jpg")).getImage());
-    static RandomAccessFile rCod;
+    public static RandomAccessFile rCod;
     public AddSala() {
         initComponents();
         AddSalaPanel back = new AddSalaPanel();        

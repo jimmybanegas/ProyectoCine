@@ -4,10 +4,15 @@
  */
 package Formularios;
 
+import Menú.Menu;
 import Paneles.EditHorasPanel;
+import Peliculas.Pelicula;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -19,11 +24,30 @@ public class EditHoras extends javax.swing.JFrame {
     /**
      * Creates new form EditHoras
      */
-    public EditHoras() {
+    public EditHoras() throws FileNotFoundException {
         initComponents();
         EditHorasPanel back = new EditHorasPanel();
         this.add(back,BorderLayout.CENTER);
         this.pack();
+        
+        int codSalas= AddSala.codSala();
+        AddSala.restar();
+        
+        for(int s=1; s<codSalas; s++){
+            String a="Sala "+s;
+            comboSala.addItem(a);
+        }
+        
+        int codPeli=AddPelicula.codPeli();
+        AddPelicula.restar();
+        
+        for(int s=1; s<codPeli; s++){
+            Pelicula peli=Menu.getPeli(s);
+       
+            String a=peli.getCod()+" - "+peli.getTitulo();
+            comboPelicula.addItem(a);
+        }
+        
     }
  @Override
     public Image getIconImage(){
@@ -81,9 +105,29 @@ public class EditHoras extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText(" Hora Fin");
 
-        comboSala.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboSala.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboSalaActionPerformed(evt);
+            }
+        });
 
-        comboPelicula.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboPelicula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboPeliculaActionPerformed(evt);
+            }
+        });
+
+        txtDuracion.setEditable(false);
+        txtDuracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDuracionActionPerformed(evt);
+            }
+        });
+        txtDuracion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDuracionFocusGained(evt);
+            }
+        });
 
         btnAceptar.setText("Aceptar");
 
@@ -174,6 +218,32 @@ public class EditHoras extends javax.swing.JFrame {
         frame.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void comboSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSalaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboSalaActionPerformed
+
+    private void comboPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPeliculaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboPeliculaActionPerformed
+
+    private void txtDuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDuracionActionPerformed
+        // TODO add your handling code here:
+        
+       
+        
+    }//GEN-LAST:event_txtDuracionActionPerformed
+
+    private void txtDuracionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDuracionFocusGained
+        try {
+            // TODO add your handling code here:
+            int x=comboPelicula.getSelectedIndex();
+            Pelicula p=Menu.getPeli(x+1);
+            txtDuracion.setText(String.valueOf(p.getDura()));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_txtDuracionFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -204,7 +274,11 @@ public class EditHoras extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditHoras().setVisible(true);
+                try {
+                    new EditHoras().setVisible(true);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -13,15 +13,16 @@ public class Pelicula {
     protected Date fecha;
     protected String imagen;
     
-    public Pelicula(int cod, String titulo, double dura, TipoPelicula genero, TipoClasificacion clasi,TipoFormatoPeli formato,String imagen){
+    public Pelicula(int cod, String titulo, double dura, TipoPelicula genero, TipoClasificacion clasi,Date fe,TipoFormatoPeli formato,String imagen){
         this.cod=cod;
         this.titulo=titulo;
         this.dura=dura;
         this.genero=genero;
         this.clasi=clasi;
         this.formato=formato;
+        this.fecha=fe;
         this.imagen=imagen;
-        fecha=new Date();
+       
     }
 
     public TipoClasificacion getClasi() {

@@ -1,14 +1,17 @@
 package Menú;
 
+import Peliculas.Pelicula;
 import Peliculas.TipoClasificacion;
 import Peliculas.TipoFormatoPeli;
 import Peliculas.TipoPelicula;
 import Salas.TipoFormato;
 import Salas.TipoSala;
+import Usuarios.Usuario;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Date;
 
 public class Menu {
    
@@ -16,18 +19,25 @@ public class Menu {
   //  public static ArrayList<Sala> salas=new ArrayList<>();
  //   public static ArrayList<Pelicula> peliculas=new ArrayList<>();  
     
-     public static  RandomAccessFile users;
+     public static  RandomAccessFile users ;
      public static  RandomAccessFile salas ;
      public static  RandomAccessFile peliculas ;
+     public static  RandomAccessFile horarios ;
  
   //  public static int contpeli=codPeli();
  //   public static int contsala=codSala();
+   
+     public Menu() throws FileNotFoundException{
+         File u=new File("Usuarios");
+         u.mkdir(); 
+         users = new RandomAccessFile( new File("Usuarios\\cinefilos.movi"), "rw");
+     }
     
     public static void agregarUser(String nombre, String user, String pass) throws FileNotFoundException, IOException{
-        File u=new File("Usuarios");
-        u.mkdir();     
+       // File u=new File("Usuarios");
+      //  u.mkdir();     
        
-        Menu.users = new RandomAccessFile( new File("Usuarios\\cinefilos.movi"), "rw");
+      //  Menu.users = new RandomAccessFile( new File("Usuarios\\cinefilos.movi"), "rw");
         
         users.seek(users.length());        
         users.writeUTF(nombre);
@@ -47,7 +57,7 @@ public class Menu {
         
         salas.writeInt(cod);
         salas.writeUTF(tipo.toString());
-        salas.writeUTF("");
+        salas.writeUTF(" ");
         salas.writeInt(fil);
         salas.writeInt(col);
       
@@ -61,6 +71,11 @@ public class Menu {
                }
              } 
         }
+        
+        File h=new File("Horarios");
+        h.mkdir();  
+        
+        Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+cod+".movi"), "rw"); 
         //  salas.add(new Sala(cod,tipo,filas,asientos,sillas));
        
         
@@ -90,6 +105,11 @@ public class Menu {
                }
              } 
         }
+         
+        File h=new File("Horarios");
+        h.mkdir();  
+        
+        Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+cod+".movi"), "rw");  
         //     salas.add( new sala3D(cod,tipo,format, filas,asientos,sillas));
        //  Menu.contsala+=1;
     }
@@ -97,16 +117,20 @@ public class Menu {
     public static void agregarPelicula(int cod, String tit, double dur, TipoPelicula gen, TipoClasificacion clasif, TipoFormatoPeli formato,String imagen) throws FileNotFoundException, IOException{
         File u=new File("Peliculas");
         u.mkdir();     
-        Menu.peliculas= new RandomAccessFile( new File("Peliculas\\sala"+cod+".movi"), "rw");   
+        Menu.peliculas= new RandomAccessFile( new File("Peliculas\\peliculas.movi"), "rw");   
    
         peliculas.seek(peliculas.length());
        
         peliculas.writeInt(cod);
         peliculas.writeDouble(dur);
+        peliculas.writeUTF(tit);
         peliculas.writeUTF(gen.toString());
         peliculas.writeUTF(clasif.toString());
+        peliculas.writeLong( new Date().getTime());//Escribo la fecha
         peliculas.writeUTF(formato.toString());
         peliculas.writeUTF(imagen); 
+        
+      
         //   peliculas.add( new Pelicula(cod,tit,dur,gen,clasif, formato,imagen));
      //   Menu.contpeli+= 1;
     }
@@ -183,6 +207,57 @@ public class Menu {
         return false;*/
     }
     
+     
+    public static void addPeliHorario(int codSala, int codPeli, double in, double fin) throws FileNotFoundException, IOException {
+        File u=new File("Horarios");
+        u.mkdir();  
+        Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+codSala+".movi"), "rw");
+        
+        horarios.seek(horarios.length());
+        
+        salas.writeInt(codPeli);
+        salas.writeDouble(in);
+        salas.writeDouble(fin); 
+        
+      /*   for(int x=0;x<fil;x++){          
+             for(int y=0;y<col;y++){    
+               if(sillas[x][y]){
+                   salas.writeBoolean(true);
+               }
+               else if(sillas[x][y]==false){
+                   salas.writeBoolean(false);
+               }
+             } 
+        }*/
+    }
     
+   public static Pelicula getPeli(int cod) throws FileNotFoundException{
+       File u=new File("Peliculas");
+        u.mkdir();     
+        Menu.peliculas= new RandomAccessFile( new File("Peliculas\\peliculas.movi"), "rw");   
+       try{
+        peliculas.seek(0);
+        while(peliculas.getFilePointer() < peliculas.length() ){
+      
+            int co=peliculas.readInt();//Codigo
+            double d= peliculas.readDouble();//Duracion
+            String tit= peliculas.readUTF();//Titulo nombre
+            String ti= peliculas.readUTF();//TipoPelicula Genero
+            String cla=peliculas.readUTF();//TipoClasificacion
+            long fecha=peliculas.readLong();//Fecha de adicion
+            String fo= peliculas.readUTF();//TipoFormato 3D/Normal
+            String ima=peliculas.readUTF(); //Path de imagen
+
+              if( cod == co ){            
+                  return new Pelicula(co,tit,d,TipoPelicula.valueOf(ti),TipoClasificacion.valueOf(cla),new Date(fecha),TipoFormatoPeli.valueOf(fo),ima)  ;
+              } 
+          }  
+        }
+        catch(IOException e){
+            System.out.println("ERROR");
+        }
+      
+      return null;
+    }
     
 }
