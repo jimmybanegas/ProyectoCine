@@ -20,7 +20,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -188,7 +191,9 @@ public class EditHoras extends javax.swing.JFrame {
                 "Sala", "Pelicula", "Titulo", "Inicio", "Fin"
             }
         ));
+        jTable1.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("AGREGAR PELICULA A HORARIO");
@@ -263,8 +268,8 @@ public class EditHoras extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                .addGap(54, 54, 54))
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -282,7 +287,7 @@ public class EditHoras extends javax.swing.JFrame {
                         .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -312,7 +317,7 @@ public class EditHoras extends javax.swing.JFrame {
                             .addComponent(btnAceptar)
                             .addComponent(btnCancelar)
                             .addComponent(jButton1)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -453,7 +458,7 @@ public class EditHoras extends javax.swing.JFrame {
        Object [][] data=null;
        if(pelis!=null){
          
-         data=new Object[pelis.size()][5];
+         data=new Object[pelis.size()][6];
          for(int x=0;x<pelis.size();x++){    
            data[x][0]=pelis.get(x).getCodSala();
            data[x][1]=pelis.get(x).getCodPel();
@@ -463,18 +468,31 @@ public class EditHoras extends javax.swing.JFrame {
            data[x][3]=(hrs+":"+mis);
            hrs=pelis.get(x).getFina().getHours();
            mis=pelis.get(x).getFina().getMinutes();
-           data[x][4]=(hrs+":"+mis);         
+           data[x][4]=(hrs+":"+mis);            
+          // data[x][5]=agregarColumn;  
+           data[x][5]= new JButton("Eliminar");
         }    
        }
-       
+        
          
-        String [] cadenas={ "Sala", "Pelicula", "Título","Inicio","Fin"}; 
-       jTable1.setModel(new javax.swing.table.DefaultTableModel( data  ,cadenas)) ;
+        String [] cadenas={ "Sala", "Pelicula", "Título","Inicio","Fin","Remover"}; 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel( data  ,cadenas)) ;
         } catch (IOException ex) {
             Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }      
+      
+          
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
+     private  TableColumn eliminar(){
+           TableColumn agregarColumn;
+           
+           agregarColumn = jTable1.getColumnModel().getColumn(5);
+        
+           agregarColumn.setCellEditor(new myeditor(jTable1));
+           agregarColumn.setCellRenderer(new myrenderer(true));	
+           return agregarColumn;
+       }  
     /**
      * @param args the command line arguments
      */
