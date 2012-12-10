@@ -169,6 +169,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.setVisible(false);
+         new MainWindow().setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAgregarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarSalaActionPerformed
