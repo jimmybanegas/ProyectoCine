@@ -261,8 +261,12 @@ public class AddPelicula extends javax.swing.JFrame {
             TipoClasificacion clasif= (TipoClasificacion) comboClasificacion.getSelectedItem();
             TipoFormatoPeli formato=(TipoFormatoPeli) comboFormato.getSelectedItem();
             String imagen=jpgMoviePic.getText();
-            
-            Menu.agregarPelicula(cod,tit,hor,min, gen, clasif,formato,imagen);  
+            File foto= new File(imagen);
+            foto.createNewFile();
+          
+            foto.renameTo( new File("Imagenes\\"+foto.getName()));
+            System.out.println(foto.getAbsolutePath());
+            Menu.agregarPelicula(cod,tit,hor,min, gen, clasif,formato,foto.getAbsolutePath());  
             
             JFrame frame = new OperacionOk();
             frame.setVisible(true);
