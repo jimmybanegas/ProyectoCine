@@ -203,29 +203,24 @@ public class Menu {
         }
         return false;
          
-         /* for(Usuario x: users){
-            if((x.getUser().equalsIgnoreCase(user))&&(x.isCredencial())){
-                return true;
-            }         
-        }
-        return false;*/
+       
     }
     
      
-    public static void addPeliHorario(int codSala, int codPeli,String tit,Date in, Date fin) throws FileNotFoundException, IOException {
+    public static void addPeliHorario(int codHorario,int codSala, int codPeli,String tit,Date in, Date fin, boolean activa) throws FileNotFoundException, IOException {
         File u=new File("Horarios");
         u.mkdir();  
        
         Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+codSala+".movi"), "rw");
-        
+      
         horarios.seek(horarios.length());
-        
+        horarios.writeInt(codHorario);
         horarios.writeInt(codSala);
         horarios.writeInt(codPeli);
         horarios.writeUTF(tit);
         horarios.writeLong(in.getTime());
         horarios.writeLong(fin.getTime());        
-          
+        horarios.writeBoolean(activa);
     }
     
    public static Pelicula getPeli(int cod) throws FileNotFoundException{
@@ -245,7 +240,7 @@ public class Menu {
             long fecha=peliculas.readLong();//Fecha de adicion
             String fo= peliculas.readUTF();//TipoFormato 3D/Normal
             String ima=peliculas.readUTF(); //Path de imagen
-
+              
               if( cod == co ){            
                   return new Pelicula(co,tit,hor,min,TipoPelicula.valueOf(ti),TipoClasificacion.valueOf(cla),new Date(fecha),TipoFormatoPeli.valueOf(fo),ima)  ;
               } 
@@ -266,14 +261,17 @@ public class Menu {
        try{
         horarios.seek(0);
         while(horarios.getFilePointer() < horarios.length() ){      
+            int codHorario=horarios.readInt();
             int codSala=horarios.readInt();
             int codPeli=horarios.readInt();
             String tit= horarios.readUTF();
             long ini = horarios.readLong();
             long fin=horarios.readLong();  
-              
+            boolean activa=horarios.readBoolean();   
         
-            pelis.add( new Horarios(codSala, codPeli, tit, new Date(ini), new Date(fin)));
+           if(activa==true){           
+             pelis.add( new Horarios(codHorario, codSala, codPeli, tit, new Date(ini), new Date(fin)));
+           }  
           }
          return pelis;
         }
@@ -283,4 +281,6 @@ public class Menu {
       
       return null;
     }
+   
+ 
 }

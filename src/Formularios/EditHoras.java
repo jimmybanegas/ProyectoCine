@@ -9,20 +9,37 @@ import Paneles.EditHorasPanel;
 import Peliculas.Horarios;
 import Peliculas.Pelicula;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.EventObject;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 /**
@@ -30,13 +47,14 @@ import javax.swing.table.TableColumn;
  * @author Alexander
  */
 public class EditHoras extends javax.swing.JFrame {
-
+ static  RandomAccessFile rCod ;
     /**
      * Creates new form EditHoras
      */
     public EditHoras() throws FileNotFoundException {
         initComponents();
         EditHorasPanel back = new EditHorasPanel();
+        txtCodHorario.setText(String.valueOf(EditHoras.codHorario()));
         this.add(back,BorderLayout.CENTER);
         this.pack();
         
@@ -54,7 +72,7 @@ public class EditHoras extends javax.swing.JFrame {
         for(int s=1; s<codPeli; s++){
             Pelicula peli=Menu.getPeli(s);
        
-            String a=" - "+peli.getTitulo();
+            String a=peli.getTitulo();
             comboPelicula.addItem(a);
         }
         
@@ -95,6 +113,8 @@ public class EditHoras extends javax.swing.JFrame {
         txtMinFin = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        txtCodHorario = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         setIconImage(getIconImage());
         setResizable(false);
@@ -188,7 +208,7 @@ public class EditHoras extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Sala", "Pelicula", "Titulo", "Inicio", "Fin"
+                "Código", "Sala", "Pelicula", "Titulo", "Inicio", "Fin", "Remover"
             }
         ));
         jTable1.setColumnSelectionAllowed(true);
@@ -220,6 +240,11 @@ public class EditHoras extends javax.swing.JFrame {
             }
         });
 
+        txtCodHorario.setEditable(false);
+
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Codigo:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -231,10 +256,6 @@ public class EditHoras extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboSala, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -250,7 +271,15 @@ public class EditHoras extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel10))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(comboSala, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtCodHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -263,9 +292,9 @@ public class EditHoras extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(btnAceptar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)
                         .addGap(30, 30, 30)
+                        .addComponent(btnCancelar)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
@@ -280,12 +309,20 @@ public class EditHoras extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtCodHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel10)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -312,22 +349,23 @@ public class EditHoras extends javax.swing.JFrame {
                             .addComponent(txtHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMinFin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAceptar)
                             .addComponent(btnCancelar)
                             .addComponent(jButton1)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-834)/2, (screenSize.height-387)/2, 834, 387);
+        setBounds((screenSize.width-834)/2, (screenSize.height-423)/2, 834, 423);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.setVisible(false);
         JFrame frame = new Administrador();
+        restar();
         frame.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -400,7 +438,7 @@ public class EditHoras extends javax.swing.JFrame {
           Calendar fi=Calendar.getInstance(); 
           Date a=new Date(); 
           Date b=new Date();
-            
+          int codHorario=Integer.parseInt(txtCodHorario.getText());
           int codSala=comboSala.getSelectedIndex()+1;
           int codPeli=comboPelicula.getSelectedIndex()+1; 
           ini.set(a.getYear(), a.getMonth(), a.getDay(),Integer.parseInt(txtHora.getText()),Integer.parseInt(txtMinutos.getText()) );
@@ -408,8 +446,9 @@ public class EditHoras extends javax.swing.JFrame {
           fi.set(b.getYear(), b.getMonth(), b.getDay(),Integer.parseInt(txtHoraFin.getText()),Integer.parseInt(txtMinFin.getText()) );
           b=fi.getTime();
           String tit=comboPelicula.getSelectedItem().toString();
+          boolean activa=true;
           
-          Menu.addPeliHorario(codSala,codPeli,tit,a,b);
+          Menu.addPeliHorario(codHorario,codSala,codPeli,tit,a,b,activa);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -444,10 +483,76 @@ public class EditHoras extends javax.swing.JFrame {
     }//GEN-LAST:event_comboSalaFocusLost
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try {           
+            jTable1.setModel(makeTable());  
+            jTable1.setRowHeight(36);
+            jTable1.setAutoCreateRowSorter(true);
+        //table.addMouseListener(new CellButtonsMouseListener());
+        //ButtonsEditorRenderer er = new ButtonsEditorRenderer(table);
+        TableColumn column = jTable1.getColumnModel().getColumn(6);
+       column.setCellRenderer(new ButtonsRenderer());
+       column.setCellEditor(new ButtonsEditor(jTable1));
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
+        }                
+    }//GEN-LAST:event_jButton1ActionPerformed
+       
+     public static void eliminar(int codHorario) throws IOException{
+        Menu.horarios.seek(0);
+        while(Menu.horarios.getFilePointer() < Menu.horarios.length() ){      
+            int codHora=Menu.horarios.readInt();
+            Menu.horarios.readInt();
+            Menu.horarios.readInt();
+            Menu.horarios.readUTF();
+            Menu.horarios.readLong();
+            Menu.horarios.readLong(); 
+            
+            long pos=Menu.horarios.getFilePointer();
+            boolean activa=Menu.horarios.readBoolean();   
         
-       try {
-            // TODO add your handling code here:
+           if(codHora==codHorario&&activa==true){           
+              Menu.horarios.seek(pos);
+              Menu.horarios.writeBoolean(false);
+           }  
+          }     
+         
+     }  
+     
+      public static int codHorario(){       
+         File u=new File("Horarios");
+         u.mkdir(); 
+         try{
+            rCod = new RandomAccessFile( new File("Horarios\\codigohorarios.movi"),"rw");
+            int codigo = 100;
+            
+            if( rCod.length() == 4){
+                codigo = rCod.readInt();
+                rCod.seek(0);
+            }
+            
+            rCod.writeInt(codigo + 1);
+            return codigo;
+        }
+        catch(IOException e){
+          System.out.println("ERROR");
+          return -1;
+        }
+    } 
+      
+       public static void restar() {
+        try {       
+            rCod.seek(0);
+              rCod.writeInt(codHorario()-1);
+        } catch (IOException ex) {
+            Logger.getLogger(AddPelicula.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    } 
+     
+      private  DefaultTableModel makeTable() throws FileNotFoundException {
+        boolean empty = false;
+        String [] cadenas={ "Codigo","Sala", "Pelicula", "Título","Inicio","Fin","Remover"};
+       
         File u=new File("Horarios");
         u.mkdir();     
         Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+(comboSala.getSelectedIndex()+1)+".movi"), "rw");    
@@ -458,41 +563,147 @@ public class EditHoras extends javax.swing.JFrame {
        Object [][] data=null;
        if(pelis!=null){
          
-         data=new Object[pelis.size()][6];
+         data=new Object[pelis.size()][7];
          for(int x=0;x<pelis.size();x++){    
-           data[x][0]=pelis.get(x).getCodSala();
-           data[x][1]=pelis.get(x).getCodPel();
-           data[x][2]=pelis.get(x).getTit();
+           data[x][0]=pelis.get(x).getCodHorario();
+           data[x][1]=pelis.get(x).getCodSala();
+           data[x][2]=pelis.get(x).getCodPel();
+           data[x][3]=pelis.get(x).getTit();
            int hrs=pelis.get(x).getInicio().getHours();
            int mis=pelis.get(x).getInicio().getMinutes();
-           data[x][3]=(hrs+":"+mis);
+           data[x][4]=(hrs+":"+mis);
            hrs=pelis.get(x).getFina().getHours();
            mis=pelis.get(x).getFina().getMinutes();
-           data[x][4]=(hrs+":"+mis);            
-          // data[x][5]=agregarColumn;  
-           data[x][5]= new JButton("Eliminar");
+           data[x][5]=(hrs+":"+mis);          
+           data[x][6]= empty;
         }    
        }
         
-         
-        String [] cadenas={ "Sala", "Pelicula", "Título","Inicio","Fin","Remover"}; 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel( data  ,cadenas)) ;
-        } catch (IOException ex) {
-            Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
-        }      
+       DefaultTableModel model = new DefaultTableModel(data, cadenas) {
+            @Override public Class<?> getColumnClass(int column) {
+                return getValueAt(0, column).getClass();
+            }
+        };
+      //  final JTable table = new JTable(model);
+     //   table.setRowHeight(36);
+      //  table.setAutoCreateRowSorter(true);
+        //table.addMouseListener(new CellButtonsMouseListener());
+        //ButtonsEditorRenderer er = new ButtonsEditorRenderer(table);
+      //  TableColumn column = table.getColumnModel().getColumn(1);
+     //   column.setCellRenderer(new ButtonsRenderer());
+       // column.setCellEditor(new ButtonsEditor(table));
+        return model;
+    }
       
-          
-    }//GEN-LAST:event_jButton1ActionPerformed
-    
-     private  TableColumn eliminar(){
-           TableColumn agregarColumn;
-           
-           agregarColumn = jTable1.getColumnModel().getColumn(5);
-        
-           agregarColumn.setCellEditor(new myeditor(jTable1));
-           agregarColumn.setCellRenderer(new myrenderer(true));	
-           return agregarColumn;
-       }  
+    class ButtonsPanel extends JPanel {
+    public final List<JButton> buttons = Arrays.asList(new JButton("Eliminar"), new JButton("edit"));
+    public ButtonsPanel() {
+        super();
+        setOpaque(true);
+        for(JButton b: buttons) {
+            b.setFocusable(false);
+            b.setRolloverEnabled(false);
+            add(b);
+        }
+    }
+
+}
+class ButtonsRenderer extends ButtonsPanel implements TableCellRenderer {
+    public ButtonsRenderer() {
+        super();
+        setName("Table.cellRenderer");
+    }
+    @Override public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        this.setBackground(isSelected?table.getSelectionBackground():table.getBackground());
+        return this;
+    }
+}
+class ButtonsEditor extends ButtonsPanel implements TableCellEditor {
+    public ButtonsEditor(final JTable table) {
+        super();
+
+        //---->
+        //DEBUG: view button click -> control key down + edit button(same cell) press -> remain selection color
+        MouseListener ml = new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                ButtonModel m = ((JButton)e.getSource()).getModel();
+                if(m.isPressed() && table.isRowSelected(table.getEditingRow()) && e.isControlDown()) {
+                    setBackground(table.getBackground());
+                }
+                
+            }
+        };
+
+        buttons.get(0).addMouseListener(ml);
+     //   buttons.get(1).addMouseListener(ml);
+
+        buttons.get(0).addActionListener(new ActionListener() {
+             int a ;
+            @Override public void actionPerformed(ActionEvent e) {
+             //   fireEditingStopped();
+                a=table.getEditingRow();              
+  
+               int seleccion = JOptionPane.showOptionDialog(table, "¿Desea borrar esta película?", "Seleccione una opción", 
+                  JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Si", "No"}, "Si");
+               
+               if (seleccion != -1){
+                   if((seleccion + 1)==1)   {
+                       try {
+                           EditHoras.eliminar(Integer.parseInt(table.getValueAt(a, 0).toString()));
+                           jButton1.doClick();                           
+                       } catch (IOException ex) {
+                           Logger.getLogger(ButtonsEditor.class.getName()).log(Level.SEVERE, null, ex);
+                       }
+                   }
+                   else {
+                       JOptionPane.showMessageDialog(table, "Se canceló eliminación");
+                   }
+              }
+            }
+        });
+       
+        addMouseListener(new MouseAdapter() {
+            @Override public void mousePressed(MouseEvent e) {
+            //    fireEditingStopped();
+            }
+        });
+    }
+    @Override public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+        this.setBackground(table.getSelectionBackground());
+        return this;
+    }
+    @Override public Object getCellEditorValue() {
+        return "";
+    }
+
+    transient protected ChangeEvent changeEvent = null;
+
+    @Override public boolean isCellEditable(EventObject e) {
+        return true;
+    } 
+    @Override public boolean shouldSelectCell(EventObject anEvent) {
+        return true;
+    }
+    @Override public boolean stopCellEditing() {
+     //   fireEditingStopped();
+        return true;
+    }
+    @Override public void  cancelCellEditing() {
+       // fireEditingCanceled();
+    }
+    @Override public void addCellEditorListener(CellEditorListener l) {
+        listenerList.add(CellEditorListener.class, l);
+    }
+    @Override public void removeCellEditorListener(CellEditorListener l) {
+        listenerList.remove(CellEditorListener.class, l);
+    }
+    public CellEditorListener[] getCellEditorListeners() {
+        return listenerList.getListeners(CellEditorListener.class);
+    } 
+  
+}
+
     /**
      * @param args the command line arguments
      */
@@ -522,6 +733,7 @@ public class EditHoras extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     new EditHoras().setVisible(true);
@@ -538,6 +750,7 @@ public class EditHoras extends javax.swing.JFrame {
     private javax.swing.JComboBox comboSala;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -548,6 +761,7 @@ public class EditHoras extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txtCodHorario;
     private javax.swing.JTextField txtDuracion;
     private javax.swing.JTextField txtHora;
     private javax.swing.JTextField txtHoraFin;
