@@ -12,8 +12,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
@@ -272,9 +270,9 @@ public class AddPelicula extends javax.swing.JFrame {
             frame.setVisible(true);
             this.setVisible(false);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(AddPelicula.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error: "+ ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(AddPelicula.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error: "+ ex.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -329,7 +327,7 @@ public class AddPelicula extends javax.swing.JFrame {
             rCod.seek(0);
               rCod.writeInt(codPeli()-1);
         } catch (IOException ex) {
-            Logger.getLogger(AddPelicula.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println("Error: "+ ex.getMessage());
         }        
     } 
      

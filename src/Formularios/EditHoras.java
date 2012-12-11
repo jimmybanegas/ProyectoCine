@@ -27,8 +27,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.EventObject;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -115,6 +113,7 @@ public class EditHoras extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         txtCodHorario = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setIconImage(getIconImage());
         setResizable(false);
@@ -245,6 +244,13 @@ public class EditHoras extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Codigo:");
 
+        jButton2.setText("Comprobar Horarios");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -252,43 +258,43 @@ public class EditHoras extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel10))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(comboSala, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtCodHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboSala, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCodHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtMinFin, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 10, Short.MAX_VALUE))
+                                .addComponent(txtMinFin, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)))
+                        .addGap(0, 44, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(btnAceptar)
@@ -297,7 +303,7 @@ public class EditHoras extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
                 .addGap(54, 54, 54))
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
@@ -339,16 +345,17 @@ public class EditHoras extends javax.swing.JFrame {
                             .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtHora)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                             .addComponent(jLabel1)
-                            .addComponent(txtMinutos))
+                            .addComponent(txtMinutos)
+                            .addComponent(txtHora))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMinFin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel9)
+                            .addComponent(jButton2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAceptar)
@@ -391,7 +398,7 @@ public class EditHoras extends javax.swing.JFrame {
             Pelicula p=Menu.getPeli(x+1);
             txtDuracion.setText(String.valueOf(p.getHoras()+":"+p.getMinutos()));        
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error: "+ ex.getMessage());
         }
     }//GEN-LAST:event_txtDuracionFocusGained
 
@@ -403,7 +410,7 @@ public class EditHoras extends javax.swing.JFrame {
             
              int x=comboPelicula.getSelectedIndex();
              Pelicula p=Menu.getPeli(x+1);
-          //   txtDuracion.setText(String.valueOf(p.getMin()+":"+p.getSeg()));            
+                
             int h =Integer.parseInt(txtHora.getText());
             int m =Integer.parseInt(txtMinutos.getText());
             
@@ -417,11 +424,10 @@ public class EditHoras extends javax.swing.JFrame {
            int n1=b.getHours();
            int n2= b.getMinutes();
           
-           //txtHoraFin.setText(String.valueOf(n1)+":"+String.valueOf(n2));
             txtHoraFin.setText(String.valueOf(n1));
             txtMinFin.setText(String.valueOf(n2));
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println("Error: "+ ex.getMessage());
         }
         
         
@@ -450,9 +456,9 @@ public class EditHoras extends javax.swing.JFrame {
           
           Menu.addPeliHorario(codHorario,codSala,codPeli,tit,a,b,activa);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error: "+ ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
+           System.out.println("Error: "+ ex.getMessage());
         }
        
       JFrame frame = new OperacionOk();
@@ -487,16 +493,54 @@ public class EditHoras extends javax.swing.JFrame {
             jTable1.setModel(makeTable());  
             jTable1.setRowHeight(36);
             jTable1.setAutoCreateRowSorter(true);
-        //table.addMouseListener(new CellButtonsMouseListener());
-        //ButtonsEditorRenderer er = new ButtonsEditorRenderer(table);
-        TableColumn column = jTable1.getColumnModel().getColumn(6);
+           
+       TableColumn column = jTable1.getColumnModel().getColumn(6);
        column.setCellRenderer(new ButtonsRenderer());
        column.setCellEditor(new ButtonsEditor(jTable1));
             
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+             System.out.println("Error: "+ex.getMessage());
         }                
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+          try {
+            // TODO add your handling code here:
+
+            Date inicio=Menu.horaInicial(comboSala.getSelectedIndex()+1);
+            Date fin=Menu.horaFinal(comboSala.getSelectedIndex()+1);
+            Date a=new Date(); 
+            Date b=new Date();
+            Calendar ini=Calendar.getInstance();    
+            Calendar fi=Calendar.getInstance(); 
+            ini.set(a.getYear(), a.getMonth(), a.getDay(),Integer.parseInt(txtHora.getText()),Integer.parseInt(txtMinutos.getText()) );
+            a=ini.getTime();
+            fi.set(b.getYear(), b.getMonth(), b.getDay(),Integer.parseInt(txtHoraFin.getText()),Integer.parseInt(txtMinFin.getText()) );
+            b=fi.getTime();
+        
+            
+         if(b.getTime()<inicio.getTime()) {
+            JOptionPane.showMessageDialog(null, "Disponible");
+            return;
+         }    
+         else if(a.getTime()>fin.getTime()){
+             JOptionPane.showMessageDialog(null, "Disponible");                 
+          }
+           else{
+              JOptionPane.showMessageDialog(null, "Los horarios se traslapan");
+               txtHora.setText(null);  
+           }          
+            System.out.println("Inicio limite: "+inicio);
+            System.out.println("Fin limite: "+fin);
+        } catch (FileNotFoundException ex) {
+            System.out.println("Error: "+ex.getMessage());
+        } catch (IOException ex) {
+           System.out.println("Error: "+ex.getMessage());
+        }
+       
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
        
      public static void eliminar(int codHorario) throws IOException{
         Menu.horarios.seek(0);
@@ -545,7 +589,7 @@ public class EditHoras extends javax.swing.JFrame {
             rCod.seek(0);
               rCod.writeInt(codHorario()-1);
         } catch (IOException ex) {
-            Logger.getLogger(AddPelicula.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error: "+ ex.getMessage());
         }        
     } 
      
@@ -557,12 +601,13 @@ public class EditHoras extends javax.swing.JFrame {
         u.mkdir();     
         Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+(comboSala.getSelectedIndex()+1)+".movi"), "rw");    
             
-      
+       
        ArrayList<Horarios> pelis;
        pelis= Menu.getHorario(comboSala.getSelectedIndex()+1);
        Object [][] data=null;
-       if(pelis!=null){
-         
+       
+       
+       if(pelis!=null){         
          data=new Object[pelis.size()][7];
          for(int x=0;x<pelis.size();x++){    
            data[x][0]=pelis.get(x).getCodHorario();
@@ -583,15 +628,7 @@ public class EditHoras extends javax.swing.JFrame {
             @Override public Class<?> getColumnClass(int column) {
                 return getValueAt(0, column).getClass();
             }
-        };
-      //  final JTable table = new JTable(model);
-     //   table.setRowHeight(36);
-      //  table.setAutoCreateRowSorter(true);
-        //table.addMouseListener(new CellButtonsMouseListener());
-        //ButtonsEditorRenderer er = new ButtonsEditorRenderer(table);
-      //  TableColumn column = table.getColumnModel().getColumn(1);
-     //   column.setCellRenderer(new ButtonsRenderer());
-       // column.setCellEditor(new ButtonsEditor(table));
+        };    
         return model;
     }
       
@@ -653,7 +690,7 @@ class ButtonsEditor extends ButtonsPanel implements TableCellEditor {
                            EditHoras.eliminar(Integer.parseInt(table.getValueAt(a, 0).toString()));
                            jButton1.doClick();                           
                        } catch (IOException ex) {
-                           Logger.getLogger(ButtonsEditor.class.getName()).log(Level.SEVERE, null, ex);
+                           System.out.println("Error: "+ ex.getMessage());
                        }
                    }
                    else {
@@ -738,7 +775,7 @@ class ButtonsEditor extends ButtonsPanel implements TableCellEditor {
                 try {
                     new EditHoras().setVisible(true);
                 } catch (FileNotFoundException ex) {
-                    Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Error: "+ ex.getMessage());
                 }
             }
         });
@@ -749,6 +786,7 @@ class ButtonsEditor extends ButtonsPanel implements TableCellEditor {
     private javax.swing.JComboBox comboPelicula;
     private javax.swing.JComboBox comboSala;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

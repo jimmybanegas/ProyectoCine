@@ -12,21 +12,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Menu {
-   
-  //  public static ArrayList<Usuario> users =new ArrayList<>();;
-  //  public static ArrayList<Sala> salas=new ArrayList<>();
- //   public static ArrayList<Pelicula> peliculas=new ArrayList<>();  
-    
+     
      public static  RandomAccessFile users ;
      public static  RandomAccessFile salas ;
      public static  RandomAccessFile peliculas ;
      public static  RandomAccessFile horarios ;
- 
-  //  public static int contpeli=codPeli();
- //   public static int contsala=codSala();
+
    
      public Menu() throws FileNotFoundException{
          File u=new File("Usuarios");
@@ -35,17 +30,11 @@ public class Menu {
      }
     
     public static void agregarUser(String nombre, String user, String pass) throws FileNotFoundException, IOException{
-       // File u=new File("Usuarios");
-      //  u.mkdir();     
-       
-      //  Menu.users = new RandomAccessFile( new File("Usuarios\\cinefilos.movi"), "rw");
-        
-        users.seek(users.length());        
+       users.seek(users.length());        
         users.writeUTF(nombre);
         users.writeUTF(user);
         users.writeUTF(pass);
-        users.writeBoolean(true);
-      //  users.add( new Usuario(nombre, user, pass));            
+        users.writeBoolean(true);      
             
     }
     
@@ -138,16 +127,7 @@ public class Menu {
          //   peliculas.add( new Pelicula(cod,tit,dur,gen,clasif, formato,imagen));
      //   Menu.contpeli+= 1;
     }
-    
-    
-    
-    
-  /*   public static void listaSalas(){
-        for(Sala x:salas){
-            System.out.println(x);
-        }
-    }*/
-        
+          
     
     public static boolean buscarUser(String user, String pass){
        try{
@@ -282,5 +262,60 @@ public class Menu {
       return null;
     }
    
+   public static Date horaInicial(int cod) throws FileNotFoundException, IOException{
+        File u=new File("Horarios");
+        u.mkdir();     
+        Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+cod+".movi"), "rw");
+        horarios.seek(0);
+       
+        Date inicio=new Date();       
+              
+        while(horarios.getFilePointer() < horarios.length()){
+            horarios.readInt();
+            horarios.readInt();
+            horarios.readInt();
+            horarios.readUTF();
+            long ini = horarios.readLong();
+            horarios.readLong();  
+            boolean activ=horarios.readBoolean();   
+            
+            
+            if( activ==true){
+                if( inicio.getTime()>ini) {
+                      inicio.setTime(ini);                    
+                }
+            }
+        
+         }
+     
+       return inicio;
+   }
+   
+    public static Date horaFinal(int cod) throws FileNotFoundException, IOException{
+       File u=new File("Horarios");
+        u.mkdir();     
+        Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+cod+".movi"), "rw");
+        horarios.seek(0);
+       
+        Date fina=new Date();  
+        
+        while(horarios.getFilePointer() < horarios.length()){
+            horarios.readInt();
+            horarios.readInt();
+            horarios.readInt();
+            horarios.readUTF();
+            horarios.readLong();
+            long fin=horarios.readLong();  
+            boolean activ=horarios.readBoolean();  
+                      
+           if( activ==true){
+                fina.setTime(fin); 
+           }
+                
+         }
+       
+       return fina; 
+    
+   }
  
 }

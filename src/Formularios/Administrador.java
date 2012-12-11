@@ -190,7 +190,7 @@ public class Administrador extends javax.swing.JFrame {
             frame.setVisible(true);
             this.setVisible(false);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error: "+ ex.getMessage());
         }
     }//GEN-LAST:event_btnEditarHorarioActionPerformed
 

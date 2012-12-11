@@ -8,8 +8,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 public final class MainWindow extends javax.swing.JFrame {
@@ -19,7 +17,7 @@ public final class MainWindow extends javax.swing.JFrame {
     public MainWindow() {     
         try {
             initComponents(); 
-          Menu m=new Menu();  
+           Menu m=new Menu();  
             
           if(Menu.users.length()==0){ 
             Menu.agregarUser("guest", "guest", "password");
@@ -29,9 +27,9 @@ public final class MainWindow extends javax.swing.JFrame {
             this.add(back,BorderLayout.CENTER);
             this.pack();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println("Error: "+ ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+             System.out.println("Error: "+ ex.getMessage());
         }
     }
     

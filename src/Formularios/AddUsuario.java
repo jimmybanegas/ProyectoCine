@@ -163,9 +163,9 @@ public class AddUsuario extends javax.swing.JFrame {
             //frame.setVisible(true);
             this.setVisible(false);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(AddUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error: "+ ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(AddUsuario.class.getName()).log(Level.SEVERE, null, ex);
+           System.out.println("Error: "+ ex.getMessage());
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
     
