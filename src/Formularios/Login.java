@@ -136,6 +136,7 @@ public class Login extends javax.swing.JFrame implements KeyListener{
          }
         else if((Menu.buscarUser(user, clave)) || (user.equalsIgnoreCase("admin") && clave.equalsIgnoreCase("unitec"))){
             JFrame frame = new Administrador();
+            Menu.usuario=user;
             frame.setVisible(true);
             this.setVisible(false);            
          }

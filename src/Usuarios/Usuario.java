@@ -7,11 +7,13 @@ public class Usuario {
     protected String user;
     protected String pass;
     protected boolean credencial;
+    protected long pos;
     
-    public Usuario(String nombre, String user, String pass){
+    public Usuario(String nombre, String user, String pass, long pos){
         this.nombre=nombre;
         this.user=user;
         this.pass=pass;
+        this.pos=pos;
         credencial=true;        
     }
 
@@ -29,6 +31,10 @@ public class Usuario {
 
     public String getUser() {
         return user;
+    }
+
+    public long getPos() {
+        return pos;
     }
     
     @Override

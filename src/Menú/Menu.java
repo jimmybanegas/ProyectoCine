@@ -7,13 +7,14 @@ import Peliculas.TipoFormatoPeli;
 import Peliculas.TipoPelicula;
 import Salas.TipoFormato;
 import Salas.TipoSala;
+import Usuarios.Usuario;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class Menu {
      
@@ -21,6 +22,7 @@ public class Menu {
      public static  RandomAccessFile salas ;
      public static  RandomAccessFile peliculas ;
      public static  RandomAccessFile horarios ;
+     public static String usuario;
 
    
      public Menu() throws FileNotFoundException{
@@ -30,7 +32,7 @@ public class Menu {
      }
     
     public static void agregarUser(String nombre, String user, String pass) throws FileNotFoundException, IOException{
-       users.seek(users.length());        
+        users.seek(users.length());        
         users.writeUTF(nombre);
         users.writeUTF(user);
         users.writeUTF(pass);
@@ -66,10 +68,7 @@ public class Menu {
         h.mkdir();  
         
         Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+cod+".movi"), "rw"); 
-        //  salas.add(new Sala(cod,tipo,filas,asientos,sillas));
-       
-        
-       // Menu.contsala+=1;
+     
     }
     
     public static void agregarSala3D(int cod, TipoSala tipo,TipoFormato format, int fil, int col, boolean sillas[][]) throws FileNotFoundException, IOException{
@@ -100,8 +99,7 @@ public class Menu {
         h.mkdir();  
         
         Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+cod+".movi"), "rw");  
-        //     salas.add( new sala3D(cod,tipo,format, filas,asientos,sillas));
-       //  Menu.contsala+=1;
+      
     }
     
     public static void agregarPelicula(int cod, String tit, int hor, int min, TipoPelicula gen, TipoClasificacion clasif, TipoFormatoPeli formato,String imagen) throws FileNotFoundException, IOException{
@@ -120,12 +118,7 @@ public class Menu {
         peliculas.writeLong( new Date().getTime());//Escribo la fecha
         peliculas.writeUTF(formato.toString());
         peliculas.writeUTF(imagen); 
-        
-
       
-     
-         //   peliculas.add( new Pelicula(cod,tit,dur,gen,clasif, formato,imagen));
-     //   Menu.contpeli+= 1;
     }
           
     
@@ -138,8 +131,7 @@ public class Menu {
              users.readUTF();
              String us= users.readUTF();
              String pas=users.readUTF();
-             boolean act= users.readBoolean();
-                
+             boolean act= users.readBoolean();                
                 
                 if(( user.equals(us))&&(pass.equals(pas))&&(act)){
                     return true;
@@ -148,17 +140,38 @@ public class Menu {
             }
         }
         catch(IOException e){
-            System.out.println("ERROR");
+           JOptionPane.showMessageDialog(null, "Error"); 
         }
         return false;
-        
-     /*   for(Usuario x: users){
-            if((x.getUser().equalsIgnoreCase(user))&&(x.getPass().equalsIgnoreCase(pass))&&(x.isCredencial())){
-                return true;
-            }         
+    }   
+     
+     public static Usuario getDatos(String user) throws FileNotFoundException{
+         File u=new File("Usuarios");
+         u.mkdir();     
+         Menu.users= new RandomAccessFile( new File("Usuarios\\cinefilos.movi"), "rw");
+         
+       try{
+        users.seek(0);       
+        while(users.getFilePointer() < users.length() ){      
+            String nombre= users.readUTF();
+            String use=  users.readUTF();
+            String pas= users.readUTF();
+            long pos=users.getFilePointer();
+            boolean ac= users.readBoolean();  
+           
+            if(ac==true&&user.equalsIgnoreCase(use)){           
+              return new Usuario(nombre,use,pas,pos);
+           }  
+         }        
         }
-        return false;*/
-    }
+        catch(IOException e){
+           JOptionPane.showMessageDialog(null, "Error"); 
+        }      
+         
+        return null;
+     }   
+        
+    
     
      public static boolean buscarUser2(String user){
         try{
@@ -179,7 +192,7 @@ public class Menu {
             }
         }
         catch(IOException e){
-            System.out.println("ERROR");
+           JOptionPane.showMessageDialog(null, "Error"); 
         }
         return false;
          
@@ -227,7 +240,7 @@ public class Menu {
           }  
         }
         catch(IOException e){
-            System.out.println("ERROR");
+            JOptionPane.showMessageDialog(null, "Error"); 
         }
       
       return null;
@@ -256,7 +269,7 @@ public class Menu {
          return pelis;
         }
         catch(IOException e){
-            System.out.println("ERROR");
+           JOptionPane.showMessageDialog(null, "Error"); 
         }
       
       return null;
@@ -326,5 +339,10 @@ public class Menu {
        return ff; 
     
    }
+
+    public static String getUsuario() {
+        return usuario;
+    }
  
+    
 }

@@ -1,17 +1,36 @@
 
 package Formularios;
 
+import Menú.Menu;
 import Paneles.EditPerfilPanel;
+import Usuarios.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class EditPerfil extends javax.swing.JFrame {
     
     public EditPerfil() {
         initComponents();
         EditPerfilPanel back = new EditPerfilPanel();
+        try {
+            // TODO add your handling code here:
+           Usuario actual= Menu.getDatos(Menu.getUsuario());         
+           if(actual!=null){
+               this.txtUsuario.setText(actual.getUser());
+               this.txtNombre.setText(actual.getNombre());
+               this.txtClave.setText(actual.getPass());
+           }   
+           
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Error"); 
+        }
         this.add(back,BorderLayout.CENTER);
         this.pack();
     }
@@ -46,6 +65,11 @@ public class EditPerfil extends javax.swing.JFrame {
 
         setIconImage(getIconImage());
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -63,7 +87,12 @@ public class EditPerfil extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText(" Usuario");
 
-        btnAceptar.setText("Aceptar");
+        btnAceptar.setText("Aceptar y Guardar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancel");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -83,17 +112,19 @@ public class EditPerfil extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(154, 154, 154)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnCancelar)
+                                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAceptar)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(61, 61, 61)
-                        .addComponent(btnCancelar)))
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(btnAceptar)))
                 .addContainerGap(302, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -129,6 +160,40 @@ public class EditPerfil extends javax.swing.JFrame {
         JFrame frame = new Administrador();
         frame.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        
+        
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        // TODO add your handling code here:
+       try {           
+           Usuario actual= Menu.getDatos(Menu.getUsuario());
+            if(!txtNombre.getText().equalsIgnoreCase(actual.getNombre())||!txtUsuario.getText().equalsIgnoreCase(actual.getUser())||
+                    !txtClave.getText().equalsIgnoreCase(actual.getPass())){
+               try {
+                   Menu.users.seek(actual.getPos());
+                   Menu.users.writeBoolean(false);
+                   
+                   Menu.users.seek(Menu.users.length());
+                   Menu.agregarUser(txtNombre.getText(), txtUsuario.getText(), txtClave.getText());                   
+                  
+                   this.setVisible(false); 
+               } catch (IOException ex) {
+                  JOptionPane.showMessageDialog(null, "Error"); 
+               }
+            }
+            else{ 
+             this.setVisible(false); 
+             new Administrador().setVisible(true);
+            } 
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Error"); 
+        }
+       
+        
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
      * @param args the command line arguments
