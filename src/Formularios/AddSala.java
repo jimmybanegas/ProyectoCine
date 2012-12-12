@@ -15,8 +15,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,7 +30,7 @@ public class AddSala extends javax.swing.JFrame {
         initComponents();
         AddSalaPanel back = new AddSalaPanel();        
         this.add(back,BorderLayout.CENTER);     
-        //this.pack();
+        this.pack();
         lblCodSala.setText(String.valueOf(AddSala.codSala()));
         combo2D3D.addItem(TipoSala.NORMAL);
         combo2D3D.addItem(TipoSala.SALA3D);
@@ -222,7 +220,7 @@ public class AddSala extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
      public  void initUI(int fil, int col) {    
-      //jPanel1.setBorder(BorderFactory.createCompoundBorder()); 
+     
       jPanel1.setBorder(BorderFactory.createEmptyBorder(fil, col, fil, col));     
       jPanel1.setSize(800,430);      
      

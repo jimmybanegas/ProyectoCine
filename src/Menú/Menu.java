@@ -246,6 +246,36 @@ public class Menu {
       return null;
     }
     
+   public static Pelicula getPeliNom(String nombre) throws FileNotFoundException{
+        File u=new File("Peliculas");
+        u.mkdir();     
+        Menu.peliculas= new RandomAccessFile( new File("Peliculas\\peliculas.movi"), "rw");   
+       try{
+        peliculas.seek(0);
+        while(peliculas.getFilePointer() < peliculas.length() ){
+      
+            int co=peliculas.readInt();//Codigo
+            int hor= peliculas.readInt();//Duracion horas
+            int min= peliculas.readInt();//Duracion minutos
+            String tit= peliculas.readUTF();//Titulo nombre
+            String ti= peliculas.readUTF();//TipoPelicula Genero
+            String cla=peliculas.readUTF();//TipoClasificacion
+            long fecha=peliculas.readLong();//Fecha de adicion
+            String fo= peliculas.readUTF();//TipoFormato 3D/Normal
+            String ima=peliculas.readUTF(); //Path de imagen
+              
+              if( nombre.equalsIgnoreCase(tit) ){            
+                  return new Pelicula(co,tit,hor,min,TipoPelicula.valueOf(ti),TipoClasificacion.valueOf(cla),new Date(fecha),TipoFormatoPeli.valueOf(fo),ima)  ;
+              } 
+          }  
+        }
+        catch(IOException e){
+            JOptionPane.showMessageDialog(null, "Error"); 
+        }
+      
+      return null;
+    }
+   
    public static ArrayList<Horarios> getHorario(int cod) throws FileNotFoundException{
         File u=new File("Horarios");
         u.mkdir();     

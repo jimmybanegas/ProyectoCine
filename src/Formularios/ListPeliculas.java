@@ -1,11 +1,15 @@
 
 package Formularios;
 
-import Menú.Menu;
 import Paneles.ListPeliculasPanel;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPopupMenu.Separator;
+import javax.swing.JSeparator;
 
 public class ListPeliculas extends javax.swing.JFrame {
 
@@ -35,9 +39,8 @@ public class ListPeliculas extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
+        pnlPeliculas = new javax.swing.JPanel();
 
         setIconImage(getIconImage());
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -50,30 +53,25 @@ public class ListPeliculas extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Listado de Peliculas");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo", "Titulo", "Duracion", "Genero", "Clasificación", "Formato", "Imagen"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-
         jButton2.setText("Regresar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        pnlPeliculas.setAutoscrolls(true);
+
+        javax.swing.GroupLayout pnlPeliculasLayout = new javax.swing.GroupLayout(pnlPeliculas);
+        pnlPeliculas.setLayout(pnlPeliculasLayout);
+        pnlPeliculasLayout.setHorizontalGroup(
+            pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 459, Short.MAX_VALUE)
+        );
+        pnlPeliculasLayout.setVerticalGroup(
+            pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 283, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,30 +80,31 @@ public class ListPeliculas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(156, 156, 156)
-                        .addComponent(jLabel1))
+                        .addGap(275, 275, 275)
+                        .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(294, 294, 294)
-                        .addComponent(jButton2)))
-                .addContainerGap(125, Short.MAX_VALUE))
+                        .addGap(232, 232, 232)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 78, Short.MAX_VALUE)
+                .addComponent(pnlPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(96, 96, 96))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(65, 65, 65)
+                .addComponent(pnlPeliculas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(56, 56, 56)
                 .addComponent(jButton2)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(52, 52, 52))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-784)/2, (screenSize.height-453)/2, 784, 453);
+        setBounds((screenSize.width-649)/2, (screenSize.height-574)/2, 649, 574);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -114,7 +113,24 @@ public class ListPeliculas extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-    Object [][] data=new Object[Menu.peliculas.size()][7];
+ // pnlPeliculas.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));     
+ //   pnlPeliculas.setSize(800,430);    
+   
+  //pnlPeliculas.setLayout(new GridLayout());                            
+              
+      pnlPeliculas.add(new Display()).setVisible(true);
+    //    pnlPeliculas.add(new JSeparator());
+      pnlPeliculas.add(new Display());
+     /* pnlPeliculas.add(new Display()); 
+    
+      pnlPeliculas.add(new Display());
+  
+      pnlPeliculas.add(new Display());   
+   
+      pnlPeliculas.add(new Display());   
+      pnlPeliculas.add(new Display()); 
+     
+ /*   Object [][] data=new Object[Menu.peliculas.size()][7];
     for(int x=0;x<Menu.peliculas.size();x++){    
        data[x][0]=Menu.peliculas.get(x).getCod();
        data[x][1]=Menu.peliculas.get(x).getTitulo();
@@ -127,7 +143,7 @@ public class ListPeliculas extends javax.swing.JFrame {
     }        
   
     String [] cadenas={ "Código", "Título", "Duración","Género","Clasificación","Formato","Imagen"};        
-    jTable1.setModel(new javax.swing.table.DefaultTableModel( data  ,cadenas)) ; 
+    jTable1.setModel(new javax.swing.table.DefaultTableModel( data  ,cadenas)) ; */
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -174,7 +190,6 @@ public class ListPeliculas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JPanel pnlPeliculas;
     // End of variables declaration//GEN-END:variables
 }
