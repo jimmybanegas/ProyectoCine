@@ -296,9 +296,9 @@ public class Menu {
         u.mkdir();     
         Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+cod+".movi"), "rw");
         horarios.seek(0);
-       
-        Date fina=new Date();  
-        
+    
+      
+        long f=0;
         while(horarios.getFilePointer() < horarios.length()){
             horarios.readInt();
             horarios.readInt();
@@ -308,13 +308,22 @@ public class Menu {
             long fin=horarios.readLong();  
             boolean activ=horarios.readBoolean();  
                       
-           if( activ==true){
-                fina.setTime(fin); 
+        if( activ){
+           if(f==0) { 
+            if(fin<f){ 
+                 f=fin;   
+             } 
+           }else if(f!=0){
+             if(fin>f){ 
+                 f=fin;   
+             } 
            }
-                
+           
          }
+         }
+        Date ff=new Date(f);
        
-       return fina; 
+       return ff; 
     
    }
  

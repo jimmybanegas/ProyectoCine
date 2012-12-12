@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public final class MainWindow extends javax.swing.JFrame {
 
@@ -27,9 +28,9 @@ public final class MainWindow extends javax.swing.JFrame {
             this.add(back,BorderLayout.CENTER);
             this.pack();
         } catch (FileNotFoundException ex) {
-             System.out.println("Error: "+ ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error"); 
         } catch (IOException ex) {
-             System.out.println("Error: "+ ex.getMessage());
+           JOptionPane.showMessageDialog(null, "Error"); 
         }
     }
     

@@ -8,7 +8,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -163,9 +162,9 @@ public class AddUsuario extends javax.swing.JFrame {
             //frame.setVisible(true);
             this.setVisible(false);
         } catch (FileNotFoundException ex) {
-            System.out.println("Error: "+ ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error"); 
         } catch (IOException ex) {
-           System.out.println("Error: "+ ex.getMessage());
+           JOptionPane.showMessageDialog(null, "Error"); 
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
     

@@ -21,6 +21,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class AddSala extends javax.swing.JFrame {
     public JButton[][] buttons;
@@ -292,17 +293,17 @@ public class AddSala extends javax.swing.JFrame {
             try {
                 Menu.agregarSalaNormal(cod, tipo,filas, columnas,sillas);
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(AddSala.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Error"); 
             } catch (IOException ex) {
-                Logger.getLogger(AddSala.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Error"); 
             }
       }else if(comboTipo3D.isEnabled()) {
             try {    
                 Menu.agregarSala3D(cod, tipo, format, filas, columnas,sillas);
             } catch (FileNotFoundException ex) {
-                System.out.println("Error: "+ ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Error"); 
             } catch (IOException ex) {
-                 System.out.println("Error: "+ ex.getMessage());
+                 JOptionPane.showMessageDialog(null, "Error"); 
             }
       }
 
@@ -362,7 +363,7 @@ public class AddSala extends javax.swing.JFrame {
             return codigo;
         }
         catch(IOException e){
-            System.out.println("ERROR");
+            JOptionPane.showMessageDialog(null, "Error"); 
             return -1;
         }
     }
@@ -372,7 +373,7 @@ public class AddSala extends javax.swing.JFrame {
             rCod.seek(0);
             rCod.writeInt(codSala()-1);
         } catch (IOException ex) {
-            System.out.println("Error: "+ ex.getMessage());
+           JOptionPane.showMessageDialog(null, "Error"); 
         }
         
     }

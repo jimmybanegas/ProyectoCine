@@ -398,7 +398,7 @@ public class EditHoras extends javax.swing.JFrame {
             Pelicula p=Menu.getPeli(x+1);
             txtDuracion.setText(String.valueOf(p.getHoras()+":"+p.getMinutos()));        
         } catch (FileNotFoundException ex) {
-            System.out.println("Error: "+ ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error"); 
         }
     }//GEN-LAST:event_txtDuracionFocusGained
 
@@ -456,9 +456,9 @@ public class EditHoras extends javax.swing.JFrame {
           
           Menu.addPeliHorario(codHorario,codSala,codPeli,tit,a,b,activa);
         } catch (FileNotFoundException ex) {
-            System.out.println("Error: "+ ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error"); 
         } catch (IOException ex) {
-           System.out.println("Error: "+ ex.getMessage());
+           JOptionPane.showMessageDialog(null, "Error"); 
         }
        
       JFrame frame = new OperacionOk();
@@ -499,7 +499,7 @@ public class EditHoras extends javax.swing.JFrame {
        column.setCellEditor(new ButtonsEditor(jTable1));
             
         } catch (Exception ex) {
-             System.out.println("Error: "+ex.getMessage());
+             JOptionPane.showMessageDialog(null, "Error"); 
         }                
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -518,8 +518,7 @@ public class EditHoras extends javax.swing.JFrame {
             a=ini.getTime();
             fi.set(b.getYear(), b.getMonth(), b.getDay(),Integer.parseInt(txtHoraFin.getText()),Integer.parseInt(txtMinFin.getText()) );
             b=fi.getTime();
-        
-            
+                    
          if(b.getTime()<inicio.getTime()) {
             JOptionPane.showMessageDialog(null, "Disponible");
             return;
@@ -534,9 +533,9 @@ public class EditHoras extends javax.swing.JFrame {
             System.out.println("Inicio limite: "+inicio);
             System.out.println("Fin limite: "+fin);
         } catch (FileNotFoundException ex) {
-            System.out.println("Error: "+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error"); 
         } catch (IOException ex) {
-           System.out.println("Error: "+ex.getMessage());
+           JOptionPane.showMessageDialog(null, "Error"); 
         }
        
         
@@ -589,7 +588,7 @@ public class EditHoras extends javax.swing.JFrame {
             rCod.seek(0);
               rCod.writeInt(codHorario()-1);
         } catch (IOException ex) {
-            System.out.println("Error: "+ ex.getMessage());
+           JOptionPane.showMessageDialog(null, "Error"); 
         }        
     } 
      
@@ -775,7 +774,7 @@ class ButtonsEditor extends ButtonsPanel implements TableCellEditor {
                 try {
                     new EditHoras().setVisible(true);
                 } catch (FileNotFoundException ex) {
-                    System.out.println("Error: "+ ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "Error"); 
                 }
             }
         });

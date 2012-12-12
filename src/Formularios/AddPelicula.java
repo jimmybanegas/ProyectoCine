@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 public class AddPelicula extends javax.swing.JFrame {   
@@ -270,9 +271,9 @@ public class AddPelicula extends javax.swing.JFrame {
             frame.setVisible(true);
             this.setVisible(false);
         } catch (FileNotFoundException ex) {
-            System.out.println("Error: "+ ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error"); 
         } catch (IOException ex) {
-            System.out.println("Error: "+ ex.getMessage());
+           JOptionPane.showMessageDialog(null, "Error"); 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -317,7 +318,7 @@ public class AddPelicula extends javax.swing.JFrame {
             return codigo;
         }
         catch(IOException e){
-          System.out.println("ERROR");
+          JOptionPane.showMessageDialog(null, "Error"); 
           return -1;
         }
     } 
@@ -327,7 +328,7 @@ public class AddPelicula extends javax.swing.JFrame {
             rCod.seek(0);
               rCod.writeInt(codPeli()-1);
         } catch (IOException ex) {
-             System.out.println("Error: "+ ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error"); 
         }        
     } 
      
