@@ -8,6 +8,9 @@ import Menú.Menu;
 import Paneles.EditHorasPanel;
 import Peliculas.Horarios;
 import Peliculas.Pelicula;
+import Salas.Sala;
+import Salas.TipoSala;
+import Salas.sala3D;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Image;
@@ -62,18 +65,8 @@ public class EditHoras extends javax.swing.JFrame {
         for(int s=1; s<codSalas; s++){
             String a= "Sala "+s;
             comboSala.addItem(a);
-        }
-        
-        int codPeli=AddPelicula.codPeli();
-        AddPelicula.restar();
-        
-        for(int s=1; s<codPeli; s++){
-            Pelicula peli=Menu.getPeli(s);
-       
-            String a=peli.getTitulo();
-            comboPelicula.addItem(a);
-        }
-        
+        }       
+               
     }
  @Override
     public Image getIconImage(){
@@ -148,6 +141,11 @@ public class EditHoras extends javax.swing.JFrame {
                 comboSalaMouseClicked(evt);
             }
         });
+        comboSala.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboSalaItemStateChanged(evt);
+            }
+        });
         comboSala.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboSalaActionPerformed(evt);
@@ -159,6 +157,11 @@ public class EditHoras extends javax.swing.JFrame {
             }
         });
 
+        comboPelicula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboPeliculaMouseClicked(evt);
+            }
+        });
         comboPelicula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboPeliculaActionPerformed(evt);
@@ -378,10 +381,14 @@ public class EditHoras extends javax.swing.JFrame {
 
     private void comboSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSalaActionPerformed
         // TODO add your handling code here:
+        
+
     }//GEN-LAST:event_comboSalaActionPerformed
 
     private void comboPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPeliculaActionPerformed
         // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_comboPeliculaActionPerformed
 
     private void txtDuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDuracionActionPerformed
@@ -440,6 +447,12 @@ public class EditHoras extends javax.swing.JFrame {
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         try {
             // TODO add your handling code here:
+          if(txtCodHorario.getText().equals("")||txtHora.getText().equals("")||txtMinutos.getText().equals("")||
+                txtHoraFin.getText().equals("")|| txtMinFin.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "No deben haber campos vacíos"); 
+                return;
+           }
+            
           Calendar ini=Calendar.getInstance();    
           Calendar fi=Calendar.getInstance(); 
           Date a=new Date(); 
@@ -467,8 +480,7 @@ public class EditHoras extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:        
-   
+                
              
     }//GEN-LAST:event_formWindowOpened
 
@@ -478,8 +490,33 @@ public class EditHoras extends javax.swing.JFrame {
 
     private void comboPeliculaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboPeliculaFocusGained
         // TODO add your handling code here:
-        
-        
+        try {
+            // TODO add your handling code here:        
+          Sala actual=Menu.getSala(comboSala.getSelectedIndex()+1);            
+         
+          System.out.println(actual.toString());
+            
+            ArrayList<Pelicula> peli=Menu.getPeliculas();           
+            comboPelicula.removeAllItems();
+            comboPelicula.repaint();
+            for(Pelicula x: peli){               
+              if(actual.getTipo()==TipoSala.NORMAL && x.getFormato().toString().equals("PELICULA_2D")){
+                 String a=x.getTitulo();
+                 comboPelicula.addItem(a);
+               } 
+            }  
+           for(Pelicula x: peli){  
+            if(actual.getTipo()==TipoSala.SALA3D && x.getFormato().toString().equals("PELICULA_3D")){
+                 String a=x.getTitulo();  
+                 comboPelicula.addItem(a);
+               }
+               
+            }
+            
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Error"); 
+        }
+              
     }//GEN-LAST:event_comboPeliculaFocusGained
 
     private void comboSalaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboSalaFocusLost
@@ -508,6 +545,12 @@ public class EditHoras extends javax.swing.JFrame {
           try {
             // TODO add your handling code here:
 
+            if(txtCodHorario.getText().equals("")||txtHora.getText().equals("")||txtMinutos.getText().equals("")||
+                txtHoraFin.getText().equals("")|| txtMinFin.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "No deben haber campos vacíos"); 
+                return;
+           }  
+              
             Date inicio=Menu.horaInicial(comboSala.getSelectedIndex()+1);
             Date fin=Menu.horaFinal(comboSala.getSelectedIndex()+1);
             Date a=new Date(); 
@@ -540,6 +583,16 @@ public class EditHoras extends javax.swing.JFrame {
        
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void comboPeliculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboPeliculaMouseClicked
+        // TODO add your handling code here:
+          
+    }//GEN-LAST:event_comboPeliculaMouseClicked
+
+    private void comboSalaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboSalaItemStateChanged
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_comboSalaItemStateChanged
        
      public static void eliminar(int codHorario) throws IOException{
         Menu.horarios.seek(0);

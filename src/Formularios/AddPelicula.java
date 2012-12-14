@@ -42,7 +42,7 @@ public class AddPelicula extends javax.swing.JFrame {
 
      @Override
     public Image getIconImage(){
-        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/icono.png"));
        
         return icono;
     }
@@ -178,12 +178,12 @@ public class AddPelicula extends javax.swing.JFrame {
                                             .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(lblCodPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addGap(20, 20, 20)
-                                                .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(16, 16, 16)
+                                                .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(3, 3, 3)
                                                 .addComponent(jLabel6)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                .addComponent(txtMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(46, 46, 46)
@@ -252,6 +252,13 @@ public class AddPelicula extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
+            
+            if(lblCodPelicula.getText().equals("")||txtTitulo.getText().equals("")||txtHora.getText().equals("")||
+                    txtMinutos.getText().equals("")||jpgMoviePic.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "No deben haber campos vacíos"); 
+                return;
+            }
+            
             int cod=Integer.parseInt(lblCodPelicula.getText());
             String tit=txtTitulo.getText();
             int hor=Integer.parseInt(txtHora.getText());
@@ -259,13 +266,18 @@ public class AddPelicula extends javax.swing.JFrame {
             TipoPelicula gen=(TipoPelicula) comboGenero.getSelectedItem();
             TipoClasificacion clasif= (TipoClasificacion) comboClasificacion.getSelectedItem();
             TipoFormatoPeli formato=(TipoFormatoPeli) comboFormato.getSelectedItem();
-            String imagen=jpgMoviePic.getText();
-            File foto= new File(imagen);
+            String imagen=jpgMoviePic.getText();      
+                       
+            File foto= new File(imagen);         
+            File folder= new File("IMAGES");
+            folder.mkdir();
+            
+            foto.renameTo( new File("IMAGES\\"+foto.getName()));
             foto.createNewFile();
+            File borrar= new File(imagen);  
+            borrar.delete();
           
-            foto.renameTo( new File("Imagenes\\"+foto.getName()));
-            System.out.println(foto.getAbsolutePath());
-            Menu.agregarPelicula(cod,tit,hor,min, gen, clasif,formato,foto.getAbsolutePath());  
+            Menu.agregarPelicula(cod,tit,hor,min, gen, clasif,formato,"IMAGES\\"+foto.getName());  
             
             JFrame frame = new OperacionOk();
             frame.setVisible(true);

@@ -1,12 +1,10 @@
 
 package Salas;
 
-import javax.swing.JPanel;
-
 public class sala3D extends Sala{
     protected TipoFormato format;       
     
-    public sala3D(int cod, TipoSala tipo, TipoFormato format,int filas, int asientos, JPanel sillas ){
+    public sala3D(int cod, TipoSala tipo, TipoFormato format,int filas, int asientos, boolean sillas[][] ){
         super(cod,tipo,filas,asientos,sillas);
         this.format=format;
         

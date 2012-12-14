@@ -189,6 +189,9 @@
     <Component class="javax.swing.JTextField" name="txtFilasSala">
     </Component>
     <Component class="javax.swing.JTextField" name="txtColumnasSala">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtColumnasSalaFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="combo2D3D">
       <Properties>

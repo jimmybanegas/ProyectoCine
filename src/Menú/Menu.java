@@ -5,8 +5,10 @@ import Peliculas.Pelicula;
 import Peliculas.TipoClasificacion;
 import Peliculas.TipoFormatoPeli;
 import Peliculas.TipoPelicula;
+import Salas.Sala;
 import Salas.TipoFormato;
 import Salas.TipoSala;
+import Salas.sala3D;
 import Usuarios.Usuario;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -74,7 +76,7 @@ public class Menu {
     public static void agregarSala3D(int cod, TipoSala tipo,TipoFormato format, int fil, int col, boolean sillas[][]) throws FileNotFoundException, IOException{
          File u=new File("Salas");
          u.mkdir();     
-        Menu.salas= new RandomAccessFile( new File("Salas\\sala"+cod+".movi"), "rw");     
+         Menu.salas= new RandomAccessFile( new File("Salas\\sala"+cod+".movi"), "rw");     
   
         salas.seek(salas.length());
         
@@ -180,7 +182,7 @@ public class Menu {
            while(users.getFilePointer() < users.length() ){
             
              users.readUTF();
-             String us= users.readUTF();
+             String us =users.readUTF();
              users.readUTF();
              boolean act= users.readBoolean();
                 
@@ -246,10 +248,11 @@ public class Menu {
       return null;
     }
     
-   public static Pelicula getPeliNom(String nombre) throws FileNotFoundException{
+   public static ArrayList<Pelicula> getPeliculas() throws FileNotFoundException{
         File u=new File("Peliculas");
         u.mkdir();     
-        Menu.peliculas= new RandomAccessFile( new File("Peliculas\\peliculas.movi"), "rw");   
+        Menu.peliculas= new RandomAccessFile( new File("Peliculas\\peliculas.movi"), "rw"); 
+        ArrayList <Pelicula> pelis=new ArrayList<>(); 
        try{
         peliculas.seek(0);
         while(peliculas.getFilePointer() < peliculas.length() ){
@@ -264,17 +267,57 @@ public class Menu {
             String fo= peliculas.readUTF();//TipoFormato 3D/Normal
             String ima=peliculas.readUTF(); //Path de imagen
               
-              if( nombre.equalsIgnoreCase(tit) ){            
-                  return new Pelicula(co,tit,hor,min,TipoPelicula.valueOf(ti),TipoClasificacion.valueOf(cla),new Date(fecha),TipoFormatoPeli.valueOf(fo),ima)  ;
-              } 
-          }  
-        }
+            pelis.add(new Pelicula(co,tit,hor,min,TipoPelicula.valueOf(ti),TipoClasificacion.valueOf(cla),new Date(fecha),TipoFormatoPeli.valueOf(fo),ima)) ;
+           }
+           return pelis; 
+          }          
         catch(IOException e){
             JOptionPane.showMessageDialog(null, "Error"); 
         }
       
       return null;
     }
+   
+    public static Sala getSala(int cod) throws FileNotFoundException{
+        File u=new File("Salas");
+        u.mkdir();     
+        Menu.salas= new RandomAccessFile( new File("Salas\\sala"+cod+".movi"), "rw");     
+      
+       try{  
+        salas.seek(0);
+        while(salas.getFilePointer() < salas.length() ){  
+            int co=salas.readInt();
+            String tipo=salas.readUTF();
+            String formato=salas.readUTF();
+            int fil= salas.readInt();
+            int col=salas.readInt();
+            boolean sillas[][]=new boolean [fil][col];
+
+            for(int x=0;x<fil;x++){          
+                 for(int y=0;y<col;y++){    
+                   sillas[x][y]=salas.readBoolean();
+                 }
+            }
+            if(co==cod){
+               switch (tipo) {
+                   case "NORMAL":
+                       return new Sala(co,TipoSala.valueOf(tipo),fil,col,sillas);
+                      
+                   case "SALA3D":
+                       return new sala3D(co,TipoSala.valueOf(tipo),TipoFormato.valueOf(formato),fil,col,sillas);
+                       
+               }
+            }
+        }
+        
+       }
+        catch(IOException e){
+            JOptionPane.showMessageDialog(null, "Error"); 
+        }
+      
+      return null;
+    }
+   
    
    public static ArrayList<Horarios> getHorario(int cod) throws FileNotFoundException{
         File u=new File("Horarios");

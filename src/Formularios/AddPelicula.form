@@ -76,12 +76,12 @@
                                           <Component id="txtTitulo" min="-2" pref="162" max="-2" attributes="0"/>
                                           <Component id="lblCodPelicula" min="-2" pref="111" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                              <Component id="txtHora" min="-2" pref="25" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                              <Component id="txtHora" min="-2" pref="29" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                                               <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtMinutos" min="-2" pref="27" max="-2" attributes="0"/>
+                                              <Component id="txtMinutos" min="-2" pref="32" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>

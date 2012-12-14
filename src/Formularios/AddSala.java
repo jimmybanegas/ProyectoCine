@@ -90,6 +90,12 @@ public class AddSala extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Tipo de 3D");
 
+        txtColumnasSala.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtColumnasSalaFocusLost(evt);
+            }
+        });
+
         combo2D3D.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combo2D3DActionPerformed(evt);
@@ -280,12 +286,23 @@ public class AddSala extends javax.swing.JFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         // TODO add your handling code here:
+        if(lblCodSala.getText().equals("")||txtFilasSala.getText().equals("")||txtColumnasSala.getText().equals("")||
+                jPanel1.getComponentCount()==0){
+                JOptionPane.showMessageDialog(null, "No deben haber campos vacíos"); 
+                return;
+        }
         int cod=Integer.parseInt(lblCodSala.getText());
         TipoSala tipo=(TipoSala) combo2D3D.getSelectedItem();
         int filas=Integer.parseInt(txtFilasSala.getText());
         int columnas=Integer.parseInt(txtColumnasSala.getText());
         TipoFormato format=(TipoFormato) comboTipo3D.getSelectedItem();
+     
         boolean[][] sillas=  arregloAsiento(filas,columnas);
+        
+        if(sillas.length==0){
+                JOptionPane.showMessageDialog(null, "No deben haber campos vacíos"); 
+                return;
+        }
         
       if( comboTipo3D.isEnabled()==false){                
             try {
@@ -323,9 +340,18 @@ public class AddSala extends javax.swing.JFrame {
 
     private void btnAsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsientosActionPerformed
         // TODO add your handling code here:
-         initUI(Integer.parseInt(txtFilasSala.getText()),Integer.parseInt(txtColumnasSala.getText()));
+        if(txtFilasSala.getText().equals("")||txtColumnasSala.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Llene filas y columnas"); 
+                return;
+        } 
+        initUI(Integer.parseInt(txtFilasSala.getText()),Integer.parseInt(txtColumnasSala.getText()));
         
     }//GEN-LAST:event_btnAsientosActionPerformed
+
+    private void txtColumnasSalaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtColumnasSalaFocusLost
+        // TODO add your handling code here:
+         
+    }//GEN-LAST:event_txtColumnasSalaFocusLost
 
        
     public boolean[][] arregloAsiento(int fil, int col){

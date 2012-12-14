@@ -1,8 +1,6 @@
 
 package Salas;
 
-import javax.swing.JPanel;
-
 public class Sala {
 
     protected int cod;
@@ -10,10 +8,10 @@ public class Sala {
     protected int filas;
     protected int columnas;
     protected double precio;
-    protected JPanel sillas;
+    protected boolean sillas[][];
     
     
-    public Sala(int cod,TipoSala tipo,int filas, int asientos, JPanel sillas){
+    public Sala(int cod,TipoSala tipo,int filas, int asientos, boolean sillas[][]){
         this.cod=cod;
         this.tipo=tipo;
         this.filas=filas;
@@ -47,15 +45,14 @@ public class Sala {
         return tipo;
     }
 
-    public JPanel getSillas() {
+    public boolean[][] getSillas() {
         return sillas;
     }    
     
     
     @Override
      public String toString(){
-        sillas.setVisible(true);
-        return "Codigo: "+cod+" Tipo: "+tipo+" Precio: "+precio;
+             return "Codigo: "+cod+" Tipo: "+tipo+" Precio: "+precio;
     }
     
 }

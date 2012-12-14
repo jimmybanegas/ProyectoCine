@@ -8,7 +8,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -40,6 +39,8 @@ public class AddUsuario extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         txtClave = new javax.swing.JPasswordField();
+        jLabel5 = new javax.swing.JLabel();
+        txtConfirm = new javax.swing.JPasswordField();
 
         setTitle("Registro de Usuario");
         setIconImage(getIconImage());
@@ -75,6 +76,10 @@ public class AddUsuario extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Confirmar:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,9 +107,13 @@ public class AddUsuario extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtClave)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtClave)
+                                    .addComponent(txtConfirm))))))
                 .addContainerGap(342, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -124,7 +133,11 @@ public class AddUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(70, 70, 70)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar))
@@ -148,18 +161,32 @@ public class AddUsuario extends javax.swing.JFrame {
             nombre = txtNombre.getText();
             user = txtUsuario.getText();
             clave = txtClave.getText();
-           
+            
+            if(txtNombre.getText().equals("")||txtUsuario.getText().equals("")||txtClave.getText().equals("")||
+                    txtConfirm.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "No deben haber campos vacíos"); 
+                return;
+            }
+            
+            if(!clave.equals(txtConfirm.getText())){
+                     JOptionPane.showMessageDialog(null, "Contraseñas no coinciden"); 
+                     txtClave.setText("");
+                     txtConfirm.setText(""); 
+                     return;
+            }
+            
             if(Menu.buscarUser2(user)){           
                 JOptionPane.showMessageDialog(null, "Ya existe usuario");
                  txtNombre.setText("");
                  txtUsuario.setText("");
                  txtClave.setText("");
+                 txtConfirm.setText("");
                 return;
             }        
             Menu.agregarUser(nombre, user, clave);
-            JOptionPane.showMessageDialog(null, "Operacion Exitosa");
-           // JFrame frame = new OperacionOk();
-            //frame.setVisible(true);
+          
+            JFrame frame = new OperacionOk();
+            frame.setVisible(true);
             this.setVisible(false);
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Error"); 
@@ -209,7 +236,9 @@ public class AddUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPasswordField txtClave;
+    private javax.swing.JPasswordField txtConfirm;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

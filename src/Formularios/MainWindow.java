@@ -36,7 +36,7 @@ public final class MainWindow extends javax.swing.JFrame {
     
     @Override
     public Image getIconImage(){
-        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("Imagenes/icono.png"));
         return icono;
     }
     @SuppressWarnings("unchecked")

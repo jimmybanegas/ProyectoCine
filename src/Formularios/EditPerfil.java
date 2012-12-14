@@ -110,7 +110,8 @@ public class EditPerfil extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,9 +120,6 @@ public class EditPerfil extends javax.swing.JFrame {
                                 .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addComponent(btnAceptar)))
@@ -172,7 +170,12 @@ public class EditPerfil extends javax.swing.JFrame {
            Usuario actual= Menu.getDatos(Menu.getUsuario());
             if(!txtNombre.getText().equalsIgnoreCase(actual.getNombre())||!txtUsuario.getText().equalsIgnoreCase(actual.getUser())||
                     !txtClave.getText().equalsIgnoreCase(actual.getPass())){
-               try {
+               if(txtNombre.getText().equals("")||txtUsuario.getText().equals("")||txtClave.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "No deben haber campos vacíos"); 
+                return;
+            }
+                
+                try {
                    Menu.users.seek(actual.getPos());
                    Menu.users.writeBoolean(false);
                    
