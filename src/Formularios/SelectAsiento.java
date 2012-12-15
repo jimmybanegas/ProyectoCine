@@ -2,19 +2,49 @@ package Formularios;
 
 import Paneles.SelectAsientoPanel;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
-import javax.swing.JFrame;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 public class SelectAsiento extends javax.swing.JFrame {
-
-    public SelectAsiento() {
+ JButton buttons[][]; 
+ ImageIcon habilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaOcupada.jpg")).getImage());
+    
+   public SelectAsiento(int fil, int col, boolean[][]sillas) {
         initComponents();
         SelectAsientoPanel back = new SelectAsientoPanel();
         this.add(back,BorderLayout.CENTER);
+        initUI(fil,col,sillas);
         this.pack();
     }
 
+     public final  void initUI(int fil, int col, boolean[][]sillas) {    
+       buttons =new JButton[fil][col];
+       jPanel1.setBorder(BorderFactory.createEmptyBorder(fil, col, fil, col));     
+       jPanel1.setSize(800,430);      
+     
+       jPanel1.setLayout(new GridLayout(fil, col));   
+      // jPanel1.removeAll();
+       
+       for(int x=0;x<fil;x++){
+          for(int y=0;y<col;y++){                  
+             
+              if(sillas[x][y]==true) {
+                  buttons[x][y]=(new JButton(habilitada));
+              }   
+              else{
+                  buttons[x][y]=(new JButton());
+              } 
+              
+              jPanel1.add(buttons[x][y]);             
+              
+          }
+       }
+    }  
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -247,7 +277,7 @@ public class SelectAsiento extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SelectAsiento().setVisible(true);
+               // new SelectAsiento().setVisible(true);
             }
         });
     }

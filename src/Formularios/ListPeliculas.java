@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Scanner;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -94,6 +95,42 @@ public class ListPeliculas extends javax.swing.JFrame {
             }
         });
 
+        cmbHoras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cmbHorasMouseReleased(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbHorasMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cmbHorasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cmbHorasMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cmbHorasMousePressed(evt);
+            }
+        });
+        cmbHoras.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbHorasItemStateChanged(evt);
+            }
+        });
+        cmbHoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbHorasActionPerformed(evt);
+            }
+        });
+        cmbHoras.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cmbHorasFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cmbHorasFocusLost(evt);
+            }
+        });
+
         lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -146,9 +183,9 @@ public class ListPeliculas extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(cmbHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel2)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(160, 160, 160)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,11 +201,11 @@ public class ListPeliculas extends javax.swing.JFrame {
                 .addGap(58, 58, 58)
                 .addComponent(horaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cmbPeliculas)
+                    .addComponent(cmbHoras)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,11 +274,11 @@ public class ListPeliculas extends javax.swing.JFrame {
          ArrayList <Horarios> todos;
         try {
             todos = Menu.getTodosHorarios();
-            
-            
+                        
             if(!todos.isEmpty()){
               String nombre=(String) cmbPeliculas.getSelectedItem();
               cmbHoras.removeAllItems();
+              
               ArrayList<String>horas= horariosActivos(nombre,todos);
              
                  if(!horas.isEmpty()){
@@ -251,7 +288,7 @@ public class ListPeliculas extends javax.swing.JFrame {
                     }
                  }
                Pelicula peli=Menu.getPeliNombre((String)cmbPeliculas.getSelectedItem());
-               System.out.println(peli);
+              
                 if(peli!=null){
                   ImageIcon icon = new ImageIcon(peli.getImagen());          
                   Image img = icon.getImage().getScaledInstance(lblImagen.getWidth(), lblImagen.getHeight(), Image.SCALE_SMOOTH);   
@@ -271,6 +308,10 @@ public class ListPeliculas extends javax.swing.JFrame {
                   int dura=peli.getHoras()*60+peli.getMinutos();
                   lblDuracion.setText("DURACION: "+dura+ " Minutos");
                   
+                  String sala=cmbHoras.getSelectedItem().toString();
+                  Scanner sc = new Scanner(sala);
+                  sc.next(); 
+                  lblSala.setText(String.valueOf(sc.nextInt())); 
                }   
                  
             }   
@@ -284,6 +325,58 @@ public class ListPeliculas extends javax.swing.JFrame {
     private void cmbPeliculasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbPeliculasFocusLost
      
     }//GEN-LAST:event_cmbPeliculasFocusLost
+
+    private void cmbHorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbHorasActionPerformed
+        // TODO add your handling code here:
+    
+     
+    }//GEN-LAST:event_cmbHorasActionPerformed
+
+    private void cmbHorasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbHorasMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_cmbHorasMouseClicked
+
+    private void cmbHorasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbHorasMouseEntered
+       
+      
+    }//GEN-LAST:event_cmbHorasMouseEntered
+
+    private void cmbHorasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbHorasMouseExited
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cmbHorasMouseExited
+
+    private void cmbHorasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbHorasItemStateChanged
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_cmbHorasItemStateChanged
+
+    private void cmbHorasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbHorasMousePressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cmbHorasMousePressed
+
+    private void cmbHorasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbHorasMouseReleased
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cmbHorasMouseReleased
+
+    private void cmbHorasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbHorasFocusLost
+         // TODO add your handling code here:
+      if(cmbPeliculas.getItemCount()!=0) {
+         String sala=cmbHoras.getSelectedItem().toString();
+        Scanner sc = new Scanner(sala);
+        sc.next(); 
+        lblSala.setText(String.valueOf(sc.nextInt())); 
+      }
+        
+    }//GEN-LAST:event_cmbHorasFocusLost
+
+    private void cmbHorasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbHorasFocusGained
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_cmbHorasFocusGained
 
     /**
      * @param args the command line arguments
@@ -346,9 +439,8 @@ public class ListPeliculas extends javax.swing.JFrame {
     private ArrayList<String>  horariosActivos(String nombre, ArrayList<Horarios> todos) {
        ArrayList<String> horas=new ArrayList<>();
         for(Horarios x:todos){
-            if(x.getTit().equalsIgnoreCase(nombre)){
-                lblSala.setText(String.valueOf(x.getCodSala()));
-                horas.add(x.getInicio().getHours()+":"+x.getInicio().getMinutes());
+            if(x.getTit().equalsIgnoreCase(nombre)){                
+                horas.add("Sala: "+x.getCodSala()+" -- "+x.getInicio().getHours()+":"+x.getInicio().getMinutes());
             }
         }
         return horas;

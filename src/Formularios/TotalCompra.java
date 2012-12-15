@@ -11,6 +11,8 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -349,9 +351,18 @@ public class TotalCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
-        JFrame frame = new SelectAsiento();
-        frame.setVisible(true);
-      //  this.setVisible(false);
+        try {        
+            Sala proye=Menu.getSala(Integer.parseInt(lblSala.getText()));            
+           if(proye!=null){
+               System.out.println(proye.getFilas()+" "+proye.getAsientos()); 
+               JFrame frame = new SelectAsiento(proye.getFilas(),proye.getAsientos(),proye.getSillas());
+               frame.setVisible(true);
+           }
+          
+                        
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Error"); 
+        }
     }//GEN-LAST:event_btnComprarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

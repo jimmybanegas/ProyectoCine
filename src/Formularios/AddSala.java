@@ -23,9 +23,11 @@ import javax.swing.JOptionPane;
 
 public class AddSala extends javax.swing.JFrame {
     public JButton[][] buttons;
+   
     ImageIcon habilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaOcupada.jpg")).getImage());
     ImageIcon deshabilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaLibre.jpg")).getImage());
     public static RandomAccessFile rCod;
+        
     public AddSala() {
         initComponents();
         AddSalaPanel back = new AddSalaPanel();        
@@ -225,48 +227,49 @@ public class AddSala extends javax.swing.JFrame {
         setBounds((screenSize.width-716)/2, (screenSize.height-771)/2, 716, 771);
     }// </editor-fold>//GEN-END:initComponents
 
-     public  void initUI(int fil, int col) {    
-     
+     public  JButton[][] initUI(int fil, int col) {         
       jPanel1.setBorder(BorderFactory.createEmptyBorder(fil, col, fil, col));     
-      jPanel1.setSize(800,430);      
-     
+      jPanel1.setSize(800,430);           
+      buttons = new JButton [fil][col];
       
-       buttons = new JButton [fil][col];
-       jPanel1.setLayout(new GridLayout(fil, col));   
-       jPanel1.removeAll();
+      jPanel1.setLayout(new GridLayout(fil, col));   
+      jPanel1.removeAll();
        
        for(int x=0;x<fil;x++){
           for(int y=0;y<col;y++){                  
               
-               buttons[x][y]=(new JButton(habilitada));   
+               buttons[x][y]=(new JButton());   
+               buttons[x][y].setIcon(habilitada);
                buttons[x][y].setSize(25,22);
-             
+               
                buttons[x][y].addMouseListener(new java.awt.event.MouseAdapter() {                    
                 @Override
-                public void mouseEntered(java.awt.event.MouseEvent evt) {                                          
+               public void mouseEntered(java.awt.event.MouseEvent evt) {                                          
                 }
                 @Override
                 public void mouseExited(java.awt.event.MouseEvent evt) {                  
                 }                
-            });
+                });
             buttons[x][y].addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     clicEvent(evt);
                 }
-            });  
-              
+            }); 
               jPanel1.add(buttons[x][y]);       
           }
        }
+       return buttons;
     }  
     public void clicEvent(ActionEvent e) {   
       JButton evento = (JButton)e.getSource();
       if(evento.getIcon()==habilitada){
-                        evento.setIcon(deshabilitada);
-                    }
-                    else if(evento.getIcon()==deshabilitada){
-                        evento.setIcon(habilitada);
+          evento.setIcon(deshabilitada);   
+          evento.repaint();   
+      }
+      else if(evento.getIcon()==deshabilitada){
+           evento.setIcon(habilitada);                        
+           evento.repaint();             
        }          
     
     }
@@ -297,8 +300,9 @@ public class AddSala extends javax.swing.JFrame {
         int columnas=Integer.parseInt(txtColumnasSala.getText());
         TipoFormato format=(TipoFormato) comboTipo3D.getSelectedItem();
      
-        boolean[][] sillas=  arregloAsiento(filas,columnas);
-        
+        boolean[][] sillas= arregloAsiento(buttons,filas,columnas);
+     
+               
         if(sillas.length==0){
                 JOptionPane.showMessageDialog(null, "No deben haber campos vacíos"); 
                 return;
@@ -311,7 +315,7 @@ public class AddSala extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Error"); 
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Error"); 
-            }
+         }
       }else if(comboTipo3D.isEnabled()) {
             try {    
                 Menu.agregarSala3D(cod, tipo, format, filas, columnas,sillas);
@@ -354,16 +358,16 @@ public class AddSala extends javax.swing.JFrame {
     }//GEN-LAST:event_txtColumnasSalaFocusLost
 
        
-    public boolean[][] arregloAsiento(int fil, int col){
+    public boolean[][] arregloAsiento( JButton[][] panel, int fil, int col){
       boolean asientos[][]=new boolean[fil][col] ;
       
         for(int x=0;x<fil;x++){
-             for(int y=0;y<col;y++){    
-               if(buttons[x][y].getSelectedIcon()==habilitada){
-                   asientos[x][y]=true;
-               }
-               else if(buttons[x][y].getSelectedIcon()==deshabilitada){
+             for(int y=0;y<col;y++){   
+                if(panel[x][y].getIcon()==deshabilitada){
                    asientos[x][y]=false;
+                }
+                if(panel[x][y].getIcon()==habilitada){
+                   asientos[x][y]=true;
                }
              } 
         }

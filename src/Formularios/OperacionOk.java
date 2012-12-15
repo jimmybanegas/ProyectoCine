@@ -1,5 +1,9 @@
 package Formularios;
 
+import Paneles.OperacionOkPanel;
+import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /*
@@ -18,6 +22,15 @@ public class OperacionOk extends javax.swing.JFrame {
      */
     public OperacionOk() {
         initComponents();
+        OperacionOkPanel back = new OperacionOkPanel();
+        this.add(back,BorderLayout.CENTER);
+        this.pack();
+    }
+    @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
     }
 
     /**
@@ -32,6 +45,8 @@ public class OperacionOk extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setPreferredSize(new java.awt.Dimension(325, 115));
 
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

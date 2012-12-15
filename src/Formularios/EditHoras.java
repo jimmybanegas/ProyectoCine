@@ -488,9 +488,7 @@ public class EditHoras extends javax.swing.JFrame {
           String tit=comboPelicula.getSelectedItem().toString();
           boolean activa=true;
           
-          Sala proyectar= Menu.getSala(codPeli);
-          
-                  
+          Sala proyectar= Menu.getSala(codSala);
           Menu.addPeliHorario(codHorario,codSala,codPeli,tit,a,b,activa,proyectar.getFilas(),proyectar.getAsientos(),proyectar.getSillas());
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Error"); 
