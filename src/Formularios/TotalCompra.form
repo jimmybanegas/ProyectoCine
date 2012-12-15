@@ -67,11 +67,9 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel21" max="32767" attributes="0"/>
                                   <Component id="jLabel13" alignment="0" pref="100" max="32767" attributes="0"/>
-                                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lblTercera" alignment="1" pref="74" max="32767" attributes="0"/>
-                                      <Component id="lblMenor" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="lblAdulto" alignment="1" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="lblTercera" alignment="1" pref="74" max="32767" attributes="0"/>
+                                  <Component id="lblMenor" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="lblAdulto" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -181,10 +179,12 @@
                   </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel21" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="granTotal" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="jLabel4" pref="28" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel21" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="jLabel4" pref="28" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">

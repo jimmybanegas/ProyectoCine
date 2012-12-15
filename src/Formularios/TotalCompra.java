@@ -241,10 +241,9 @@ public class TotalCompra extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(lblTercera, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                                        .addComponent(lblMenor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblAdulto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(lblTercera, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                                    .addComponent(lblMenor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblAdulto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -327,10 +326,11 @@ public class TotalCompra extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtTercera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(granTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnComprar)
@@ -391,7 +391,11 @@ public class TotalCompra extends javax.swing.JFrame {
         double cant=Double.parseDouble(txtAdulto.getText());
             subAdulto.setText(precio*cant+"");
             total();
-       } 
+       }
+       else{
+            subAdulto.setText("");
+            total();
+       }
     }//GEN-LAST:event_txtAdultoFocusLost
 
     private void txtMenorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMenorFocusLost
@@ -402,6 +406,10 @@ public class TotalCompra extends javax.swing.JFrame {
             subMenor.setText(precio*cant+"");
             total();
        } 
+      else{
+          subMenor.setText("");
+          total();
+      }
     }//GEN-LAST:event_txtMenorFocusLost
 
     private void txtTerceraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTerceraFocusLost
@@ -412,6 +420,10 @@ public class TotalCompra extends javax.swing.JFrame {
             subTercera.setText(precio*cant+"");
             total();
        } 
+      else{
+          subTercera.setText("");
+          total();
+      }
     }//GEN-LAST:event_txtTerceraFocusLost
 
     private void subTerceraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_subTerceraFocusLost
@@ -423,7 +435,7 @@ public class TotalCompra extends javax.swing.JFrame {
        if(subAdulto.getText().equals("") &&subMenor.getText().equals("") &&subTercera.getText().equals("")){
          granTotal.setText(String.valueOf(0)); 
        }
-       else if(subMenor.getText().equals("") &&subTercera.getText().equals("")){
+       else if(subMenor.getText().equals("")&&subTercera.getText().equals("")){
            double total=Double.parseDouble(subAdulto.getText());
            granTotal.setText(String.valueOf(total));  
        }
@@ -431,9 +443,21 @@ public class TotalCompra extends javax.swing.JFrame {
            double total=Double.parseDouble(subTercera.getText());
            granTotal.setText(String.valueOf(total));  
        }
+       else if(subAdulto.getText().equals("")&&subTercera.getText().equals("")){
+            double total=Double.parseDouble(subMenor.getText());
+            granTotal.setText(String.valueOf(total));    
+       }
        else if(subTercera.getText().equals("")){
            double total=Double.parseDouble(subAdulto.getText())+Double.parseDouble(subMenor.getText());
-            granTotal.setText(String.valueOf(total));    
+           granTotal.setText(String.valueOf(total)); 
+       }
+       else if(subMenor.getText().equals("")){
+           double total=Double.parseDouble(subAdulto.getText())+Double.parseDouble(subTercera.getText());
+           granTotal.setText(String.valueOf(total)); 
+       }
+       else if(subAdulto.getText().equals("")){
+           double total=Double.parseDouble(subMenor.getText())+Double.parseDouble(subTercera.getText());
+           granTotal.setText(String.valueOf(total)); 
        }
        else if(!subAdulto.getText().equals("") &&!subMenor.getText().equals("") &&!subTercera.getText().equals("")){
             double total=Double.parseDouble(subAdulto.getText())+Double.parseDouble(subMenor.getText())+
