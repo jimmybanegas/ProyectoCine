@@ -1,15 +1,26 @@
 
 package Formularios;
 
+import Menú.Menu;
 import Paneles.ListPeliculasPanel;
+import Peliculas.Horarios;
+import Peliculas.Pelicula;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.SystemColor;
 import java.awt.Toolkit;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPopupMenu.Separator;
-import javax.swing.JSeparator;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JList;
+import javax.swing.JPanel;
 
 public class ListPeliculas extends javax.swing.JFrame {
 
@@ -20,6 +31,7 @@ public class ListPeliculas extends javax.swing.JFrame {
         initComponents();
         ListPeliculasPanel back = new ListPeliculasPanel();
         this.add(back,BorderLayout.CENTER);
+       
         this.pack();
     }
     
@@ -40,7 +52,15 @@ public class ListPeliculas extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        pnlPeliculas = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        cmbPeliculas = new javax.swing.JComboBox();
+        lblImagen = new javax.swing.JLabel();
+        cmbHoras = new javax.swing.JComboBox();
+        lblTitulo = new javax.swing.JLabel();
+        lblEstreno = new javax.swing.JLabel();
+        lblDuracion = new javax.swing.JLabel();
+        lblGenero = new javax.swing.JLabel();
+        lblClasif = new javax.swing.JLabel();
 
         setIconImage(getIconImage());
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -60,18 +80,37 @@ public class ListPeliculas extends javax.swing.JFrame {
             }
         });
 
-        pnlPeliculas.setAutoscrolls(true);
+        jButton1.setText("Cargar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout pnlPeliculasLayout = new javax.swing.GroupLayout(pnlPeliculas);
-        pnlPeliculas.setLayout(pnlPeliculasLayout);
-        pnlPeliculasLayout.setHorizontalGroup(
-            pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
-        );
-        pnlPeliculasLayout.setVerticalGroup(
-            pnlPeliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 283, Short.MAX_VALUE)
-        );
+        cmbPeliculas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPeliculasActionPerformed(evt);
+            }
+        });
+        cmbPeliculas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cmbPeliculasFocusLost(evt);
+            }
+        });
+
+        lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblEstreno.setForeground(new java.awt.Color(51, 0, 255));
+
+        lblDuracion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblDuracion.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblGenero.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblGenero.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblClasif.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblClasif.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,27 +119,59 @@ public class ListPeliculas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(275, 275, 275)
-                        .addComponent(jButton2))
+                        .addGap(70, 70, 70)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(61, 61, 61)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(lblClasif, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                                    .addComponent(lblTitulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblGenero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblDuracion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmbPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(114, 114, 114)
+                                .addComponent(jLabel1))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(232, 232, 232)
-                        .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 78, Short.MAX_VALUE)
-                .addComponent(pnlPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96))
+                        .addGap(160, 160, 160)
+                        .addComponent(jButton1)
+                        .addGap(90, 90, 90)
+                        .addComponent(jButton2)))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(46, 46, 46)
                 .addComponent(jLabel1)
-                .addGap(65, 65, 65)
-                .addComponent(pnlPeliculas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(56, 56, 56)
-                .addComponent(jButton2)
-                .addGap(52, 52, 52))
+                .addGap(103, 103, 103)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblClasif, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addGap(61, 61, 61))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -112,39 +183,113 @@ public class ListPeliculas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
- // pnlPeliculas.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));     
- //   pnlPeliculas.setSize(800,430);    
-   
-  //pnlPeliculas.setLayout(new GridLayout());                            
+        try {
+            ArrayList <Horarios> todos=Menu.getTodosHorarios();
+            
+            if(!todos.isEmpty()){
+              for(Horarios x:todos){
+                System.out.println(x.toString());
+              }
               
-      pnlPeliculas.add(new Display()).setVisible(true);
-    //    pnlPeliculas.add(new JSeparator());
-      pnlPeliculas.add(new Display());
-     /* pnlPeliculas.add(new Display()); 
-    
-      pnlPeliculas.add(new Display());
-  
-      pnlPeliculas.add(new Display());   
-   
-      pnlPeliculas.add(new Display());   
-      pnlPeliculas.add(new Display()); 
-     
- /*   Object [][] data=new Object[Menu.peliculas.size()][7];
-    for(int x=0;x<Menu.peliculas.size();x++){    
-       data[x][0]=Menu.peliculas.get(x).getCod();
-       data[x][1]=Menu.peliculas.get(x).getTitulo();
-       data[x][2]=Menu.peliculas.get(x).getDura();
-       data[x][3]=Menu.peliculas.get(x).getGenero();
-       data[x][4]=Menu.peliculas.get(x).getClasi();
-       data[x][5]=Menu.peliculas.get(x).getFormato();
-       data[x][6]=Menu.peliculas.get(x).getImagen();
-       
-    }        
-  
-    String [] cadenas={ "Código", "Título", "Duración","Género","Clasificación","Formato","Imagen"};        
-    jTable1.setModel(new javax.swing.table.DefaultTableModel( data  ,cadenas)) ; */
+             // int cant=AddPelicula.codPeli();
+             // AddPelicula.restar();
+             
+              ArrayList<Pelicula> peliculas= Menu.getPeliculas();  
+              
+              for(Pelicula x: peliculas){
+                 ArrayList<String>horas= horariosActivos(x.getTitulo(),todos);
+                 if(!horas.isEmpty()){
+                      System.out.println(x.getTitulo());
+                
+                      cmbPeliculas.addItem(x.getTitulo());
+                 }
+                
+                 
+                 for(String y: horas){
+                     System.out.println("---"+y);
+                 }
+              } 
+              
+              
+            }
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ListPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+  /*  scrollPane.setBounds(10, 101, 742, 276);
+     
+    getContentPane().add(scrollPane);
+
+    JPanel borderlaoutpanel = new JPanel();
+    scrollPane.setViewportView(borderlaoutpanel);
+    borderlaoutpanel.setLayout(new BorderLayout(0, 0));
+
+    JPanel columnpanel = new JPanel();
+    borderlaoutpanel.add(columnpanel, BorderLayout.NORTH);
+    columnpanel.setLayout(new GridLayout(0, 1, 0, 1));
+//    columnpanel.setBackground(Color.gray);
+    
+     pintar(columnpanel, new Display());
+     scrollPane.setVisible(true);*/
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cmbPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPeliculasActionPerformed
+        // TODO add your handling code here:
+         ArrayList <Horarios> todos;
+        try {
+            todos = Menu.getTodosHorarios();
+            
+            
+            if(!todos.isEmpty()){
+              String nombre=(String) cmbPeliculas.getSelectedItem();
+              cmbHoras.removeAllItems();
+              ArrayList<String>horas= horariosActivos(nombre,todos);
+             
+                 if(!horas.isEmpty()){
+                                          
+                   for(String y: horas){
+                     cmbHoras.addItem(y);  
+                    }
+                 }
+               Pelicula peli=Menu.getPeliNombre((String)cmbPeliculas.getSelectedItem());
+               System.out.println(peli);
+                if(peli!=null){
+                  ImageIcon icon = new ImageIcon(peli.getImagen());          
+                  Image img = icon.getImage().getScaledInstance(lblImagen.getWidth(), lblImagen.getHeight(), Image.SCALE_SMOOTH);   
+                 
+                   Calendar actual=Calendar.getInstance();
+                   Calendar modif = Calendar.getInstance(); 
+                   modif.setTime( peli.getFecha());
+                   int dias=(actual.get(Calendar.DAY_OF_YEAR) - modif.get(Calendar.DAY_OF_YEAR));
+                  if(dias<=7){
+                      lblEstreno.setText("ESTRENO");
+                  }
+                      
+                  lblImagen.setIcon( new ImageIcon(img) );
+                  lblTitulo.setText("TITULO: "+peli.getTitulo());
+                  lblClasif.setText("CLASIFICACION: "+peli.getClasi().toString());
+                  lblGenero.setText("GENERO: "+peli.getGenero().toString());
+                  int dura=peli.getHoras()*60+peli.getMinutos();
+                  lblDuracion.setText("DURACION: "+dura+ " Minutos");
+                  
+               }   
+                 
+            }   
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ListPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+                
+    }//GEN-LAST:event_cmbPeliculasActionPerformed
+
+    private void cmbPeliculasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbPeliculasFocusLost
+     
+    }//GEN-LAST:event_cmbPeliculasFocusLost
 
     /**
      * @param args the command line arguments
@@ -188,8 +333,45 @@ public class ListPeliculas extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cmbHoras;
+    private javax.swing.JComboBox cmbPeliculas;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel pnlPeliculas;
+    private javax.swing.JLabel lblClasif;
+    private javax.swing.JLabel lblDuracion;
+    private javax.swing.JLabel lblEstreno;
+    private javax.swing.JLabel lblGenero;
+    private javax.swing.JLabel lblImagen;
+    private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
+
+    private void pintar(JPanel columnpanel, Display display) {
+         for(int i=0;i<1;i++) {
+        JPanel rowPanel = new JPanel();
+        rowPanel.setPreferredSize(new Dimension(500,300));
+        columnpanel.add(rowPanel);
+        rowPanel.setLayout(null);      
+                    
+        display.setBounds(50, 20, 500, 250);
+   
+        rowPanel.add(display).setVisible(true);
+      
+        if(i%2==0) {
+                rowPanel.setBackground(SystemColor.inactiveCaptionBorder);
+        }
+        
+    }
+
+    }
+
+    private ArrayList<String>  horariosActivos(String nombre, ArrayList<Horarios> todos) {
+       ArrayList<String> horas=new ArrayList<>();
+        for(Horarios x:todos){
+            if(x.getTit().equalsIgnoreCase(nombre)){
+                horas.add(x.getInicio().getHours()+":"+x.getInicio().getMinutes());
+            }
+        }
+        return horas;
+    }
 }

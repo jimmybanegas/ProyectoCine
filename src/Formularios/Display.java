@@ -24,7 +24,7 @@ public class Display extends javax.swing.JPanel {
         lblTitulo.setText(tit);
        
         for(int x=0;x<horas.length;x++) {
-            lstHoras.add(horas[x],null);
+           // lstHoras.add();
         }      
                 
         ImageIcon icon = new ImageIcon(foto);          
@@ -34,11 +34,16 @@ public class Display extends javax.swing.JPanel {
        
       }
     
-      public Display() {
+      public Display(String foto) {
          initComponents();
+          ImageIcon icon = new ImageIcon(foto);          
+            Image img = icon.getImage().getScaledInstance(pnlFoto.getWidth(), pnlFoto.getHeight(), Image.SCALE_SMOOTH);          
+            
+            pnlFoto.setIcon( new ImageIcon(img) );
       }
-    
-    
+     public Display() {
+         initComponents();
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,8 +68,9 @@ public class Display extends javax.swing.JPanel {
         pnlFoto = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
-        setMaximumSize(new java.awt.Dimension(500, 230));
-        setMinimumSize(new java.awt.Dimension(500, 230));
+        setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        setMaximumSize(new java.awt.Dimension(500, 240));
+        setMinimumSize(new java.awt.Dimension(500, 240));
         setPreferredSize(new java.awt.Dimension(500, 230));
 
         jLabel1.setText("Titulo:");
@@ -136,10 +142,14 @@ public class Display extends javax.swing.JPanel {
                             .addComponent(lblClasif, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 4, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(pnlFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,5 +1,6 @@
 package Menú;
 
+import Formularios.AddSala;
 import Peliculas.Horarios;
 import Peliculas.Pelicula;
 import Peliculas.TipoClasificacion;
@@ -248,6 +249,35 @@ public class Menu {
       return null;
     }
     
+    public static Pelicula getPeliNombre(String titulo) throws FileNotFoundException{
+        File u=new File("Peliculas");
+        u.mkdir();     
+        Menu.peliculas= new RandomAccessFile( new File("Peliculas\\peliculas.movi"), "rw");   
+       try{
+        peliculas.seek(0);
+        while(peliculas.getFilePointer() < peliculas.length() ){
+      
+            int co=peliculas.readInt();//Codigo
+            int hor= peliculas.readInt();//Duracion horas
+            int min= peliculas.readInt();//Duracion minutos
+            String tit= peliculas.readUTF();//Titulo nombre
+            String ti= peliculas.readUTF();//TipoPelicula Genero
+            String cla=peliculas.readUTF();//TipoClasificacion
+            long fecha=peliculas.readLong();//Fecha de adicion
+            String fo= peliculas.readUTF();//TipoFormato 3D/Normal
+            String ima=peliculas.readUTF(); //Path de imagen
+              
+              if(titulo.equalsIgnoreCase(tit) ){            
+                  return new Pelicula(co,tit,hor,min,TipoPelicula.valueOf(ti),TipoClasificacion.valueOf(cla),new Date(fecha),TipoFormatoPeli.valueOf(fo),ima)  ;
+              } 
+          }  
+        }
+        catch(IOException e){
+            JOptionPane.showMessageDialog(null, "Error"); 
+        }
+      
+      return null;
+    }
    public static ArrayList<Pelicula> getPeliculas() throws FileNotFoundException{
         File u=new File("Peliculas");
         u.mkdir();     
@@ -417,5 +447,22 @@ public class Menu {
         return usuario;
     }
  
+    
+    public static ArrayList<Horarios> getTodosHorarios() throws FileNotFoundException{
+        int cant=AddSala.codSala();
+        AddSala.restar();
+        System.out.println(cant);
+        
+        ArrayList <Horarios> todos=new ArrayList<>(); 
+       
+        for(int x=1;x<=cant;x++){
+            ArrayList <Horarios> nuevos;
+                   nuevos= Menu.getHorario(x); 
+            todos.addAll(nuevos);
+        }
+        
+        return todos;
+        
+    }
     
 }
