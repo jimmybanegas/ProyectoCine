@@ -114,7 +114,7 @@ public final class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnCompraBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompraBoletoActionPerformed
-        JFrame frame = new DisplayMovies();
+        JFrame frame = new ListPeliculas();
         frame.setVisible(true);
     }//GEN-LAST:event_btnCompraBoletoActionPerformed
 

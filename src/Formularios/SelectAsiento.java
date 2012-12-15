@@ -207,8 +207,8 @@ public class SelectAsiento extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.setVisible(false);
-        JFrame frame = new DisplayMovies();
-        frame.setVisible(true);
+        //JFrame frame = new TotalCompra();
+       // frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
    @Override

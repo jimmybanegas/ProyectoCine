@@ -6,21 +6,14 @@ import Paneles.ListPeliculasPanel;
 import Peliculas.Horarios;
 import Peliculas.Pelicula;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JList;
-import javax.swing.JPanel;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class ListPeliculas extends javax.swing.JFrame {
 
@@ -61,6 +54,9 @@ public class ListPeliculas extends javax.swing.JFrame {
         lblDuracion = new javax.swing.JLabel();
         lblGenero = new javax.swing.JLabel();
         lblClasif = new javax.swing.JLabel();
+        horaActual = new javax.swing.JLabel();
+        lblSala = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setIconImage(getIconImage());
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -80,7 +76,7 @@ public class ListPeliculas extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Cargar");
+        jButton1.setText("Hacer Compra");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -112,6 +108,14 @@ public class ListPeliculas extends javax.swing.JFrame {
         lblClasif.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblClasif.setForeground(new java.awt.Color(255, 255, 255));
 
+        horaActual.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        horaActual.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblSala.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Sala:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,16 +136,23 @@ public class ListPeliculas extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblEstreno, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cmbPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cmbHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(114, 114, 114)
-                                .addComponent(jLabel1))))
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(horaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(cmbPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cmbHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(160, 160, 160)
-                        .addComponent(jButton1)
-                        .addGap(90, 90, 90)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
                         .addComponent(jButton2)))
                 .addContainerGap(84, Short.MAX_VALUE))
         );
@@ -150,10 +161,14 @@ public class ListPeliculas extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1)
-                .addGap(103, 103, 103)
+                .addGap(58, 58, 58)
+                .addComponent(horaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,57 +200,36 @@ public class ListPeliculas extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             ArrayList <Horarios> todos=Menu.getTodosHorarios();
+            Calendar actual=Calendar.getInstance();
+            horaActual.setText(actual.get(Calendar.DAY_OF_MONTH)+"/"+actual.get(Calendar.MONTH)+
+                    "/"+actual.get(Calendar.YEAR)+" Hora: "+actual.get(Calendar.HOUR)+":"+actual.get(Calendar.MINUTE));
             
             if(!todos.isEmpty()){
-              for(Horarios x:todos){
-                System.out.println(x.toString());
-              }
-              
-             // int cant=AddPelicula.codPeli();
-             // AddPelicula.restar();
-             
+              lblSala.setText(null);      
               ArrayList<Pelicula> peliculas= Menu.getPeliculas();  
               
               for(Pelicula x: peliculas){
                  ArrayList<String>horas= horariosActivos(x.getTitulo(),todos);
-                 if(!horas.isEmpty()){
-                      System.out.println(x.getTitulo());
-                
+                 if(!horas.isEmpty()){               
                       cmbPeliculas.addItem(x.getTitulo());
                  }
-                
-                 
-                 for(String y: horas){
-                     System.out.println("---"+y);
-                 }
+               
               } 
               
               
             }
             
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ListPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(null, "Error"); 
         }
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-  /*  scrollPane.setBounds(10, 101, 742, 276);
-     
-    getContentPane().add(scrollPane);
-
-    JPanel borderlaoutpanel = new JPanel();
-    scrollPane.setViewportView(borderlaoutpanel);
-    borderlaoutpanel.setLayout(new BorderLayout(0, 0));
-
-    JPanel columnpanel = new JPanel();
-    borderlaoutpanel.add(columnpanel, BorderLayout.NORTH);
-    columnpanel.setLayout(new GridLayout(0, 1, 0, 1));
-//    columnpanel.setBackground(Color.gray);
-    
-     pintar(columnpanel, new Display());
-     scrollPane.setVisible(true);*/
+        JFrame compra=new TotalCompra((String)cmbPeliculas.getSelectedItem(),(String)cmbHoras.getSelectedItem(),
+                Integer.parseInt(lblSala.getText()));
+        compra.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cmbPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPeliculasActionPerformed
@@ -281,7 +275,7 @@ public class ListPeliculas extends javax.swing.JFrame {
                  
             }   
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ListPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error"); 
         }
             
                 
@@ -335,43 +329,29 @@ public class ListPeliculas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cmbHoras;
     private javax.swing.JComboBox cmbPeliculas;
+    private javax.swing.JLabel horaActual;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblClasif;
     private javax.swing.JLabel lblDuracion;
     private javax.swing.JLabel lblEstreno;
     private javax.swing.JLabel lblGenero;
     private javax.swing.JLabel lblImagen;
+    private javax.swing.JLabel lblSala;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
-
-    private void pintar(JPanel columnpanel, Display display) {
-         for(int i=0;i<1;i++) {
-        JPanel rowPanel = new JPanel();
-        rowPanel.setPreferredSize(new Dimension(500,300));
-        columnpanel.add(rowPanel);
-        rowPanel.setLayout(null);      
-                    
-        display.setBounds(50, 20, 500, 250);
    
-        rowPanel.add(display).setVisible(true);
-      
-        if(i%2==0) {
-                rowPanel.setBackground(SystemColor.inactiveCaptionBorder);
-        }
-        
-    }
-
-    }
-
     private ArrayList<String>  horariosActivos(String nombre, ArrayList<Horarios> todos) {
        ArrayList<String> horas=new ArrayList<>();
         for(Horarios x:todos){
             if(x.getTit().equalsIgnoreCase(nombre)){
+                lblSala.setText(String.valueOf(x.getCodSala()));
                 horas.add(x.getInicio().getHours()+":"+x.getInicio().getMinutes());
             }
         }
         return horas;
     }
+     
 }

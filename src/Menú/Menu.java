@@ -203,7 +203,7 @@ public class Menu {
     }
     
      
-    public static void addPeliHorario(int codHorario,int codSala, int codPeli,String tit,Date in, Date fin, boolean activa) throws FileNotFoundException, IOException {
+    public static void addPeliHorario(int codHorario,int codSala, int codPeli,String tit,Date in, Date fin, boolean activa,int fil, int col, boolean[][] sala) throws FileNotFoundException, IOException {
         File u=new File("Horarios");
         u.mkdir();  
        
@@ -217,6 +217,18 @@ public class Menu {
         horarios.writeLong(in.getTime());
         horarios.writeLong(fin.getTime());        
         horarios.writeBoolean(activa);
+       
+         for(int x=0;x<fil;x++){          
+             for(int y=0;y<col;y++){    
+               if(sala[x][y]){
+                   salas.writeBoolean(true);
+               }
+               else if(sala[x][y]==false){
+                   salas.writeBoolean(false);
+               }
+             } 
+        }
+        
     }
     
    public static Pelicula getPeli(int cod) throws FileNotFoundException{

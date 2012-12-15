@@ -171,6 +171,9 @@ public class EditHoras extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 comboPeliculaFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                comboPeliculaFocusLost(evt);
+            }
         });
 
         txtDuracion.setEditable(false);
@@ -381,13 +384,38 @@ public class EditHoras extends javax.swing.JFrame {
 
     private void comboSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSalaActionPerformed
         // TODO add your handling code here:
-        
+    try {
+            // TODO add your handling code here:        
+          Sala actual=Menu.getSala(comboSala.getSelectedIndex()+1);            
+         
+          System.out.println(actual.toString());
+            
+            ArrayList<Pelicula> peli=Menu.getPeliculas();           
+            comboPelicula.removeAllItems();
+            comboPelicula.repaint();
+            for(Pelicula x: peli){               
+              if(actual.getTipo()==TipoSala.NORMAL && x.getFormato().toString().equals("PELICULA_2D")){
+                 String a=x.getTitulo();
+                 comboPelicula.addItem(a);
+               } 
+            }  
+           for(Pelicula x: peli){  
+            if(actual.getTipo()==TipoSala.SALA3D && x.getFormato().toString().equals("PELICULA_3D")){
+                 String a=x.getTitulo();  
+                 comboPelicula.addItem(a);
+               }
+               
+            }
+            
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Error"); 
+        }     
 
     }//GEN-LAST:event_comboSalaActionPerformed
 
     private void comboPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPeliculaActionPerformed
         // TODO add your handling code here:
-        
+       
         
     }//GEN-LAST:event_comboPeliculaActionPerformed
 
@@ -399,14 +427,7 @@ public class EditHoras extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDuracionActionPerformed
 
     private void txtDuracionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDuracionFocusGained
-        try {
-            // TODO add your handling code here:
-            int x=comboPelicula.getSelectedIndex();
-            Pelicula p=Menu.getPeli(x+1);
-            txtDuracion.setText(String.valueOf(p.getHoras()+":"+p.getMinutos()));        
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Error"); 
-        }
+       
     }//GEN-LAST:event_txtDuracionFocusGained
 
     private void txtHoraFinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoraFinFocusGained
@@ -467,7 +488,10 @@ public class EditHoras extends javax.swing.JFrame {
           String tit=comboPelicula.getSelectedItem().toString();
           boolean activa=true;
           
-          Menu.addPeliHorario(codHorario,codSala,codPeli,tit,a,b,activa);
+          Sala proyectar= Menu.getSala(codPeli);
+          
+                  
+          Menu.addPeliHorario(codHorario,codSala,codPeli,tit,a,b,activa,proyectar.getFilas(),proyectar.getAsientos(),proyectar.getSillas());
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Error"); 
         } catch (IOException ex) {
@@ -490,32 +514,7 @@ public class EditHoras extends javax.swing.JFrame {
 
     private void comboPeliculaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboPeliculaFocusGained
         // TODO add your handling code here:
-        try {
-            // TODO add your handling code here:        
-          Sala actual=Menu.getSala(comboSala.getSelectedIndex()+1);            
-         
-          System.out.println(actual.toString());
-            
-            ArrayList<Pelicula> peli=Menu.getPeliculas();           
-            comboPelicula.removeAllItems();
-            comboPelicula.repaint();
-            for(Pelicula x: peli){               
-              if(actual.getTipo()==TipoSala.NORMAL && x.getFormato().toString().equals("PELICULA_2D")){
-                 String a=x.getTitulo();
-                 comboPelicula.addItem(a);
-               } 
-            }  
-           for(Pelicula x: peli){  
-            if(actual.getTipo()==TipoSala.SALA3D && x.getFormato().toString().equals("PELICULA_3D")){
-                 String a=x.getTitulo();  
-                 comboPelicula.addItem(a);
-               }
-               
-            }
-            
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Error"); 
-        }
+       
               
     }//GEN-LAST:event_comboPeliculaFocusGained
 
@@ -593,6 +592,18 @@ public class EditHoras extends javax.swing.JFrame {
         // TODO add your handling code here:
       
     }//GEN-LAST:event_comboSalaItemStateChanged
+
+    private void comboPeliculaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboPeliculaFocusLost
+        // TODO add your handling code here:
+          try {
+            // TODO add your handling code here:
+            int x=comboPelicula.getSelectedIndex();
+            Pelicula p=Menu.getPeli(x+1);
+            txtDuracion.setText(String.valueOf(p.getHoras()+":"+p.getMinutos()));        
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Error"); 
+        }
+    }//GEN-LAST:event_comboPeliculaFocusLost
        
      public static void eliminar(int codHorario) throws IOException{
         Menu.horarios.seek(0);
