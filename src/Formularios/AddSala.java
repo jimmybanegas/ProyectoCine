@@ -66,6 +66,7 @@ public class AddSala extends javax.swing.JFrame {
         btnAsientos = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
+        setTitle("Agregar Salas");
         setIconImage(getIconImage());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {

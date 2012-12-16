@@ -74,6 +74,7 @@ public class AddPelicula extends javax.swing.JFrame {
 
         lblCodigoSala.setForeground(new java.awt.Color(255, 255, 255));
 
+        setTitle("Agregar Peliculas");
         setIconImage(getIconImage());
         setResizable(false);
 

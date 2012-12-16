@@ -63,6 +63,7 @@ public class EditPerfil extends javax.swing.JFrame {
 
         jTextField1.setText("jTextField1");
 
+        setTitle("Editar Datos de Perfil");
         setIconImage(getIconImage());
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {

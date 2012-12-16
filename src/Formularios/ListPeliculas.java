@@ -55,6 +55,7 @@ public class ListPeliculas extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         lblCodHorario = new javax.swing.JLabel();
 
+        setTitle("Peliculas en la Cartelera");
         setIconImage(getIconImage());
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {

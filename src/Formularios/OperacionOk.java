@@ -47,6 +47,7 @@ public class OperacionOk extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
+        setIconImage(getIconImage());
         setPreferredSize(new java.awt.Dimension(325, 115));
 
         jButton1.setText("Aceptar");

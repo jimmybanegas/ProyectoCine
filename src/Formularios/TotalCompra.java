@@ -72,7 +72,7 @@ public class TotalCompra extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         lblCodHorario = new javax.swing.JLabel();
 
-        setTitle("Paso 2");
+        setTitle("Ventana de Compra");
         setIconImage(getIconImage());
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {

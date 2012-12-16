@@ -109,6 +109,7 @@ public class SelectAsiento extends javax.swing.JFrame {
         lblFecha = new javax.swing.JLabel();
         cmbHoras = new javax.swing.JComboBox();
 
+        setTitle("Seleccionar Asientos");
         setIconImage(getIconImage());
         setPreferredSize(new java.awt.Dimension(992, 536));
         setResizable(false);

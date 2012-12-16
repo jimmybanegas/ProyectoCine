@@ -110,6 +110,7 @@ public class EditHoras extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
+        setTitle("Agregar Peliculas a Horarios");
         setIconImage(getIconImage());
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
