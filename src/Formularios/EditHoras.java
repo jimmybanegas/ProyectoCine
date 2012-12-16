@@ -526,33 +526,41 @@ public class EditHoras extends javax.swing.JFrame {
 
     private void comboSalaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboSalaFocusLost
         // TODO add your handling code here:
-        btnRefresh.doClick();
-      
+              
     }//GEN-LAST:event_comboSalaFocusLost
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        try {           
-          
-          if(comboSala.getItemCount()==0){
-              JOptionPane.showMessageDialog(null,"No hay salas agregadas"); 
-              return;
-          }
+        
+        try {
+             ArrayList<Horarios> pelis;
+             pelis= Menu.getHorario(comboSala.getSelectedIndex()+1); 
+             if(pelis==null){
+                 return;
+             }
+             
+             if(comboSala.getItemCount()==0){
+                 JOptionPane.showMessageDialog(null,"No hay salas agregadas"); 
+                 return;         
+             }
           try{
             jTable1.setModel(makeTable());  
             jTable1.setRowHeight(36);
-            jTable1.setAutoCreateRowSorter(true);
-          } 
-          catch(ArrayIndexOutOfBoundsException ex){
-               JOptionPane.showMessageDialog(null,"No peliculas asignadas a la sala"); 
+            jTable1.setAutoCreateRowSorter(true);                     
+          }catch (FileNotFoundException|ArrayIndexOutOfBoundsException ex){
+              this.setVisible(false);
+              JOptionPane.showMessageDialog(null,"Sala sin peliculas"); 
+              btnCancelar.doClick();
           }
+             
+  
+               TableColumn column = jTable1.getColumnModel().getColumn(6);
+               column.setCellRenderer(new ButtonsRenderer());
+               column.setCellEditor(new ButtonsEditor(jTable1));               
+        } catch (FileNotFoundException|ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(null,"Error: "+ex.getMessage() );
            
-           
-           TableColumn column = jTable1.getColumnModel().getColumn(6);
-           column.setCellRenderer(new ButtonsRenderer());
-           column.setCellEditor(new ButtonsEditor(jTable1));            
-        } catch (FileNotFoundException | HeadlessException ex) {
-             JOptionPane.showMessageDialog(null,"Error: "+ex.getMessage()); 
-        }                
+        }
+                      
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -620,6 +628,7 @@ public class EditHoras extends javax.swing.JFrame {
     }//GEN-LAST:event_comboPeliculaFocusLost
        
      public static void eliminar(int codHorario) throws IOException{
+              
         Menu.horarios.seek(0);
         while(Menu.horarios.getFilePointer() < Menu.horarios.length() ){      
             int codHora=Menu.horarios.readInt();
@@ -627,24 +636,25 @@ public class EditHoras extends javax.swing.JFrame {
             Menu.horarios.readInt();
             Menu.horarios.readUTF();
             Menu.horarios.readLong();
-            Menu.horarios.readLong(); 
-            
+            Menu.horarios.readLong();             
             long pos=Menu.horarios.getFilePointer();
             boolean activa=Menu.horarios.readBoolean();   
-            
-            int fil=Menu.horarios.readInt();
-            int col=Menu.horarios.readInt();
-                                   
-            for(int x=0;x<fil;x++){          
-                 for(int y=0;y<col;y++){    
-                   Menu.horarios.readBoolean();
-                 }
-            }            
-        
-           if(codHora==codHorario&&activa==true){           
+          
+            if(activa&&codHora==codHorario){           
               Menu.horarios.seek(pos);
               Menu.horarios.writeBoolean(false);
            }  
+            
+            int fil=Menu.horarios.readInt();
+            int col=Menu.horarios.readInt();
+                        
+            for(int x=0;x<fil;x++){          
+               for(int y=0;y<col;y++){     
+                 Menu.horarios.readBoolean();
+               }  
+            }
+                        
+          
           }     
          
      }  
@@ -690,10 +700,10 @@ public class EditHoras extends javax.swing.JFrame {
                      
        ArrayList<Horarios> pelis;
        pelis= Menu.getHorario(comboSala.getSelectedIndex()+1);
-       Object [][] data = null;       
+       Object [][] data = new Object[pelis.size()][7];       
             
        if(pelis!=null){         
-         data=new Object[pelis.size()][7];
+       //  data=new Object[pelis.size()][7];
          for(int x=0;x<pelis.size();x++){    
            data[x][0]=pelis.get(x).getCodHorario();
            data[x][1]=pelis.get(x).getCodSala();
@@ -771,12 +781,13 @@ class ButtonsEditor extends ButtonsPanel implements TableCellEditor {
                
                if (seleccion != -1){
                    if((seleccion + 1)==1)   {
-                       try {
-                           EditHoras.eliminar(Integer.parseInt(table.getValueAt(a, 0).toString()));
-                           btnRefresh.doClick();                           
-                       } catch (IOException ex) {
-                           System.out.println("Error: "+ ex.getMessage());
-                       }
+                      try {                      
+                        EditHoras.eliminar(Integer.parseInt(table.getValueAt(a, 0).toString()));  
+                        btnRefresh.doClick();                           
+                      } catch (IOException ex) {
+                         Logger.getLogger(EditHoras.class.getName()).log(Level.SEVERE, null, ex);
+                      }
+                      
                    }
                    else {
                        JOptionPane.showMessageDialog(table, "Se canceló eliminación");

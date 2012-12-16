@@ -14,6 +14,7 @@ import Salas.sala3D;
 import Usuarios.Usuario;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
@@ -598,12 +599,9 @@ public class Menu {
         File u=new File("Peliculas");
         u.mkdir();     
         Menu.taquilla= new RandomAccessFile( new File("Peliculas\\taquilla.movi"), "rw");  
-   
         taquilla.seek(taquilla.length());
-       
         for(int x=0;x<cant;x++){
-            System.out.println(tit);
-            taquilla.writeUTF(tit);          
+            Menu.taquilla.writeUTF(tit);          
         }      
     }
     
@@ -613,31 +611,34 @@ public class Menu {
         Menu.taquilla= new RandomAccessFile( new File("Peliculas\\taquilla.movi"), "rw");  
         Menu.taquilla.seek(0);
         int cantPeli = 0;
-        String titulo="";               
-        while(taquilla.getFilePointer() < taquilla.length()){
-            String tit = taquilla.readUTF();
-            System.out.println(tit);
-            int total = ventasHechas(tit);            
-             if( total > cantPeli ){
-                    cantPeli = total;
-                    titulo = tit;
-              }
-         }         
-        
-        if( cantPeli != 0 ) {
+        String titulo="";   
+        try (FileWriter texto = new FileWriter("taquilla.txt")) {
+            while(taquilla.getFilePointer() < taquilla.length()){
+                 String tit = taquilla.readUTF();
+                 long pos=taquilla.getFilePointer();
+                 int total = ventasHechas(tit);            
+                 taquilla.seek(pos);
+                 if( total > cantPeli ){
+                      cantPeli = total;
+                     titulo = tit;
+                 }
+                 texto.write(tit+" "+total+"\n");  
+                 
+             }
+             texto.flush();
+        }
+         if( cantPeli != 0 ) {
              JOptionPane.showMessageDialog(null, "Mas taquillera: "+titulo+" reantada: "+cantPeli+" veces");
         }
         else{
             JOptionPane.showMessageDialog(null, "NO HAY VENTAS AUN");
-        }       
+        }           
         
     }
-    
-    
+        
     private static int ventasHechas(String tit)throws IOException {
         taquilla.seek(0);
         int tot = 0;
-        
         while(taquilla.getFilePointer() < taquilla.length()){
             String ti=taquilla.readUTF();                       
             if( ti.equals(tit)) {

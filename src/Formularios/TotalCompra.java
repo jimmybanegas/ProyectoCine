@@ -373,6 +373,10 @@ public class TotalCompra extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(null, "COMPRE POR LO MENOS UN BOLETO"); 
                  return;
             }
+            if(txtNombre.getText().equals("")){
+                 JOptionPane.showMessageDialog(null, "DIGITE SU NOMBRE"); 
+                 return;
+            }
             //Extraigo la sala desde el archivo del horario, que será una copia de la sala numero x
             //Esto permite controlar cupos de salas de manera independiente por cada horario
             Horarios proye=Menu.getHorarioSalaEspecifico(Integer.parseInt(sala),Integer.parseInt(codHorario)); 
