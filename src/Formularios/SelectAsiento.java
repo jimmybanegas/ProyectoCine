@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -15,20 +17,23 @@ import javax.swing.JButton;
 public class SelectAsiento extends javax.swing.JFrame {
  JButton buttons[][]; 
  ImageIcon habilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaOcupada.jpg")).getImage());
-    
-   public SelectAsiento(int fil, int col, boolean[][]sillas) {
+ ImageIcon deshabilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaLibre.jpg")).getImage());
+ int dispo;   
+   public SelectAsiento(int fil, int col, boolean[][]sillas,int dispo) {
         initComponents();
         PrepareSalaPanel back = new PrepareSalaPanel();
         this.add(back,BorderLayout.CENTER);
         initUI(fil,col,sillas);
+        this.dispo=dispo;
         this.pack();
+       
     }
 
-     public final  int initUI(int fil, int col, boolean[][]sillas) {    
+     private void initUI(int fil, int col, boolean[][]sillas) {    
        buttons =new JButton[fil][col];
        jPanel1.setBorder(BorderFactory.createEmptyBorder(fil, col, fil, col));     
        jPanel1.setSize(800,430);      
-       int cont=0;
+       
        jPanel1.setLayout(new GridLayout(fil, col));   
      
        
@@ -36,20 +41,51 @@ public class SelectAsiento extends javax.swing.JFrame {
           for(int y=0;y<col;y++){                  
              
               if(sillas[x][y]==true) {
-                  buttons[x][y]=(new JButton(habilitada));
-                  cont++;
+                  buttons[x][y]=(new JButton(deshabilitada));
               }   
               else{
                 buttons[x][y]=(new JButton());
+                buttons[x][y].setVisible(false);
               } 
+               buttons[x][y].addMouseListener(new java.awt.event.MouseAdapter() {                    
+                @Override
+               public void mouseEntered(java.awt.event.MouseEvent evt) {                                          
+                }
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent evt) {                  
+                }                
+                });
+                 buttons[x][y].addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    clicEvent(evt);
+                }
+            }); 
+              
               
               jPanel1.add(buttons[x][y]);             
               
           }
        }
-       return cont;
+    
     }  
     
+      public void clicEvent(ActionEvent e) {   
+      JButton evento = (JButton)e.getSource();
+      if(evento.getIcon()==habilitada){
+          evento.setIcon(deshabilitada);   
+          evento.repaint();   
+      }
+      else if(evento.getIcon()==deshabilitada){
+           evento.setIcon(habilitada);                        
+           evento.repaint();             
+      }
+      else{
+          evento.disable();
+      }
+    
+    }
+     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -131,10 +167,6 @@ public class SelectAsiento extends javax.swing.JFrame {
                         .addComponent(cmbHoras, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAceptar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCancelar))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(lblDuracion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                                 .addComponent(lblGenero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -144,7 +176,13 @@ public class SelectAsiento extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAceptar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar)
+                        .addGap(28, 28, 28)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -156,6 +194,7 @@ public class SelectAsiento extends javax.swing.JFrame {
                 .addComponent(lblDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(lblClasif, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

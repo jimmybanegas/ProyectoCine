@@ -12,7 +12,6 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -369,12 +368,30 @@ public class TotalCompra extends javax.swing.JFrame {
             String sala=lblSala.getText();
             String codHorario=lblCodHorario.getText();
             
+            int cant=cantidad();
+            if(cant==0){
+                 JOptionPane.showMessageDialog(null, "COMPRE POR LO MENOS UN BOLETO"); 
+                 return;
+            }
             //Extraigo la sala desde el archivo del horario, que será una copia de la sala numero x
             //Esto permite controlar cupos de salas de manera independiente por cada horario
-            Horarios proye=Menu.getHorarioSalaEspecifico(Integer.parseInt(sala),Integer.parseInt(codHorario));      
-            if(proye!=null){               
+            Horarios proye=Menu.getHorarioSalaEspecifico(Integer.parseInt(sala),Integer.parseInt(codHorario)); 
+            int dispo=0;
+            if(proye!=null){                
+                boolean[][] asientos=proye.getSillas();                
+                for(boolean []x:asientos){
+                    for(boolean y: x){
+                        if(y){
+                            dispo++;
+                        }
+                    }
+                }
+                JOptionPane.showMessageDialog(null,"Cantidad de asientos disponibles: "+dispo);
+            }
+            
+            if(proye!=null&&cant<dispo){               
                 System.out.println(proye.getFil()+" "+proye.getCol()); 
-                JFrame frame = new SelectAsiento(proye.getFil(),proye.getCol(),proye.getSillas());
+                JFrame frame = new SelectAsiento(proye.getFil(),proye.getCol(),proye.getSillas(),dispo);
                 frame.setVisible(true);
             }                        
         } catch (FileNotFoundException ex) {
@@ -497,7 +514,7 @@ public class TotalCompra extends javax.swing.JFrame {
        
     }
     
-     private int catidad(){
+     private int cantidad(){
               
        if(txtAdulto.getText().equals("") &&txtMenor.getText().equals("") &&txtTercera.getText().equals("")){
          return 0; 
