@@ -19,7 +19,7 @@ public class PrepareSalaPanel extends javax.swing.JPanel {
      */
     public PrepareSalaPanel() {
         initComponents();
-        this.setSize(808, 655);
+        this.setSize(992, 536);
     }
     
     @Override
@@ -39,6 +39,8 @@ public class PrepareSalaPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        setPreferredSize(new java.awt.Dimension(992, 536));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -2,6 +2,7 @@ package Menú;
 
 import Formularios.AddSala;
 import Peliculas.Horarios;
+import Peliculas.MiSeleccion;
 import Peliculas.Pelicula;
 import Peliculas.TipoClasificacion;
 import Peliculas.TipoFormatoPeli;
@@ -26,7 +27,7 @@ public class Menu {
      public static  RandomAccessFile peliculas ;
      public static  RandomAccessFile horarios ;
      public static String usuario;
-
+     public static MiSeleccion mipelicula;
    
      public Menu() throws FileNotFoundException{
          File u=new File("Usuarios");
@@ -122,8 +123,7 @@ public class Menu {
         peliculas.writeUTF(formato.toString());
         peliculas.writeUTF(imagen); 
       
-    }
-          
+    }          
     
     public static boolean buscarUser(String user, String pass){
        try{
@@ -509,7 +509,7 @@ public class Menu {
         File u=new File("Horarios");
         u.mkdir();     
         Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+codSal+".movi"), "rw");
-        Horarios especifico=null; 
+       
        try{
         horarios.seek(0);
         while(horarios.getFilePointer() < horarios.length() ){      
@@ -526,15 +526,16 @@ public class Menu {
                         
             for(int x=0;x<fil;x++){          
                  for(int y=0;y<col;y++){    
-                   sillas[x][y]=salas.readBoolean();
+                   sillas[x][y]=horarios.readBoolean();
                  }
             }            
         
-           if(activa&&codHorar==codHorario){           
-             especifico= new Horarios(codHorario, codSala, codPeli, tit, new Date(ini), new Date(fin),fil,col,sillas);
-           }  
-          }
-         return especifico;
+           if(activa){
+               if(codHorar==codHorario){
+                   return new Horarios(codHorario, codSala, codPeli, tit, new Date(ini), new Date(fin),fil,col,sillas);
+               }
+            }          
+           }
         }
         catch(IOException e){
            JOptionPane.showMessageDialog(null, "Error"); 
@@ -542,5 +543,11 @@ public class Menu {
       
       return null;
     }
+
+    public static MiSeleccion getMipelicula() {
+        return mipelicula;
+    }
+     
+     
     
 }

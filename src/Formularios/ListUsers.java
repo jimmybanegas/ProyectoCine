@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -112,18 +113,21 @@ public class ListUsers extends javax.swing.JFrame {
    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+     /*   try {
+            ArrayList<Pelicula> peli=Menu.getPeliculas();
+            Object [][] data = new Object[Menu.users.size()][3];
+             for(int x=0;x<Menu.users.size();x++){    
+             data[x][0]=Menu.users.get(x).getNombre();
+             data[x][1]=Menu.users.get(x).getUser();
+             data[x][2]=Menu.users.get(x).getPass();
+          }        
         
-            
-        /*    Object [][] data = new Object[Menu.users.size()][3];
-           for(int x=0;x<Menu.users.size();x++){    
-           data[x][0]=Menu.users.get(x).getNombre();
-           data[x][1]=Menu.users.get(x).getUser();
-           data[x][2]=Menu.users.get(x).getPass();
-        }        
+          String [] cadenas={ "Nombre", "Usuario", "Contraseña"};        
+          jTable2.setModel(new javax.swing.table.DefaultTableModel( data  ,cadenas)) ;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ListUsers.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
       
-        String [] cadenas={ "Nombre", "Usuario", "Contraseña"};        
-        jTable2.setModel(new javax.swing.table.DefaultTableModel( data  ,cadenas)) ;
-      */
     }//GEN-LAST:event_formWindowOpened
 
     /**

@@ -89,8 +89,8 @@ public class Guest extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JFrame frame = new ListSalas();
-        frame.setVisible(true);
+      //  JFrame frame = new ListSalas();
+       // frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 

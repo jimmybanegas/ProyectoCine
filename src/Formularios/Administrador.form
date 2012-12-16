@@ -33,32 +33,20 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="btnListarPeliculas" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
-                              <Component id="btnSalir" min="-2" pref="145" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="btnAgregarUsuario" min="-2" pref="180" max="-2" attributes="0"/>
-                                      <Component id="btnAgregarSala" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                                      <Component id="btnListarUsuarios" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                                      <Component id="btnEditarHorario" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                                      <Component id="btnEditarPerfil" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="btnListarSalas" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                                      <Component id="btnAgregarPelicula" min="-2" pref="180" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
+                      <Component id="btnSalir" min="-2" pref="145" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="btnAgregarUsuario" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnAgregarSala" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnListarUsuarios" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnEditarHorario" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnEditarPerfil" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnAgregarPelicula" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnListarPeliculas" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -79,19 +67,17 @@
               <Component id="btnAgregarUsuario" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnListarUsuarios" min="-2" pref="43" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnAgregarSala" min="-2" pref="43" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="btnListarSalas" min="-2" pref="43" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnAgregarPelicula" min="-2" pref="43" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnListarPeliculas" min="-2" pref="43" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnEditarHorario" min="-2" pref="43" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnEditarPerfil" min="-2" pref="43" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+              <EmptySpace pref="66" max="32767" attributes="0"/>
               <Component id="btnSalir" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace pref="18" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -166,14 +152,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListarPeliculasActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnListarSalas">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="LISTA DE SALAS"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListarSalasActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="txtUsuario">

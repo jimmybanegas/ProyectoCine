@@ -4,6 +4,7 @@ package Formularios;
 import Menú.Menu;
 import Paneles.ListPeliculasPanel;
 import Peliculas.Horarios;
+import Peliculas.MiSeleccion;
 import Peliculas.Pelicula;
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -58,6 +59,8 @@ public class ListPeliculas extends javax.swing.JFrame {
         horaActual = new javax.swing.JLabel();
         lblSala = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblCodHorario = new javax.swing.JLabel();
 
         setIconImage(getIconImage());
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -153,6 +156,11 @@ public class ListPeliculas extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Sala:");
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Horario:");
+
+        lblCodHorario.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -183,9 +191,15 @@ public class ListPeliculas extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(cmbHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lblSala, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblCodHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(160, 160, 160)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,14 +212,22 @@ public class ListPeliculas extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1)
-                .addGap(58, 58, 58)
-                .addComponent(horaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(horaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSala, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbPeliculas)
-                    .addComponent(cmbHoras)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbHoras)
+                        .addComponent(jLabel3)
+                        .addComponent(lblCodHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,7 +241,7 @@ public class ListPeliculas extends javax.swing.JFrame {
                         .addComponent(lblGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblClasif, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
@@ -242,7 +264,8 @@ public class ListPeliculas extends javax.swing.JFrame {
                     "/"+actual.get(Calendar.YEAR)+" Hora: "+actual.get(Calendar.HOUR)+":"+actual.get(Calendar.MINUTE));
             
             if(!todos.isEmpty()){
-              lblSala.setText(null);      
+              lblSala.setText(null);  
+              lblCodHorario.setText(null);  
               ArrayList<Pelicula> peliculas= Menu.getPeliculas();  
               
               for(Pelicula x: peliculas){
@@ -250,10 +273,7 @@ public class ListPeliculas extends javax.swing.JFrame {
                  if(!horas.isEmpty()){               
                       cmbPeliculas.addItem(x.getTitulo());
                  }
-               
-              } 
-              
-              
+              }  
             }
             
         } catch (FileNotFoundException ex) {
@@ -264,7 +284,15 @@ public class ListPeliculas extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         JFrame compra=new TotalCompra((String)cmbPeliculas.getSelectedItem(),(String)cmbHoras.getSelectedItem(),
-                Integer.parseInt(lblSala.getText()));
+        Integer.parseInt(lblSala.getText()),Integer.parseInt( lblCodHorario.getText()));
+        Menu.mipelicula=null; 
+       
+        String horas[]=new String[cmbHoras.getItemCount()];
+        for(int x=0;x<cmbHoras.getItemCount();x++){
+            horas[x]=cmbHoras.getItemAt(x).toString();
+        } 
+        
+        Menu.mipelicula= new MiSeleccion(lblTitulo.getText(),horas,lblGenero.getText(),lblDuracion.getText(),lblClasif.getText());
         compra.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -310,11 +338,8 @@ public class ListPeliculas extends javax.swing.JFrame {
                   
                   String sala=cmbHoras.getSelectedItem().toString();
                   Scanner sc = new Scanner(sala);
-                  System.out.println(sc.nextInt()); //Este es el codigo del horario
-                   lblSala.setText(String.valueOf(sc.nextInt())); //Este es el codigo de la sala
-                  
-                  
-              
+                  lblCodHorario.setText(String.valueOf(sc.nextInt())); //Este es el codigo del horario
+                  lblSala.setText(String.valueOf(sc.nextInt())); //Este es el codigo de la sala
                }   
                  
             }   
@@ -367,12 +392,12 @@ public class ListPeliculas extends javax.swing.JFrame {
 
     private void cmbHorasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbHorasFocusLost
          // TODO add your handling code here:
-     /* if(cmbPeliculas.getItemCount()!=0) {
+     if(cmbPeliculas.getItemCount()!=0) {
         String sala=cmbHoras.getSelectedItem().toString();
         Scanner sc = new Scanner(sala);
-        sc.next(); 
-        lblSala.setText(String.valueOf(sc.nextInt())); 
-      }*/
+        lblCodHorario.setText(String.valueOf(sc.nextInt())); //Este es el codigo del horario
+        lblSala.setText(String.valueOf(sc.nextInt())); //Este es el codigo de la sala
+      }
         
     }//GEN-LAST:event_cmbHorasFocusLost
 
@@ -430,7 +455,9 @@ public class ListPeliculas extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblClasif;
+    private javax.swing.JLabel lblCodHorario;
     private javax.swing.JLabel lblDuracion;
     private javax.swing.JLabel lblEstreno;
     private javax.swing.JLabel lblGenero;
