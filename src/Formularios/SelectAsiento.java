@@ -9,22 +9,32 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class SelectAsiento extends javax.swing.JFrame {
  JButton buttons[][]; 
  ImageIcon habilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaOcupada.jpg")).getImage());
  ImageIcon deshabilitada = new ImageIcon(new ImageIcon(getClass().getResource("/Imagenes/SillaLibre.jpg")).getImage());
- int dispo;   
-   public SelectAsiento(int fil, int col, boolean[][]sillas,int dispo) {
+ int dispo, cant,codHorario,codSala,fil,col;
+   public SelectAsiento(int fil, int col, boolean[][]sillas,int dispo, int cant,int codHorario, int codSala) {
         initComponents();
         PrepareSalaPanel back = new PrepareSalaPanel();
         this.add(back,BorderLayout.CENTER);
         initUI(fil,col,sillas);
         this.dispo=dispo;
+        this.cant=cant;
+        this.codHorario=codHorario;
+        this.codSala=codSala;
+        this.fil=fil;
+        this.col=col;
         this.pack();
        
     }
@@ -45,6 +55,7 @@ public class SelectAsiento extends javax.swing.JFrame {
               }   
               else{
                 buttons[x][y]=(new JButton());
+              
                 buttons[x][y].setVisible(false);
               } 
                buttons[x][y].addMouseListener(new java.awt.event.MouseAdapter() {                    
@@ -60,11 +71,8 @@ public class SelectAsiento extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent evt) {
                     clicEvent(evt);
                 }
-            }); 
-              
-              
-              jPanel1.add(buttons[x][y]);             
-              
+            });               
+            jPanel1.add(buttons[x][y]);               
           }
        }
     
@@ -72,17 +80,16 @@ public class SelectAsiento extends javax.swing.JFrame {
     
       public void clicEvent(ActionEvent e) {   
       JButton evento = (JButton)e.getSource();
-      if(evento.getIcon()==habilitada){
-          evento.setIcon(deshabilitada);   
-          evento.repaint();   
-      }
-      else if(evento.getIcon()==deshabilitada){
-           evento.setIcon(habilitada);                        
-           evento.repaint();             
-      }
-      else{
-          evento.disable();
-      }
+     
+          if(evento.getIcon()==habilitada){
+              evento.setIcon(deshabilitada);   
+              evento.repaint();   
+          }
+          else if(evento.getIcon()==deshabilitada){
+               evento.setIcon(habilitada);                        
+               evento.repaint();             
+          }
+        
     
     }
      
@@ -136,6 +143,11 @@ public class SelectAsiento extends javax.swing.JFrame {
         jLabel6.setText(" Horarios");
 
         btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -248,12 +260,70 @@ public class SelectAsiento extends javax.swing.JFrame {
             
             
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        // TODO add your handling code here:
+        int cambios=cambios(buttons);        
+        boolean[][] nuevo=rees(buttons,fil,col);
+        
+        if(cambios==this.cant){
+            try {
+                if(Menu.reescribir(codSala,codHorario,nuevo)){
+                  JOptionPane.showMessageDialog(null, "COMPRÓ: "+cant+" ASIENTOS"); 
+                  this.setVisible(false);
+                  JFrame prin=new MainWindow();
+                  prin.setVisible(true);
+                }
+                else{
+                   JOptionPane.showMessageDialog(null, "NO SE HIZO LA COMPRA");
+                   this.setVisible(false);
+                   JFrame prin=new MainWindow();
+                   prin.setVisible(true);   
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(SelectAsiento.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "SELECCCIONE: "+cant+" ASIENTOS");
+        }
+        
+    }//GEN-LAST:event_btnAceptarActionPerformed
    @Override
     public Image getIconImage(){
         Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
        
         return icono;
     }
+   
+   public  boolean[][] rees( JButton[][] panel, int fil, int col){
+      boolean asientos[][]=new boolean[fil][col] ;
+      
+        for(int x=0;x<fil;x++){
+             for(int y=0;y<col;y++){   
+                if(panel[x][y].getIcon()==deshabilitada){
+                   asientos[x][y]=true;
+                }
+                if(panel[x][y].getIcon()==habilitada){
+                   asientos[x][y]=false;
+               }
+             } 
+        }
+        return asientos; 
+    }
+    
+    public int cambios(JButton[][] panel){
+       int cont=0;
+        for(JButton[] x:panel){
+            for(JButton y:x){
+                if(y.getIcon()==habilitada){
+                    cont++;
+                }
+            }
+        }
+        return cont;
+    }
+   
     /**
      * @param args the command line arguments
      */

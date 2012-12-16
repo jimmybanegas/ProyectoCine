@@ -391,7 +391,7 @@ public class TotalCompra extends javax.swing.JFrame {
             
             if(proye!=null&&cant<dispo){               
                 System.out.println(proye.getFil()+" "+proye.getCol()); 
-                JFrame frame = new SelectAsiento(proye.getFil(),proye.getCol(),proye.getSillas(),dispo);
+                JFrame frame = new SelectAsiento(proye.getFil(),proye.getCol(),proye.getSillas(),dispo,cant,proye.getCodHorario(),proye.getCodSala());
                 frame.setVisible(true);
             }                        
         } catch (FileNotFoundException ex) {

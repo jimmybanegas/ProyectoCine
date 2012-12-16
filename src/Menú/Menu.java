@@ -100,8 +100,7 @@ public class Menu {
         }
          
         File h=new File("Horarios");
-        h.mkdir();  
-        
+        h.mkdir();          
         Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+cod+".movi"), "rw");  
       
     }
@@ -115,7 +114,7 @@ public class Menu {
        
         peliculas.writeInt(cod);
         peliculas.writeInt(hor);
-         peliculas.writeInt(min);
+        peliculas.writeInt(min);
         peliculas.writeUTF(tit);
         peliculas.writeUTF(gen.toString());
         peliculas.writeUTF(clasif.toString());
@@ -543,6 +542,52 @@ public class Menu {
       
       return null;
     }
+     
+     public static boolean reescribir(int codSal, int codHorar, boolean[][]nuevo) throws FileNotFoundException{
+        File u=new File("Horarios");
+        u.mkdir();     
+        Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+codSal+".movi"), "rw");
+       
+       try{
+        horarios.seek(0);
+        while(horarios.getFilePointer() < horarios.length() ){      
+            int codHorario=horarios.readInt();
+            int codSala=horarios.readInt();
+            int codPeli=horarios.readInt();
+            String tit= horarios.readUTF();
+            long ini = horarios.readLong();
+            long fin=horarios.readLong();  
+            boolean activa=horarios.readBoolean();   
+            int fil=horarios.readInt();
+            int col=horarios.readInt();
+            boolean sillas[][]=new boolean [fil][col];
+            long pos=horarios.getFilePointer();
+            
+            for(int x=0;x<fil;x++){          
+                 for(int y=0;y<col;y++){    
+                   sillas[x][y]=horarios.readBoolean();
+                 }
+            }            
+        
+           if(activa){
+               if(codHorar==codHorario){
+                   horarios.seek(pos);
+                 for(int x=0;x<fil;x++){          
+                  for(int y=0;y<col;y++){    
+                    horarios.writeBoolean(nuevo[x][y]);
+                 }
+                }       
+                return true;   
+               }
+            }          
+           }
+        }
+        catch(IOException e){
+           JOptionPane.showMessageDialog(null, "Error"); 
+        }
+      
+      return false;
+    } 
 
     public static MiSeleccion getMipelicula() {
         return mipelicula;
