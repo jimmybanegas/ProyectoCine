@@ -9,7 +9,7 @@ public class ListPeliculasPanel extends javax.swing.JPanel {
 
     public ListPeliculasPanel() {
         initComponents();
-        this.setSize(769,449);
+        this.setSize(770, 500);
     }
     
     @Override

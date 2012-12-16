@@ -508,10 +508,8 @@ public class TotalCompra extends javax.swing.JFrame {
        else if(!subAdulto.getText().equals("") &&!subMenor.getText().equals("") &&!subTercera.getText().equals("")){
             double total=Double.parseDouble(subAdulto.getText())+Double.parseDouble(subMenor.getText())+
             Double.parseDouble(subTercera.getText());
-            granTotal.setText(String.valueOf(total));    
-          
-       }
-       
+            granTotal.setText(String.valueOf(total));  
+       }   
     }
     
      private int cantidad(){
@@ -544,8 +542,7 @@ public class TotalCompra extends javax.swing.JFrame {
            return total;  
        }
        else if(!txtAdulto.getText().equals("") &&!txtMenor.getText().equals("") &&!txtTercera.getText().equals("")){
-            int total=Integer.parseInt(txtAdulto.getText())+Integer.parseInt(txtMenor.getText())+
-            Integer.parseInt(subTercera.getText());
+            int total=Integer.parseInt(txtAdulto.getText())+Integer.parseInt(txtMenor.getText())+Integer.parseInt(txtTercera.getText());
             return total;             
        }else{
            return 0;

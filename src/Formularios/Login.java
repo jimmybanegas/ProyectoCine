@@ -65,6 +65,12 @@ public class Login extends javax.swing.JFrame implements KeyListener{
             }
         });
 
+        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtClaveKeyPressed(evt);
+            }
+        });
+
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,6 +158,31 @@ public class Login extends javax.swing.JFrame implements KeyListener{
     private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioKeyPressed
+
+    private void txtClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            String user=txtUsuario.getText();
+        String clave=txtClave.getText();
+        
+        if((user.equalsIgnoreCase("guest") && clave.equalsIgnoreCase("password"))){
+            JFrame frame1 = new Guest();
+            frame1.setVisible(true);
+            this.setVisible(false);            
+         }
+        else if((Menu.buscarUser(user, clave)) || (user.equalsIgnoreCase("admin") && clave.equalsIgnoreCase("unitec"))){
+            JFrame frame = new Administrador();
+            Menu.usuario=user;
+            frame.setVisible(true);
+            this.setVisible(false);            
+         }
+         else{
+            JFrame frame2 = new MalClave();           
+            frame2.setVisible(true);
+            txtUsuario.setText("");
+            txtClave.setText("");
+         }
+        }
+    }//GEN-LAST:event_txtClaveKeyPressed
     
     /**
      * @param args the command line arguments

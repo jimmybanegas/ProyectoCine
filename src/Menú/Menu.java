@@ -13,12 +13,16 @@ import Salas.TipoSala;
 import Salas.sala3D;
 import Usuarios.Usuario;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import sun.audio.*;
+
 
 public class Menu {
      
@@ -592,7 +596,5 @@ public class Menu {
     public static MiSeleccion getMipelicula() {
         return mipelicula;
     }
-     
-     
     
 }
