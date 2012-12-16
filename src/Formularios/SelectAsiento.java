@@ -21,28 +21,30 @@ public class SelectAsiento extends javax.swing.JFrame {
         this.pack();
     }
 
-     public final  void initUI(int fil, int col, boolean[][]sillas) {    
+     public final  int initUI(int fil, int col, boolean[][]sillas) {    
        buttons =new JButton[fil][col];
        jPanel1.setBorder(BorderFactory.createEmptyBorder(fil, col, fil, col));     
        jPanel1.setSize(800,430);      
-     
+       int cont=0;
        jPanel1.setLayout(new GridLayout(fil, col));   
-      // jPanel1.removeAll();
+     
        
        for(int x=0;x<fil;x++){
           for(int y=0;y<col;y++){                  
              
               if(sillas[x][y]==true) {
                   buttons[x][y]=(new JButton(habilitada));
+                  cont++;
               }   
               else{
-                  buttons[x][y]=(new JButton());
+                buttons[x][y]=(new JButton());
               } 
               
               jPanel1.add(buttons[x][y]);             
               
           }
        }
+       return cont;
     }  
     
     @SuppressWarnings("unchecked")

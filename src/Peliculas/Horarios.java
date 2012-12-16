@@ -17,15 +17,20 @@ public class Horarios {
     protected String tit;
     protected Date inicio;
     protected Date fina;    
+    protected int fil;
+    protected int col;
+    protected boolean[][] sillas;
     
-    
-    public Horarios(int codHorario, int codSala, int codPel, String tit,Date inicio, Date fina){
+    public Horarios(int codHorario, int codSala, int codPel, String tit,Date inicio, Date fina,int fil, int col, boolean[][] sillas){
         this.codHorario=codHorario;
         this.codSala=codSala;
         this.codPel=codPel;
         this.tit=tit;
         this.inicio=inicio;
         this.fina=fina;
+        this.fil=fil;
+        this.col=col;
+        this.sillas=sillas;
     }
 
     public String getTit() {
@@ -51,6 +56,20 @@ public class Horarios {
     public Date getFina() {
         return fina;
     }
+
+    public int getFil() {
+        return fil;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public boolean[][] getSillas() {
+        return sillas;
+    }
+    
+    
     
     @Override
     public String toString(){

@@ -30,6 +30,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.EventObject;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -493,7 +495,7 @@ public class EditHoras extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Error"); 
         } catch (IOException ex) {
-           JOptionPane.showMessageDialog(null, "Error"); 
+           Logger.getLogger(ListUsers.class.getName()).log(Level.SEVERE, null, ex);
         }
        
       JFrame frame = new OperacionOk();
@@ -573,9 +575,9 @@ public class EditHoras extends javax.swing.JFrame {
             System.out.println("Inicio limite: "+inicio);
             System.out.println("Fin limite: "+fin);
         } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Error"); 
+             Logger.getLogger(ListUsers.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-           JOptionPane.showMessageDialog(null, "Error"); 
+           Logger.getLogger(ListUsers.class.getName()).log(Level.SEVERE, null, ex); 
         }
        
         

@@ -310,8 +310,11 @@ public class ListPeliculas extends javax.swing.JFrame {
                   
                   String sala=cmbHoras.getSelectedItem().toString();
                   Scanner sc = new Scanner(sala);
-                  sc.next(); 
-                  lblSala.setText(String.valueOf(sc.nextInt())); 
+                  System.out.println(sc.nextInt()); //Este es el codigo del horario
+                   lblSala.setText(String.valueOf(sc.nextInt())); //Este es el codigo de la sala
+                  
+                  
+              
                }   
                  
             }   
@@ -364,12 +367,12 @@ public class ListPeliculas extends javax.swing.JFrame {
 
     private void cmbHorasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbHorasFocusLost
          // TODO add your handling code here:
-      if(cmbPeliculas.getItemCount()!=0) {
-         String sala=cmbHoras.getSelectedItem().toString();
+     /* if(cmbPeliculas.getItemCount()!=0) {
+        String sala=cmbHoras.getSelectedItem().toString();
         Scanner sc = new Scanner(sala);
         sc.next(); 
         lblSala.setText(String.valueOf(sc.nextInt())); 
-      }
+      }*/
         
     }//GEN-LAST:event_cmbHorasFocusLost
 
@@ -440,7 +443,7 @@ public class ListPeliculas extends javax.swing.JFrame {
        ArrayList<String> horas=new ArrayList<>();
         for(Horarios x:todos){
             if(x.getTit().equalsIgnoreCase(nombre)){                
-                horas.add("Sala: "+x.getCodSala()+" -- "+x.getInicio().getHours()+":"+x.getInicio().getMinutes());
+                horas.add(x.getCodHorario()+" "+x.getCodSala()+" "+"---"+x.getInicio().getHours()+":"+x.getInicio().getMinutes());
             }
         }
         return horas;

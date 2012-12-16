@@ -217,14 +217,15 @@ public class Menu {
         horarios.writeLong(in.getTime());
         horarios.writeLong(fin.getTime());        
         horarios.writeBoolean(activa);
-       
-         for(int x=0;x<fil;x++){          
+        horarios.writeInt(fil);
+        horarios.writeInt(col);
+        for(int x=0;x<fil;x++){          
              for(int y=0;y<col;y++){    
                if(sala[x][y]){
-                   salas.writeBoolean(true);
+                   horarios.writeBoolean(true);
                }
                else if(sala[x][y]==false){
-                   salas.writeBoolean(false);
+                   horarios.writeBoolean(false);
                }
              } 
         }
@@ -376,9 +377,19 @@ public class Menu {
             long ini = horarios.readLong();
             long fin=horarios.readLong();  
             boolean activa=horarios.readBoolean();   
+            int fil=horarios.readInt();
+            int col=horarios.readInt();
+            boolean sillas[][]=new boolean [fil][col];
+            
+            
+            for(int x=0;x<fil;x++){          
+                 for(int y=0;y<col;y++){    
+                   sillas[x][y]=horarios.readBoolean();
+                 }
+            }            
         
            if(activa==true){           
-             pelis.add( new Horarios(codHorario, codSala, codPeli, tit, new Date(ini), new Date(fin)));
+             pelis.add( new Horarios(codHorario, codSala, codPeli, tit, new Date(ini), new Date(fin),fil,col,sillas));
            }  
           }
          return pelis;
@@ -406,7 +417,14 @@ public class Menu {
             long ini = horarios.readLong();
             horarios.readLong();  
             boolean activ=horarios.readBoolean();   
-            
+            int fil= horarios.readInt();
+            int col= horarios.readInt();
+       
+            for(int x=0;x<fil;x++){          
+              for(int y=0;y<col;y++){  
+                   horarios.readBoolean();              
+              } 
+           }
             
             if( activ==true){
                 if( inicio.getTime()>ini) {
@@ -435,7 +453,14 @@ public class Menu {
             horarios.readLong();
             long fin=horarios.readLong();  
             boolean activ=horarios.readBoolean();  
-                      
+            int fil= horarios.readInt();
+            int col= horarios.readInt();
+       
+            for(int x=0;x<fil;x++){          
+              for(int y=0;y<col;y++){  
+                   horarios.readBoolean();              
+              } 
+           }          
         if( activ){
            if(f==0) { 
             if(fin<f){ 
@@ -475,6 +500,47 @@ public class Menu {
         
         return todos;
         
+    }
+    // Esta funcion la voy a usar para sacr un horario por su codigo
+    //Me va a servir porque al momento de hacer las compras, cada horarios debe tener
+    //una sala vacia para ese horario, no podemos usar la misma sala general para todas las peliculas}
+    //en esa sala, por lo que cada horario tiene su propia sala para controlar sus ventas y cupos
+     public static Horarios getHorarioSalaEspecifico(int codSal, int codHorar) throws FileNotFoundException{
+        File u=new File("Horarios");
+        u.mkdir();     
+        Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+codSal+".movi"), "rw");
+        Horarios especifico=null; 
+       try{
+        horarios.seek(0);
+        while(horarios.getFilePointer() < horarios.length() ){      
+            int codHorario=horarios.readInt();
+            int codSala=horarios.readInt();
+            int codPeli=horarios.readInt();
+            String tit= horarios.readUTF();
+            long ini = horarios.readLong();
+            long fin=horarios.readLong();  
+            boolean activa=horarios.readBoolean();   
+            int fil=horarios.readInt();
+            int col=horarios.readInt();
+            boolean sillas[][]=new boolean [fil][col];
+                        
+            for(int x=0;x<fil;x++){          
+                 for(int y=0;y<col;y++){    
+                   sillas[x][y]=salas.readBoolean();
+                 }
+            }            
+        
+           if(activa&&codHorar==codHorario){           
+             especifico= new Horarios(codHorario, codSala, codPeli, tit, new Date(ini), new Date(fin),fil,col,sillas);
+           }  
+          }
+         return especifico;
+        }
+        catch(IOException e){
+           JOptionPane.showMessageDialog(null, "Error"); 
+        }
+      
+      return null;
     }
     
 }

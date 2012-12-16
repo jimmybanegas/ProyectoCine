@@ -478,6 +478,45 @@ public class TotalCompra extends javax.swing.JFrame {
        }
        
     }
+    
+     private int catidad(){
+              
+       if(txtAdulto.getText().equals("") &&txtMenor.getText().equals("") &&txtTercera.getText().equals("")){
+         return 0; 
+       }
+       else if(txtMenor.getText().equals("")&&txtTercera.getText().equals("")){
+           int total=Integer.parseInt(txtAdulto.getText());
+           return total;  
+       }
+       else if(txtAdulto.getText().equals("") &&txtMenor.getText().equals("")){
+           int total=Integer.parseInt(txtTercera.getText());
+           return total;    
+       }
+       else if(txtAdulto.getText().equals("")&&txtTercera.getText().equals("")){
+            int total=Integer.parseInt(txtMenor.getText());
+            return total;    
+       }
+       else if(txtTercera.getText().equals("")){
+            int total=Integer.parseInt(txtAdulto.getText())+Integer.parseInt(txtMenor.getText());
+            return total;   
+       }
+       else if(txtMenor.getText().equals("")){
+           int total=Integer.parseInt(txtAdulto.getText())+Integer.parseInt(txtTercera.getText());
+           return total;   
+       }
+       else if(txtAdulto.getText().equals("")){
+           int total=Integer.parseInt(subMenor.getText())+Integer.parseInt(txtTercera.getText());
+           return total;  
+       }
+       else if(!txtAdulto.getText().equals("") &&!txtMenor.getText().equals("") &&!txtTercera.getText().equals("")){
+            int total=Integer.parseInt(txtAdulto.getText())+Integer.parseInt(txtMenor.getText())+
+            Integer.parseInt(subTercera.getText());
+            return total;             
+       }else{
+           return 0;
+       }
+       
+    }
     /**
      * @param args the command line arguments
      */
