@@ -13,15 +13,12 @@ import Salas.TipoSala;
 import Salas.sala3D;
 import Usuarios.Usuario;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import sun.audio.*;
 
 
 public class Menu {
@@ -30,6 +27,7 @@ public class Menu {
      public static  RandomAccessFile salas ;
      public static  RandomAccessFile peliculas ;
      public static  RandomAccessFile horarios ;
+     public static  RandomAccessFile taquilla ;
      public static String usuario;
      public static MiSeleccion mipelicula;
    
@@ -434,7 +432,6 @@ public class Menu {
                       inicio.setTime(ini);                    
                 }
             }
-        
          }
      
        return inicio;
@@ -596,5 +593,59 @@ public class Menu {
     public static MiSeleccion getMipelicula() {
         return mipelicula;
     }
+    
+    public static void taquilla(int cant,String tit) throws FileNotFoundException, IOException{
+        File u=new File("Peliculas");
+        u.mkdir();     
+        Menu.taquilla= new RandomAccessFile( new File("Peliculas\\taquilla.movi"), "rw");  
+   
+        taquilla.seek(taquilla.length());
+       
+        for(int x=0;x<cant;x++){
+            System.out.println(tit);
+            taquilla.writeUTF(tit);          
+        }      
+    }
+    
+    public static void peliculaTaquillero()throws IOException{
+        File u=new File("Peliculas");
+        u.mkdir();     
+        Menu.taquilla= new RandomAccessFile( new File("Peliculas\\taquilla.movi"), "rw");  
+        Menu.taquilla.seek(0);
+        int cantPeli = 0;
+        String titulo="";               
+        while(taquilla.getFilePointer() < taquilla.length()){
+            String tit = taquilla.readUTF();
+            System.out.println(tit);
+            int total = ventasHechas(tit);            
+             if( total > cantPeli ){
+                    cantPeli = total;
+                    titulo = tit;
+              }
+         }         
+        
+        if( cantPeli != 0 ) {
+             JOptionPane.showMessageDialog(null, "Mas taquillera: "+titulo+" reantada: "+cantPeli+" veces");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "NO HAY VENTAS AUN");
+        }       
+        
+    }
+    
+    
+    private static int ventasHechas(String tit)throws IOException {
+        taquilla.seek(0);
+        int tot = 0;
+        
+        while(taquilla.getFilePointer() < taquilla.length()){
+            String ti=taquilla.readUTF();                       
+            if( ti.equals(tit)) {
+                tot++;
+            }
+        }        
+        return tot;
+    }
+    
     
 }

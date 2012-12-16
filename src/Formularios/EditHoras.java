@@ -10,9 +10,9 @@ import Peliculas.Horarios;
 import Peliculas.Pelicula;
 import Salas.Sala;
 import Salas.TipoSala;
-import Salas.sala3D;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -105,7 +105,7 @@ public class EditHoras extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtMinFin = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
         txtCodHorario = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -244,10 +244,10 @@ public class EditHoras extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText(":");
 
-        jButton1.setText("Refresh");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRefreshActionPerformed(evt);
             }
         });
 
@@ -314,7 +314,7 @@ public class EditHoras extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton2)
-                                    .addComponent(jButton1)))))
+                                    .addComponent(btnRefresh)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -326,7 +326,7 @@ public class EditHoras extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(125, 125, 125))))
+                        .addGap(95, 95, 95))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,13 +364,13 @@ public class EditHoras extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar)
-                    .addComponent(jButton1))
+                    .addComponent(btnRefresh))
                 .addGap(45, 45, 45))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -392,10 +392,8 @@ public class EditHoras extends javax.swing.JFrame {
     try {
             // TODO add your handling code here:        
           Sala actual=Menu.getSala(comboSala.getSelectedIndex()+1);            
-         
-          System.out.println(actual.toString());
             
-            ArrayList<Pelicula> peli=Menu.getPeliculas();           
+            ArrayList<Pelicula> peli=Menu.getPeliculas();             
             comboPelicula.removeAllItems();
             comboPelicula.repaint();
             for(Pelicula x: peli){               
@@ -443,14 +441,19 @@ public class EditHoras extends javax.swing.JFrame {
             
              int x=comboPelicula.getSelectedIndex();
              Pelicula p=Menu.getPeli(x+1);
-                
-            int h =Integer.parseInt(txtHora.getText());
-            int m =Integer.parseInt(txtMinutos.getText());
-            
-            a.set(b.getYear(), b.getMonth(), b.getDay(),h,m );    
-            a.add(Calendar.HOUR, p.getHoras());
-            a.add(Calendar.MINUTE, p.getMinutos());
-            a.add(Calendar.MINUTE, 30);
+           
+             if(!txtHora.getText().equals("")&&!txtMinutos.getText().equals("")){
+                int h =Integer.parseInt(txtHora.getText());
+                int m =Integer.parseInt(txtMinutos.getText());
+                a.set(b.getYear(), b.getMonth(), b.getDay(),h,m );    
+                a.add(Calendar.HOUR, p.getHoras());
+                a.add(Calendar.MINUTE, p.getMinutos());
+                a.add(Calendar.MINUTE, 30);
+            } 
+             else{
+                 return;
+             } 
+           
             
            b=a.getTime();
            
@@ -523,24 +526,34 @@ public class EditHoras extends javax.swing.JFrame {
 
     private void comboSalaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboSalaFocusLost
         // TODO add your handling code here:
-        
+        btnRefresh.doClick();
       
     }//GEN-LAST:event_comboSalaFocusLost
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         try {           
+          
+          if(comboSala.getItemCount()==0){
+              JOptionPane.showMessageDialog(null,"No hay salas agregadas"); 
+              return;
+          }
+          try{
             jTable1.setModel(makeTable());  
             jTable1.setRowHeight(36);
             jTable1.setAutoCreateRowSorter(true);
+          } 
+          catch(ArrayIndexOutOfBoundsException ex){
+               JOptionPane.showMessageDialog(null,"No peliculas asignadas a la sala"); 
+          }
            
-       TableColumn column = jTable1.getColumnModel().getColumn(6);
-       column.setCellRenderer(new ButtonsRenderer());
-       column.setCellEditor(new ButtonsEditor(jTable1));
-            
-        } catch (Exception ex) {
-             JOptionPane.showMessageDialog(null, "Error"); 
+           
+           TableColumn column = jTable1.getColumnModel().getColumn(6);
+           column.setCellRenderer(new ButtonsRenderer());
+           column.setCellEditor(new ButtonsEditor(jTable1));            
+        } catch (FileNotFoundException | HeadlessException ex) {
+             JOptionPane.showMessageDialog(null,"Error: "+ex.getMessage()); 
         }                
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -566,7 +579,6 @@ public class EditHoras extends javax.swing.JFrame {
                     
          if(b.getTime()<inicio.getTime()) {
             JOptionPane.showMessageDialog(null, "Disponible");
-            return;
          }    
          else if(a.getTime()>fin.getTime()){
              JOptionPane.showMessageDialog(null, "Disponible");                 
@@ -575,8 +587,7 @@ public class EditHoras extends javax.swing.JFrame {
               JOptionPane.showMessageDialog(null, "Los horarios se traslapan");
                txtHora.setText(null);  
            }          
-            System.out.println("Inicio limite: "+inicio);
-            System.out.println("Fin limite: "+fin);
+          
         } catch (FileNotFoundException ex) {
              Logger.getLogger(ListUsers.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -620,6 +631,15 @@ public class EditHoras extends javax.swing.JFrame {
             
             long pos=Menu.horarios.getFilePointer();
             boolean activa=Menu.horarios.readBoolean();   
+            
+            int fil=Menu.horarios.readInt();
+            int col=Menu.horarios.readInt();
+                                   
+            for(int x=0;x<fil;x++){          
+                 for(int y=0;y<col;y++){    
+                   Menu.horarios.readBoolean();
+                 }
+            }            
         
            if(codHora==codHorario&&activa==true){           
               Menu.horarios.seek(pos);
@@ -653,7 +673,7 @@ public class EditHoras extends javax.swing.JFrame {
        public static void restar() {
         try {       
             rCod.seek(0);
-              rCod.writeInt(codHorario()-1);
+            rCod.writeInt(codHorario()-1);
         } catch (IOException ex) {
            JOptionPane.showMessageDialog(null, "Error"); 
         }        
@@ -665,14 +685,13 @@ public class EditHoras extends javax.swing.JFrame {
        
         File u=new File("Horarios");
         u.mkdir();     
-        Menu.horarios= new RandomAccessFile( new File("Horarios\\horarios_sala"+(comboSala.getSelectedIndex()+1)+".movi"), "rw");    
-            
+        Menu.horarios=new RandomAccessFile( new File("Horarios\\horarios_sala"+(comboSala.getSelectedIndex()+1)+".movi"), "rw");  
        
+                     
        ArrayList<Horarios> pelis;
        pelis= Menu.getHorario(comboSala.getSelectedIndex()+1);
-       Object [][] data=null;
-       
-       
+       Object [][] data = null;       
+            
        if(pelis!=null){         
          data=new Object[pelis.size()][7];
          for(int x=0;x<pelis.size();x++){    
@@ -754,7 +773,7 @@ class ButtonsEditor extends ButtonsPanel implements TableCellEditor {
                    if((seleccion + 1)==1)   {
                        try {
                            EditHoras.eliminar(Integer.parseInt(table.getValueAt(a, 0).toString()));
-                           jButton1.doClick();                           
+                           btnRefresh.doClick();                           
                        } catch (IOException ex) {
                            System.out.println("Error: "+ ex.getMessage());
                        }
@@ -849,9 +868,9 @@ class ButtonsEditor extends ButtonsPanel implements TableCellEditor {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JComboBox comboPelicula;
     private javax.swing.JComboBox comboSala;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

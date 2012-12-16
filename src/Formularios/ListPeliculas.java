@@ -66,7 +66,7 @@ public class ListPeliculas extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Listado de Peliculas");
+        jLabel1.setText("Listado de Peliculas en la Cartelera");
 
         jButton2.setText("Regresar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +132,8 @@ public class ListPeliculas extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
 
-        lblEstreno.setForeground(new java.awt.Color(51, 0, 255));
+        lblEstreno.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblEstreno.setForeground(new java.awt.Color(255, 255, 0));
 
         lblDuracion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblDuracion.setForeground(new java.awt.Color(255, 255, 255));
@@ -259,11 +260,13 @@ public class ListPeliculas extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             ArrayList <Horarios> todos=Menu.getTodosHorarios();
+            
+           if(!todos.isEmpty()){
             Calendar actual=Calendar.getInstance();
             horaActual.setText(actual.get(Calendar.DAY_OF_MONTH)+"/"+actual.get(Calendar.MONTH)+
                     "/"+actual.get(Calendar.YEAR)+" Hora: "+actual.get(Calendar.HOUR)+":"+actual.get(Calendar.MINUTE));
             
-            if(!todos.isEmpty()){
+          
               lblSala.setText(null);  
               lblCodHorario.setText(null);  
               ArrayList<Pelicula> peliculas= Menu.getPeliculas();  
@@ -275,6 +278,10 @@ public class ListPeliculas extends javax.swing.JFrame {
                  }
               }  
             }
+            else{
+                 JOptionPane.showMessageDialog(null, "No hay peliculas en la cartelera"); 
+                 this.setVisible(false);
+            }
             
         } catch (FileNotFoundException ex) {
              JOptionPane.showMessageDialog(null, "Error"); 
@@ -283,6 +290,8 @@ public class ListPeliculas extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        actualizar();
+      
         JFrame compra=new TotalCompra((String)cmbPeliculas.getSelectedItem(),(String)cmbHoras.getSelectedItem(),
         Integer.parseInt(lblSala.getText()),Integer.parseInt( lblCodHorario.getText()));
         Menu.mipelicula=null; 
@@ -299,7 +308,7 @@ public class ListPeliculas extends javax.swing.JFrame {
 
     private void cmbPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPeliculasActionPerformed
         // TODO add your handling code here:
-         ArrayList <Horarios> todos;
+        ArrayList <Horarios> todos;
         try {
             todos = Menu.getTodosHorarios();
                         
@@ -336,10 +345,7 @@ public class ListPeliculas extends javax.swing.JFrame {
                   int dura=peli.getHoras()*60+peli.getMinutos();
                   lblDuracion.setText("DURACION: "+dura+ " Minutos");
                   
-                  String sala=cmbHoras.getSelectedItem().toString();
-                  Scanner sc = new Scanner(sala);
-                  lblCodHorario.setText(String.valueOf(sc.nextInt())); //Este es el codigo del horario
-                  lblSala.setText(String.valueOf(sc.nextInt())); //Este es el codigo de la sala
+                actualizar();
                }   
                  
             }   
@@ -393,10 +399,7 @@ public class ListPeliculas extends javax.swing.JFrame {
     private void cmbHorasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbHorasFocusLost
          // TODO add your handling code here:
      if(cmbPeliculas.getItemCount()!=0) {
-        String sala=cmbHoras.getSelectedItem().toString();
-        Scanner sc = new Scanner(sala);
-        lblCodHorario.setText(String.valueOf(sc.nextInt())); //Este es el codigo del horario
-        lblSala.setText(String.valueOf(sc.nextInt())); //Este es el codigo de la sala
+        actualizar();
       }
         
     }//GEN-LAST:event_cmbHorasFocusLost
@@ -474,6 +477,13 @@ public class ListPeliculas extends javax.swing.JFrame {
             }
         }
         return horas;
+    }
+    
+    private void actualizar(){
+        String sala=cmbHoras.getSelectedItem().toString();
+        Scanner sc = new Scanner(sala);
+        lblCodHorario.setText(String.valueOf(sc.nextInt())); //Este es el codigo del horario
+        lblSala.setText(String.valueOf(sc.nextInt())); //Este es el codigo de la sala
     }
      
 }

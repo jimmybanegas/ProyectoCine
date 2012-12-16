@@ -162,8 +162,8 @@ public class Login extends javax.swing.JFrame implements KeyListener{
     private void txtClaveKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             String user=txtUsuario.getText();
-        String clave=txtClave.getText();
-        
+            String clave=txtClave.getText();
+         
         if((user.equalsIgnoreCase("guest") && clave.equalsIgnoreCase("password"))){
             JFrame frame1 = new Guest();
             frame1.setVisible(true);
