@@ -7,11 +7,12 @@ package Formularios;
 import Menú.Menu;
 import Paneles.GuestPanel;
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 
 /**
  *
@@ -35,7 +36,12 @@ public class Extras extends javax.swing.JFrame {
        this.setLocationRelativeTo(null);
        this.pack();
     }
-
+ @Override
+    public Image getIconImage(){
+        Image icono=Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/icono.png"));
+       
+        return icono;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

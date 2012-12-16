@@ -9,13 +9,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-public class ListUsers extends javax.swing.JFrame {
+public class ListadoPeliculas extends javax.swing.JFrame {
        
-    public ListUsers() {
+    public ListadoPeliculas() {
         initComponents();
         ListUsersPanel back = new ListUsersPanel();
         this.add(back,BorderLayout.CENTER);
@@ -33,7 +31,6 @@ public class ListUsers extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
 
@@ -47,25 +44,18 @@ public class ListUsers extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("                        LISTA DE USUARIOS");
-
-        jButton1.setText("Regresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("                        LISTA DE TODAS LAS PELICULAS");
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Usuario", "Contraseña"
+                "Codigo", "Titulo", "Duracion", "Formato"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -79,17 +69,11 @@ public class ListUsers extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(205, 205, 205)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)))
-                .addContainerGap(288, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,36 +82,34 @@ public class ListUsers extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(52, 52, 52))
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-748)/2, (screenSize.height-432)/2, 748, 432);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         JFrame frame = new Administrador();
-         frame.setVisible(true);
-         this.setVisible(false);
-   }//GEN-LAST:event_jButton1ActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-     /*   try {
+       try {
             ArrayList<Pelicula> peli=Menu.getPeliculas();
-            Object [][] data = new Object[Menu.users.size()][3];
-             for(int x=0;x<Menu.users.size();x++){    
-             data[x][0]=Menu.users.get(x).getNombre();
-             data[x][1]=Menu.users.get(x).getUser();
-             data[x][2]=Menu.users.get(x).getPass();
-          }        
+            if(peli==null){
+                JOptionPane.showMessageDialog(null, "Sin Pelculas");
+                this.setVisible(false);
+            }
+            
+             Object [][] data = new Object[peli.size()][4];  
+             for(int x=0;x<peli.size();x++){    
+             data[x][0]=peli.get(x).getCod();
+             data[x][1]=peli.get(x).getTitulo();
+             data[x][2]=peli.get(x).getHoras()+":"+peli.get(x).getMinutos();
+             data[x][3]=peli.get(x).getFormato().toString();
+          }      
         
-          String [] cadenas={ "Nombre", "Usuario", "Contraseña"};        
+          String [] cadenas={ "Codigo", "Titulo", "Duracion","Formato"};        
           jTable2.setModel(new javax.swing.table.DefaultTableModel( data  ,cadenas)) ;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ListUsers.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+            JOptionPane.showMessageDialog(null, "Error: "+ex.getMessage());
+        }
       
     }//GEN-LAST:event_formWindowOpened
 
@@ -148,25 +130,24 @@ public class ListUsers extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListadoPeliculas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListadoPeliculas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListadoPeliculas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListadoPeliculas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListUsers().setVisible(true);
+                new ListadoPeliculas().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;

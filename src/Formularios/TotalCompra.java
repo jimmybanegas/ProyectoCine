@@ -12,8 +12,6 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.FileNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -393,14 +391,13 @@ public class TotalCompra extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Cantidad de asientos disponibles: "+dispo);
             }
             
-            if(proye!=null&&cant<dispo){               
-                System.out.println(proye.getFil()+" "+proye.getCol()); 
+            if(proye!=null&&cant<=dispo){              
                 JFrame frame = new SelectAsiento(proye.getFil(),proye.getCol(),proye.getSillas(),dispo,cant,proye.getCodHorario(),proye.getCodSala());
                 frame.setVisible(true);
                 this.setVisible(false);
             }                        
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(TotalCompra.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null,"Error: "+ex.getMessage());
         }
        
     }//GEN-LAST:event_btnComprarActionPerformed
@@ -414,7 +411,7 @@ public class TotalCompra extends javax.swing.JFrame {
             lblMenor.setText(String.valueOf(actual.getPrecio()/2));
             lblTercera.setText(String.valueOf(actual.getPrecio()-(actual.getPrecio()*0.035)));
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(TotalCompra.class.getName()).log(Level.SEVERE, null, ex);
+              JOptionPane.showMessageDialog(null,"Error: "+ex.getMessage());
         }
         
         

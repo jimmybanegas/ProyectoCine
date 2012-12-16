@@ -501,7 +501,7 @@ public class EditHoras extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Error"); 
         } catch (IOException ex) {
-           Logger.getLogger(ListUsers.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(ListadoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
         }
        
       JFrame frame = new OperacionOk();
@@ -597,9 +597,9 @@ public class EditHoras extends javax.swing.JFrame {
            }          
           
         } catch (FileNotFoundException ex) {
-             Logger.getLogger(ListUsers.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(ListadoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-           Logger.getLogger(ListUsers.class.getName()).log(Level.SEVERE, null, ex); 
+           Logger.getLogger(ListadoPeliculas.class.getName()).log(Level.SEVERE, null, ex); 
         }
        
         

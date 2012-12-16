@@ -619,16 +619,17 @@ public class Menu {
                  int total = ventasHechas(tit);            
                  taquilla.seek(pos);
                  if( total > cantPeli ){
-                      cantPeli = total;
+                     cantPeli = total;
                      titulo = tit;
+                     texto.write(tit+" "+total+"\n");   
                  }
-                 texto.write(tit+" "+total+"\n");  
+                 
                  
              }
              texto.flush();
         }
          if( cantPeli != 0 ) {
-             JOptionPane.showMessageDialog(null, "Mas taquillera: "+titulo+" reantada: "+cantPeli+" veces");
+             JOptionPane.showMessageDialog(null, "Mas taquillera: "+titulo+" con: "+cantPeli+" boletos");
         }
         else{
             JOptionPane.showMessageDialog(null, "NO HAY VENTAS AUN");

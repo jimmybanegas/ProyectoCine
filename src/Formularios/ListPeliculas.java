@@ -318,8 +318,7 @@ public class ListPeliculas extends javax.swing.JFrame {
               
               ArrayList<String>horas= horariosActivos(nombre,todos);
              
-                 if(!horas.isEmpty()){
-                                          
+                 if(!horas.isEmpty()){                                          
                    for(String y: horas){
                      cmbHoras.addItem(y);  
                     }
@@ -333,10 +332,15 @@ public class ListPeliculas extends javax.swing.JFrame {
                    Calendar actual=Calendar.getInstance();
                    Calendar modif = Calendar.getInstance(); 
                    modif.setTime( peli.getFecha());
+                   
                    int dias=(actual.get(Calendar.DAY_OF_YEAR) - modif.get(Calendar.DAY_OF_YEAR));
-                  if(dias<=7){
+                    
+                   if(dias>=0&&dias<=7){
                       lblEstreno.setText("ESTRENO");
-                  }
+                   }
+                   else{
+                        lblEstreno.setText("");
+                   }
                       
                   lblImagen.setIcon( new ImageIcon(img) );
                   lblTitulo.setText("TITULO: "+peli.getTitulo());
@@ -473,7 +477,18 @@ public class ListPeliculas extends javax.swing.JFrame {
        ArrayList<String> horas=new ArrayList<>();
         for(Horarios x:todos){
             if(x.getTit().equalsIgnoreCase(nombre)){                
-                horas.add(x.getCodHorario()+" "+x.getCodSala()+" "+"---"+x.getInicio().getHours()+":"+x.getInicio().getMinutes());
+                int cont=0;
+                for(boolean a[]:x.getSillas()){
+                   for(boolean b:a){
+                       if(b){
+                           cont++;
+                       }
+                   }
+                 }
+              if(cont!=0) {
+                  horas.add(x.getCodHorario()+" "+x.getCodSala()+" "+"---"+x.getInicio().getHours()+":"+x.getInicio().getMinutes());
+              } 
+               
             }
         }
         return horas;

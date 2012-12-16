@@ -291,7 +291,7 @@ public class SelectAsiento extends javax.swing.JFrame {
                    prin.setVisible(true);   
                 }
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(SelectAsiento.class.getName()).log(Level.SEVERE, null, ex);
+                  JOptionPane.showMessageDialog(null,"Error: "+ex.getMessage());
             }
         }
         else{
