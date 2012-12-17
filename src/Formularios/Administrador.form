@@ -45,17 +45,15 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton1" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="btnAgregarUsuario" min="-2" pref="180" max="-2" attributes="0"/>
-                              <Component id="btnAgregarSala" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                              <Component id="btnListarUsuarios" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                              <Component id="btnEditarHorario" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                              <Component id="btnEditarPerfil" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                              <Component id="btnAgregarPelicula" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                              <Component id="btnListarPeliculas" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="btnAgregarUsuario" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnAgregarSala" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnListarUsuarios" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnEditarHorario" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnEditarPerfil" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnAgregarPelicula" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="btnListarPeliculas" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
+                          <Component id="jButton1" alignment="1" min="-2" pref="180" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -70,19 +68,19 @@
               <Component id="btnAgregarUsuario" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnListarUsuarios" min="-2" pref="43" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
               <Component id="btnAgregarSala" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnAgregarPelicula" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="39" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jButton1" min="-2" pref="44" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="btnListarPeliculas" min="-2" pref="43" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="btnEditarHorario" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnEditarPerfil" min="-2" pref="43" max="-2" attributes="0"/>
-              <EmptySpace pref="66" max="32767" attributes="0"/>
+              <EmptySpace pref="78" max="32767" attributes="0"/>
               <Component id="btnSalir" min="-2" pref="43" max="-2" attributes="0"/>
               <EmptySpace pref="18" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
